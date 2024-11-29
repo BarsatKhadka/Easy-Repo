@@ -1,12 +1,18 @@
 package com.Barsat.Github.Repository.Management.Config;
 
+import com.Barsat.Github.Repository.Management.Service.MyUserDetailsService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -15,9 +21,14 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private MyUserDetailsService userDetailsService;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
@@ -34,11 +45,25 @@ public class SecurityConfig {
 //                .addFilterBefore(new JwtTokenAuthentication() , BasicAuthenticationFilter.class)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
-
+        http.formLogin(withDefaults());
+        http.httpBasic(withDefaults());
         //return this by building it.
         return http.build();
 
     }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+
+        //UserDetails service loads User repository and dao checks if credentials are correct.
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+
+        return daoAuthenticationProvider;
+    }
+
+
 
     private CorsConfigurationSource corsConfigurationSource() {
         return new CorsConfigurationSource() {
@@ -65,10 +90,6 @@ public class SecurityConfig {
 
                 cfg.setMaxAge(3600L);
 
-
-
-
-
                 return cfg;
             }
         };
@@ -77,7 +98,7 @@ public class SecurityConfig {
     //Now open for dependency injection
     @Bean
     PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
 
 }

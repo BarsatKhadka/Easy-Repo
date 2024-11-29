@@ -1,0 +1,30 @@
+Spring security.
+
+http.sessionManagement() - defines session management behaviour for http request.
+
+SessionCreationPolicy.STATELESS - 
+  (application will not create or use an HTTP session to store security-related information.
+  Security is implemented without relying on server-side sessions, meaning:
+    Each request is authenticated independently.
+    Typically used in stateless applications (e.g., RESTful APIs).
+    Authentication information (like a JWT) must be sent with every request.)
+    
+    
+Allowed Headers - allowed headers that frontend can send to backend.
+Exposed Headers = headers that backend will send in response to frontend.
+
+
+OncePerRequestFilter - Filter that is applied once per request. Handy when working with multiple servlets.
+
+Repo for jwt in springboot maven - https://github.com/jwtk/jjwt
+
+
+Authentication starts from 'Authentication Provider' , it is in security config file with @Bean.
+It implements something called DaoAuthenticationProvider which checks user credentials is stored in database or not and only if it is in database , it will allow you access.
+We can set password encoder to encode it to a type to store in database as we cannot store raw passwords.
+Then we call a very important called .setUserDetailsService. Here we should pass UserDetailsService class.
+
+Make the custom implementation of UserDetailsService class , this has a method called loadByUsername (String username). this username comes from the name you enter in login form and then it checks in the repo
+if any record of that username is available or not. If not available (null) it will throw exception , hence no acess. But if there is one, you need to return UserDetails (which is spirngsecurity way of visualizing user). So for this also you have to make a class implementing UserDetails. This class ties UserDetails with our custom user. 
+
+If user is found , we create UserDetails object by passing our user which was found in repo.
