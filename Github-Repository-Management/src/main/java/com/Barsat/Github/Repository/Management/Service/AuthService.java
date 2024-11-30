@@ -1,5 +1,6 @@
 package com.Barsat.Github.Repository.Management.Service;
 
+import com.Barsat.Github.Repository.Management.Config.Jwt.JwtUtils;
 import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class AuthService {
     @Autowired
     UserRepo userRepo;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
@@ -24,8 +28,6 @@ public class AuthService {
 
         //get the normal password and encode it by Bcrypt before sending it to database
         theUser.setPassword(encoder.encode(theUser.getPassword()));
-
-
         return userRepo.save(theUser);
     }
 
@@ -33,12 +35,13 @@ public class AuthService {
     public String loginVerify(TheUser theUser) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(theUser.getUsername(), theUser.getPassword()));
 
+        //generate jwt token if authenticated
         if(authentication.isAuthenticated()) {
-            return "Logged in";
+            return jwtUtils.generateToken(theUser.getUsername());
         }
-        else {
-            return "Invalid username or password";
-        }
+
+
+        return "Invalid username or password";
 
 
     }
