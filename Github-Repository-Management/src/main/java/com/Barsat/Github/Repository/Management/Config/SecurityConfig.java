@@ -35,20 +35,20 @@ public class SecurityConfig {
 
         //Csrf configurations (Ignoring csrf in public api's)
         http.csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/auth/public/**"));
+                .ignoringRequestMatchers("/**"));
 
         //http session management stateless + giving permit all to public requests.
-        http.sessionManagement(Management -> Management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        http.sessionManagement(Management -> Management.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/api/auth/public/**").permitAll()
                         .anyRequest().authenticated())
 //                .addFilterBefore(new JwtTokenAuthentication() , BasicAuthenticationFilter.class)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
-        http.formLogin(withDefaults());
+//        http.formLogin(withDefaults());
 
         //enabling this makes you require to pass authorization header with base64 code
-//        http.httpBasic(withDefaults());
+        http.httpBasic(withDefaults());
 
         //return this by building it.
         return http.build();
@@ -58,6 +58,8 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+
+        //read encoded password from database
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 
         //UserDetails service loads User repository and dao checks if credentials are correct.
@@ -101,7 +103,7 @@ public class SecurityConfig {
     //Now open for dependency injection
     @Bean
     PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
 }
