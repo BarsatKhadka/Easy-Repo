@@ -19,9 +19,14 @@ public class AuthController {
         return "Hello World";
     }
 
-    @PostMapping("/api/auth/public/register")
+    @PostMapping("/register")
     public TheUser register(@RequestBody TheUser theUser) {
         return authService.register(theUser);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody TheUser theUser) {
+        return authService.loginVerify(theUser);
     }
 
 
