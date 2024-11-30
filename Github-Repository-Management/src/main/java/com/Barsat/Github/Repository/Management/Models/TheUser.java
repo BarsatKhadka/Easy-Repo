@@ -20,6 +20,17 @@ public class TheUser {
 
     private String username;
 
+    private String email;
+
     private String password;
 
+    public TheUser(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public TheUser() {
+
+    }
 }

@@ -41,7 +41,7 @@ public class SecurityConfig {
 
         //Csrf configurations (Ignoring csrf in public api's)
         http.csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/auth/public/**" , "register" ,"login"));
+                .ignoringRequestMatchers("/api/auth/public/**" , "/register" ,"/login"));
 
         //http session management stateless + giving permit all to public requests.
         http.sessionManagement(Management -> Management.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))

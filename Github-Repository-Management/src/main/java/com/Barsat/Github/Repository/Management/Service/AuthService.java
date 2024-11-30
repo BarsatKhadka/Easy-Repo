@@ -1,6 +1,7 @@
 package com.Barsat.Github.Repository.Management.Service;
 
 import com.Barsat.Github.Repository.Management.Config.Jwt.JwtUtils;
+import com.Barsat.Github.Repository.Management.Models.RequestModels.SignUpRequest;
 import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,15 @@ public class AuthService {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    public TheUser register(TheUser theUser) {
+    public TheUser register(SignUpRequest signUpRequest) {
+
+        //creating a new user instance with the information of signup request.
+        TheUser newUser = new TheUser(signUpRequest.getUsername(), signUpRequest.getEmail(), signUpRequest.getPassword());
 
         //get the normal password and encode it by Bcrypt before sending it to database
-        theUser.setPassword(encoder.encode(theUser.getPassword()));
-        return userRepo.save(theUser);
+        newUser.setPassword(encoder.encode(signUpRequest.getPassword()));
+
+        return userRepo.save(newUser);
     }
 
 
