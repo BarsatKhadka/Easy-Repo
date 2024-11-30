@@ -1,7 +1,7 @@
 package com.Barsat.Github.Repository.Management.Controller;
 
+import com.Barsat.Github.Repository.Management.Models.RequestModels.LoginRequest;
 import com.Barsat.Github.Repository.Management.Models.RequestModels.SignUpRequest;
-import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
 import com.Barsat.Github.Repository.Management.Service.AuthService;
 import jakarta.validation.Valid;
@@ -42,8 +42,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody TheUser theUser) {
-        return authService.loginVerify(theUser);
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+
+        if(userRepo.existsByUsername(loginRequest.getUsername())) {
+             authService.loginVerify(loginRequest);
+             return ResponseEntity.ok("You are logged in successfully");
+        }
+
+        return ResponseEntity.badRequest().body("Invalid username or password.");
+
     }
 
 

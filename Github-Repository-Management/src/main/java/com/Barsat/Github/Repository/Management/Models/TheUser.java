@@ -30,6 +30,11 @@ public class TheUser {
         this.password = password;
     }
 
+    public TheUser(String username, String password) {
+        this.username = username;
+        this.email = password;
+    }
+
     public TheUser() {
 
     }

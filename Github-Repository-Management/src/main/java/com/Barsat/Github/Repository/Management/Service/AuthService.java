@@ -1,6 +1,7 @@
 package com.Barsat.Github.Repository.Management.Service;
 
 import com.Barsat.Github.Repository.Management.Config.Jwt.JwtUtils;
+import com.Barsat.Github.Repository.Management.Models.RequestModels.LoginRequest;
 import com.Barsat.Github.Repository.Management.Models.RequestModels.SignUpRequest;
 import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
@@ -37,12 +38,12 @@ public class AuthService {
     }
 
 
-    public String loginVerify(TheUser theUser) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(theUser.getUsername(), theUser.getPassword()));
+    public String loginVerify(LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         //generate jwt token if authenticated
         if(authentication.isAuthenticated()) {
-            return jwtUtils.generateToken(theUser.getUsername());
+            return jwtUtils.generateToken(loginRequest.getUsername());
         }
 
 
