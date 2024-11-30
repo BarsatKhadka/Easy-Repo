@@ -32,3 +32,11 @@ If user is found , we create UserDetails object by passing our user which was fo
 If we only have AuthenticationProvider , it only tests the username and not the password. If the username is right you will gain access , how funny is that.
 
 But why are we using authManager's New UserPasswordauthenticationTOken(username,password) to verify for login if we have AutheticationProvider self defined that can verify usrename password against database , this is because authManager under the hood uses our custom implementation!
+
+Implementing jwt token. Every authentication after login must be verified with jwt token. On login it gives you jwt token , but why does not /login or /register require jwt token. Because in .requestMatchers("/login") .permitAll().
+
+For other request that need to be authenticated. JwtFilter() is added before UserNamePasswordAuthentication Filter. so it will authenticate with jwt token.
+
+In jwt filter , first we strip bearer token from the header. and then validate (validate function in jwtUtils) , after validating create a username password authentication token and set it to security context to allow passing through jwt key.
+
+Since userName password authentication token is set to security context holder , it no longer redirects to login form for the username password authentication token , becuase we create it after validation and pass to security context.
