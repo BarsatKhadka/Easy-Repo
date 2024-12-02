@@ -40,3 +40,7 @@ For other request that need to be authenticated. JwtFilter() is added before Use
 In jwt filter , first we strip bearer token from the header. and then validate (validate function in jwtUtils) , after validating create a username password authentication token and set it to security context to allow passing through jwt key.
 
 Since userName password authentication token is set to security context holder , it no longer redirects to login form for the username password authentication token , becuase we create it after validation and pass to security context.
+
+
+
+Implementing Oauth. First go to your provider (our's github.) make client id , client-secret and scope. scope is what your app can do. 

@@ -1,6 +1,7 @@
 package com.Barsat.Github.Repository.Management.Config;
 
 import com.Barsat.Github.Repository.Management.Config.Jwt.JwtFilter;
+import com.Barsat.Github.Repository.Management.Config.OAuth.OAuthSuccessionHandler;
 import com.Barsat.Github.Repository.Management.Service.MyUserDetailsService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,22 +38,36 @@ public class SecurityConfig {
     @Autowired
     private JwtFilter jwtFilter;
 
+
+    private AuthenticationManager authenticationManager;
+//
+    @Autowired
+    private OAuthSuccessionHandler oAuthSuccessionHandler;
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
 
         //Csrf configurations (Ignoring csrf in public api's)
         http.csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/auth/public/**" , "/register" ,"/login"));
+                .ignoringRequestMatchers("/api/auth/public/**" , "/register" ,"/login" ));
 
         //http session management stateless + giving permit all to public requests.
         http.sessionManagement(Management -> Management.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/auth/public/**" , "/register" , "/login").permitAll()
+                        .requestMatchers("/api/auth/public/**" , "/register" , "/login" , "/oauth2/**" ).permitAll()
                         .anyRequest().authenticated())
+                .formLogin(Customizer.withDefaults())
+                .oauth2Login(oauth -> {
+                    oauth.successHandler(oAuthSuccessionHandler);
+
+
+                })
+
                 .addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
-//        http.formLogin(withDefaults());
+
+
 
         //enabling this makes you require to pass authorization header with base64 code
         http.httpBasic(withDefaults());
@@ -92,6 +108,7 @@ public class SecurityConfig {
                         "http://localhost:3000",
                         "http://localhost:5173",
                         "http://localhost:4200"
+
                 ));
 
                 //CRUD , which methods to allow cors.
