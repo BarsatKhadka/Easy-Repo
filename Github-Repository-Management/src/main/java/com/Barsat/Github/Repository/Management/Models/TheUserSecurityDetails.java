@@ -36,23 +36,24 @@ public class TheUserSecurityDetails implements UserDetails {
         return theUser.getUsername();
     }
 
+    //these all are determined by if user is enabled
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return theUser.isEnabled();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return theUser.isEnabled();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return theUser.isEnabled();
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return theUser.isEnabled();
     }
 }

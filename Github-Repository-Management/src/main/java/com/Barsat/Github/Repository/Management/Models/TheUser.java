@@ -1,9 +1,6 @@
 package com.Barsat.Github.Repository.Management.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,11 +15,26 @@ public class TheUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "user_name", nullable = false)  //username can't be null and should be unique
     private String username;
 
+    @Column(name = "user_email" ,unique = true)
     private String email;
 
     private String password;
+
+    @Column(length = 10000)
+    private String avatarUrl;
+
+    private String bio ;
+
+    private boolean isEnabled;
+
+    private boolean emailVerified;
+
+    //providers including self or github.
+    private Provider provider;
+    private String providerUserId;
 
     public TheUser(String username, String email, String password) {
         this.username = username;
@@ -30,12 +42,17 @@ public class TheUser {
         this.password = password;
     }
 
-    public TheUser(String username, String password) {
+    public TheUser(String username, String email, String avatarUrl, String bio) {
         this.username = username;
-        this.email = password;
+        this.email = email;
+        this.avatarUrl = avatarUrl;
+        this.bio = bio;
     }
+
 
     public TheUser() {
 
     }
+
+    //add more fields if needed.
 }

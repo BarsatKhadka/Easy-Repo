@@ -1,6 +1,7 @@
 package com.Barsat.Github.Repository.Management.Service;
 
 import com.Barsat.Github.Repository.Management.Config.Jwt.JwtUtils;
+import com.Barsat.Github.Repository.Management.Models.Provider;
 import com.Barsat.Github.Repository.Management.Models.RequestModels.LoginRequest;
 import com.Barsat.Github.Repository.Management.Models.RequestModels.SignUpRequest;
 import com.Barsat.Github.Repository.Management.Models.TheUser;
@@ -11,6 +12,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class AuthService {
@@ -33,6 +36,14 @@ public class AuthService {
 
         //get the normal password and encode it by Bcrypt before sending it to database
         newUser.setPassword(encoder.encode(signUpRequest.getPassword()));
+
+        //automate these for registered users.
+        newUser.setEnabled(true);
+        newUser.setProvider(Provider.SELF);
+        newUser.setProviderUserId(UUID.randomUUID().toString());
+        newUser.setEmailVerified(false);
+        newUser.setBio("");
+        newUser.setAvatarUrl("");
 
         return userRepo.save(newUser);
     }
