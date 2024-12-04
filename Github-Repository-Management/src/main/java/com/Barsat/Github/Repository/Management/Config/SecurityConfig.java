@@ -56,14 +56,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/api/auth/public/**" , "/register" , "/login" , "/oauth2/**" ).permitAll()
                         .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults())
+//                .formLogin(Customizer.withDefaults())
                 .oauth2Login(oauth -> {
                     oauth.successHandler(oAuthSuccessionHandler);
 
 
                 })
 
-                .addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
 

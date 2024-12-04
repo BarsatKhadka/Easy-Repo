@@ -2,6 +2,7 @@ package com.Barsat.Github.Repository.Management.Controller;
 
 import com.Barsat.Github.Repository.Management.Models.RequestModels.LoginRequest;
 import com.Barsat.Github.Repository.Management.Models.RequestModels.SignUpRequest;
+import com.Barsat.Github.Repository.Management.Models.ResponseModels.AuthResposne;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
 import com.Barsat.Github.Repository.Management.Service.AuthService;
 import jakarta.validation.Valid;
@@ -38,17 +39,24 @@ public class AuthController {
 
         authService.register(signUpRequest);
 
-        return ResponseEntity.ok("You are registered successfully");
+        return ResponseEntity.ok("You are registered successfully.");
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<AuthResposne> login(@RequestBody LoginRequest loginRequest) {
 
-        if(userRepo.existsByUsername(loginRequest.getUsername())) {
-            return authService.loginVerify(loginRequest);
+        AuthResposne authResposne = new AuthResposne();
+
+        if(userRepo.existsByUsername(loginRequest.getUsername()) & authService.loginVerify(loginRequest) == "Invalid username or password") {
+            authResposne.setMessage("Invalid username or password");
+            return ResponseEntity.badRequest().body(authResposne);
+        }
+        else{
+            authResposne.setMessage("Logged in");
+            authResposne.setJwtToken(authService.loginVerify(loginRequest));
+            return ResponseEntity.ok(authResposne);
         }
 
-        return "Invalid username or password";
 
     }
 

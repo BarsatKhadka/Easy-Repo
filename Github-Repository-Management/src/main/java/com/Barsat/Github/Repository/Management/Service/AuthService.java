@@ -7,6 +7,8 @@ import com.Barsat.Github.Repository.Management.Models.RequestModels.SignUpReques
 import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,7 +31,7 @@ public class AuthService {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    public TheUser register(SignUpRequest signUpRequest) {
+    public ResponseEntity<TheUser> register(SignUpRequest signUpRequest) {
 
         //creating a new user instance with the information of signup request.
         TheUser newUser = new TheUser(signUpRequest.getUsername(), signUpRequest.getEmail(), signUpRequest.getPassword());
@@ -45,7 +47,7 @@ public class AuthService {
         newUser.setBio("");
         newUser.setAvatarUrl("");
 
-        return userRepo.save(newUser);
+        return new ResponseEntity<> (userRepo.save(newUser) , HttpStatus.CREATED);
     }
 
 

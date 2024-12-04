@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -34,10 +33,10 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         DefaultOAuth2User oauth2User = (DefaultOAuth2User) authentication.getPrincipal();
 
 //        allows you to look at all attributes that is coming from the user
-        Map<String, Object> attributes = oauth2User.getAttributes();
-        attributes.forEach((key, value) -> {
-            System.out.println(key + ": " + value);
-        });
+//        Map<String, Object> attributes = oauth2User.getAttributes();
+//        attributes.forEach((key, value) -> {
+//            System.out.println(key + ": " + value);
+//        });
 
         String email = oauth2User.getAttribute("email").toString();
         String name = oauth2User.getAttribute("name").toString();

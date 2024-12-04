@@ -15,10 +15,10 @@ public class TheUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "user_name", nullable = false)  //username can't be null and should be unique
+    @Column(nullable = false)  //username can't be null and should be unique
     private String username;
 
-    @Column(name = "user_email" ,unique = true)
+    @Column(unique = true)
     private String email;
 
     private String password;
