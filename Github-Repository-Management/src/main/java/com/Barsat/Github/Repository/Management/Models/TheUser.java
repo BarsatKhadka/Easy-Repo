@@ -33,7 +33,9 @@ public class TheUser {
     private boolean emailVerified;
 
     //providers including self or github.
+    @Enumerated(EnumType.STRING)
     private Provider provider;
+    
     private String providerUserId;
 
     public TheUser(String username, String email, String password) {
