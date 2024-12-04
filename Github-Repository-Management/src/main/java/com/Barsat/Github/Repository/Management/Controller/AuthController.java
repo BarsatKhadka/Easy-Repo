@@ -42,14 +42,13 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public String login(@RequestBody LoginRequest loginRequest) {
 
         if(userRepo.existsByUsername(loginRequest.getUsername())) {
-             authService.loginVerify(loginRequest);
-             return ResponseEntity.ok("You are logged in successfully");
+            return authService.loginVerify(loginRequest);
         }
 
-        return ResponseEntity.badRequest().body("Invalid username or password.");
+        return "Invalid username or password";
 
     }
 

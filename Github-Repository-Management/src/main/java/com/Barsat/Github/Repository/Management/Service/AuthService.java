@@ -37,7 +37,7 @@ public class AuthService {
         //get the normal password and encode it by Bcrypt before sending it to database
         newUser.setPassword(encoder.encode(signUpRequest.getPassword()));
 
-        //automate these for registered users.
+        //pre defined values for registered users.
         newUser.setEnabled(true);
         newUser.setProvider(Provider.SELF);
         newUser.setProviderUserId(UUID.randomUUID().toString());

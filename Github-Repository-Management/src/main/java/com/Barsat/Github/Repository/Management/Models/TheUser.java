@@ -42,13 +42,6 @@ public class TheUser {
         this.password = password;
     }
 
-    public TheUser(String username, String email, String avatarUrl, String bio) {
-        this.username = username;
-        this.email = email;
-        this.avatarUrl = avatarUrl;
-        this.bio = bio;
-    }
-
 
     public TheUser() {
 
