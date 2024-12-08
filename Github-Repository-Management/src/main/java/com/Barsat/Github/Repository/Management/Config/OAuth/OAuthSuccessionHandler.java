@@ -14,6 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -35,14 +36,28 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
     @Autowired
     private OAuthService oAuthService;
 
+    private final OAuth2AuthorizedClientService authorizedClientService;
+
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
     private String clientId;
+
+    public OAuthSuccessionHandler(OAuth2AuthorizedClientService authorizedClientService) {
+        this.authorizedClientService = authorizedClientService;
+    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
 
         DefaultOAuth2User oauth2User = (DefaultOAuth2User) authentication.getPrincipal();
+
+        OAuth2AuthenticationToken oauth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
+
+        // Get the access token from the OAuth2AuthenticationToken
+        String accessToken = getAccessToken(oauth2AuthenticationToken, "github");
+
+        // Use the access token (for example, call a GitHub API endpoint)
+
 
 //        allows you to look at all attributes that is coming from the user
         Map<String, Object> attributes = oauth2User.getAttributes();
@@ -59,7 +74,8 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
 
         //getting the code to get access token from the request. This is passed in callback url by github after authorizing user.
         String code = (request.getParameter("code"));
-        String accessToken = oAuthService.generateAccessToken(code);
+        System.out.println(code);
+
         System.out.println(accessToken);
 
 
@@ -82,12 +98,20 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         }
 
 
-
-
         //redirect to the url after approved
         new DefaultRedirectStrategy().sendRedirect(request, response, "/hello");
 
     }
+    private String getAccessToken(OAuth2AuthenticationToken authenticationToken , String clientRegistrationId){
+        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(clientRegistrationId, authenticationToken.getName());
+        if(client!=null){
+            return client.getAccessToken().getTokenValue();
+        }
+        else{
+            return "thenga";
+        }
+    }
+
 
 
 }
