@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -36,14 +37,10 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
     @Autowired
     private OAuthService oAuthService;
 
-    private final OAuth2AuthorizedClientService authorizedClientService;
 
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
     private String clientId;
 
-    public OAuthSuccessionHandler(OAuth2AuthorizedClientService authorizedClientService) {
-        this.authorizedClientService = authorizedClientService;
-    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -53,11 +50,14 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
 
         OAuth2AuthenticationToken oauth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
 
-        // Get the access token from the OAuth2AuthenticationToken
-        String accessToken = getAccessToken(oauth2AuthenticationToken, "github");
+        //getting the code from callback URL and setting it in custom defined OAuthService in case of future use.
+        String code = (request.getParameter("code"));
+        oAuthService.setCode(code);
 
-        // Use the access token (for example, call a GitHub API endpoint)
-
+        //generating setting and getting access token in OAuthService custom defined class.
+        oAuthService.generateAccessToken(oauth2AuthenticationToken, "github");
+        String accessToken = oAuthService.getAccessToken();
+        oAuthService.setAccessToken(accessToken);
 
 //        allows you to look at all attributes that is coming from the user
         Map<String, Object> attributes = oauth2User.getAttributes();
@@ -72,12 +72,14 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         String id = oauth2User.getAttribute("id").toString();
 
 
-        //getting the code to get access token from the request. This is passed in callback url by github after authorizing user.
-        String code = (request.getParameter("code"));
-        System.out.println(code);
-
-        System.out.println(accessToken);
-
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.set("Authorization", "Bearer " + accessToken);
+//        headers.set("Accept", "application/vnd.github+json");
+//        HttpEntity<String> entity = new HttpEntity<>(headers);
+//        ResponseEntity<String> responses = restTemplate.exchange("https://api.github.com/users/"+ name+" /repos" , HttpMethod.GET , entity , String.class);
+//        System.out.println(responses);
 
 
         TheUser githubUser = new TheUser();
@@ -89,7 +91,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         githubUser.setProviderUserId(id);
         githubUser.setProvider(Provider.GITHUB);
 
-//        githubUser.setEnabled(true);   Enable this only when needed.
+//        githubUser.setEnabled(true);   Enable this only when needed. Enbaling this allows oAuth users to login through normal sign in.
 
 
         //save github user , if there is no email assosciated to it.
@@ -101,15 +103,6 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         //redirect to the url after approved
         new DefaultRedirectStrategy().sendRedirect(request, response, "/hello");
 
-    }
-    private String getAccessToken(OAuth2AuthenticationToken authenticationToken , String clientRegistrationId){
-        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(clientRegistrationId, authenticationToken.getName());
-        if(client!=null){
-            return client.getAccessToken().getTokenValue();
-        }
-        else{
-            return "thenga";
-        }
     }
 
 

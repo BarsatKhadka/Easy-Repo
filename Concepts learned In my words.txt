@@ -43,4 +43,10 @@ Since userName password authentication token is set to security context holder ,
 
 
 
-Implementing Oauth. First go to your provider (our's github.) make client id , client-secret and scope. scope is what your app can do. 
+Implementing Oauth. First go to your provider (our's github.) make client id , client-secret and scope. scope is what your app can do in user's account. 
+
+You need to exchange a code for access token to access user's repo and all but getting the code and exchanging is very hard in spring security if you try to do manually.
+
+Just load the current client by passing oauth2 authentication token (this is automatically provided) and give clientRegistrationId - "github" , it will load client in client type. Then you can do client.getAccessToken().getValue()
+
+

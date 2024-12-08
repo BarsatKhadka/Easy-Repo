@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
@@ -23,7 +24,7 @@ import java.util.Map;
 @Data
 @Service
 public class OAuthService {
-     private String code;
+    private String code;
 
     public String accessToken;
 
@@ -34,8 +35,24 @@ public class OAuthService {
     private String clientSecret;
 
 
-    public OAuthService() {
 
+    private final OAuth2AuthorizedClientService authorizedClientService;
+
+
+    public OAuthService(OAuth2AuthorizedClientService authorizedClientService) {
+
+        this.authorizedClientService = authorizedClientService;
     }
 
+    public void generateAccessToken(OAuth2AuthenticationToken oAuth2AuthenticationToken , String clientRegistrationId ) {
+        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(clientRegistrationId, oAuth2AuthenticationToken.getName());
+
+        if(client !=null){
+            accessToken = client.getAccessToken().getTokenValue();
+        }
+        else{
+            System.out.println("Client is null");
+        }
+
+    }
 }
