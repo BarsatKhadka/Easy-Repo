@@ -50,3 +50,6 @@ You need to exchange a code for access token to access user's repo and all but g
 Just load the current client by passing oauth2 authentication token (this is automatically provided) and give clientRegistrationId - "github" , it will load client in client type. Then you can do client.getAccessToken().getValue()
 
 
+While mapping the repositories jsonffrom github api , just map it in a class with @JsonProperty(property name) and if it is a list coming up then just put a [] in ResponseEntity.
+
+
