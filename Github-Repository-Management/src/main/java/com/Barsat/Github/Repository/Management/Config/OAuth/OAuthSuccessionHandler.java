@@ -3,6 +3,7 @@ package com.Barsat.Github.Repository.Management.Config.OAuth;
 import com.Barsat.Github.Repository.Management.Models.Provider;
 import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
+import com.Barsat.Github.Repository.Management.Service.GithubFetchService.GithubFetchService;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +38,10 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
     @Autowired
     private OAuthService oAuthService;
 
+    //setting githubFetchService so that we can extract the user's data from here to githubFetchService class. (The name can be misleading)
+    @Autowired
+    private GithubFetchService githubFetchService;
+
 
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
     private String clientId;
@@ -54,7 +59,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         String code = (request.getParameter("code"));
         oAuthService.setCode(code);
 
-        //generating setting and getting access token in OAuthService custom defined class.
+        //generating setting and getting access token in OAuthService custom defined class. I need to pass generate because the Token is here and not in the oAuthService.
         oAuthService.generateAccessToken(oauth2AuthenticationToken, "github");
         String accessToken = oAuthService.getAccessToken();
         oAuthService.setAccessToken(accessToken);
@@ -72,16 +77,10 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         String id = oauth2User.getAttribute("id").toString();
 
 
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.set("Authorization", "Bearer " + accessToken);
-//        headers.set("Accept", "application/vnd.github+json");
-//        HttpEntity<String> entity = new HttpEntity<>(headers);
-//        ResponseEntity<String> responses = restTemplate.exchange("https://api.github.com/users/"+ name+" /repos" , HttpMethod.GET , entity , String.class);
-//        System.out.println(responses);
+        System.out.println(githubFetchService.fetchRepositories(name,accessToken));
 
 
+        //registering github user to my custom user model
         TheUser githubUser = new TheUser();
         githubUser.setUsername(name);
         githubUser.setEmail(email);
