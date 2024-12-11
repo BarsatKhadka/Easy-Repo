@@ -53,10 +53,11 @@ public class SecurityConfig {
 
         //http session management stateless + giving permit all to public requests.
         http.sessionManagement(Management -> Management.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/api/auth/public/**" , "/register" , "/login" , "/oauth2/**" ).permitAll()
                         .anyRequest().authenticated())
-//                .formLogin(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults())
                 .oauth2Login(oauth -> {
                     oauth.successHandler(oAuthSuccessionHandler);
 

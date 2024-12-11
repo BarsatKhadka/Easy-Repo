@@ -52,4 +52,9 @@ Just load the current client by passing oauth2 authentication token (this is aut
 
 While mapping the repositories jsonffrom github api , just map it in a class with @JsonProperty(property name) and if it is a list coming up then just put a [] in ResponseEntity.
 
+ObjectOptimisticLockingFailure : Happens when a version of entity has already been transacted and now i try to update again. Solve with @Version. But the problem was more like i was trying to save into same repositoryModel instance everytime. So , i just placed it in the loop.
+
+The problem was i was setting .getGithubRepoId to Primary key which already had generated value. Since two updates were happening on same time on same field , object locking occured.
+
+FetchSaveRepositories is running from OAuthSuccessionHandler , meaning it does not fetch on every refresh but instead on every login new data is fetched. This is to save calls.
 

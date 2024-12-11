@@ -3,30 +3,22 @@ package com.Barsat.Github.Repository.Management.Config.OAuth;
 import com.Barsat.Github.Repository.Management.Models.Provider;
 import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
-import com.Barsat.Github.Repository.Management.Service.GithubFetchService.GithubFetchService;
+import com.Barsat.Github.Repository.Management.Service.GithubFetchService.GithubFetchSaveService;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -40,7 +32,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
 
     //setting githubFetchService so that we can extract the user's data from here to githubFetchService class. (The name can be misleading)
     @Autowired
-    private GithubFetchService githubFetchService;
+    private GithubFetchSaveService githubFetchSaveService;
 
 
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
@@ -54,6 +46,8 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         DefaultOAuth2User oauth2User = (DefaultOAuth2User) authentication.getPrincipal();
 
         OAuth2AuthenticationToken oauth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
+
+
 
         //getting the code from callback URL and setting it in custom defined OAuthService in case of future use.
         String code = (request.getParameter("code"));
@@ -77,7 +71,9 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         String id = oauth2User.getAttribute("id").toString();
 
 
-        System.out.println(githubFetchService.fetchRepositories(name,accessToken));
+        //giving githubFetchService username and accessToken to access the repositories
+        System.out.println(githubFetchSaveService.fetchSaveRepositories(name,accessToken));
+
 
 
         //registering github user to my custom user model
@@ -91,6 +87,8 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         githubUser.setProvider(Provider.GITHUB);
 
 //        githubUser.setEnabled(true);   Enable this only when needed. Enbaling this allows oAuth users to login through normal sign in.
+
+
 
 
         //save github user , if there is no email assosciated to it.

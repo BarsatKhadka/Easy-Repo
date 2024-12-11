@@ -30,6 +30,21 @@ public class GithubRepoResponse {
     @JsonProperty("description")
     private String Description;
 
+    @JsonProperty("created_at")
+    private String CreatedAt;
+
+    @JsonProperty("updated_at")
+    private String UpdatedAt;
+
+    @JsonProperty("stargazers_count")
+    private int StargazersCount;
+
+    @JsonProperty("watchers_count")
+    private int WatchersCount;
+
+    @JsonProperty("language")
+    private String Language;
+
 
 
 }
