@@ -1,9 +1,13 @@
 package com.Barsat.Github.Repository.Management.Models;
 
+import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,7 +17,7 @@ public class TheUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer masterId;
 
     @Column(nullable = false)  //username can't be null and should be unique
     private String username;
@@ -48,6 +52,10 @@ public class TheUser {
     public TheUser() {
 
     }
+
+
+    @OneToMany(mappedBy = "master_user" , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GithubRepoEntity> githubRepoEntity = new ArrayList<>();
 
     //add more fields if needed.
 }

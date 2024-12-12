@@ -28,6 +28,9 @@ public class GithubFetchSaveService {
     @Autowired
     private GithubReposRepository githubReposRepository;
 
+    @Autowired
+    private UserRepo userRepo;
+
     public GithubFetchSaveService(OAuthService oAuthService) {
         this.oAuthService = oAuthService;
     }
@@ -45,6 +48,9 @@ public class GithubFetchSaveService {
         headers.set("Accept","application/vnd.github+json");
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<GithubRepoResponse[]> response = restTemplate.exchange(finalUrl, HttpMethod.GET, entity, GithubRepoResponse[].class);
+
+        //find the current user in Userrepo
+        TheUser theUser = userRepo.findByUsername(userName);
 
 
         for(GithubRepoResponse githubRepoResponse : response.getBody()){
@@ -66,14 +72,20 @@ public class GithubFetchSaveService {
             repositoryEntity.setUpdated_at(githubRepoResponse.getUpdatedAt());
             repositoryEntity.setName(githubRepoResponse.getRepositoryName());
             repositoryEntity.setHtml_url(githubRepoResponse.getHtmlUrl());
+            repositoryEntity.setFullName(githubRepoResponse.getRepositoryFullName());
             repositoryEntity.setPrivate(githubRepoResponse.isPrivate());
             repositoryEntity.setWatchers_count(githubRepoResponse.getWatchersCount());
             repositoryEntity.setStargazers_count(githubRepoResponse.getStargazersCount());
+
+            //set the user of the repository so that foreign key can be mapped
+            repositoryEntity.setMaster_user(theUser);
+
             githubReposRepository.save(repositoryEntity);
 
         }
 
         return Arrays.asList(response.getBody());
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.Barsat.Github.Repository.Management.Models.RepoModels;
 
+import com.Barsat.Github.Repository.Management.Models.TheUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,8 +24,6 @@ public class GithubRepoEntity {
 
     private String language;
 
-    private String url;
-
     private String html_url;
 
     private String fullName;
@@ -40,6 +39,11 @@ public class GithubRepoEntity {
     private int stargazers_count;
 
     private int watchers_count;
+
+    @ManyToOne
+    @JoinColumn(name = "masterId")
+    private TheUser master_user;
+
 
 
 }
