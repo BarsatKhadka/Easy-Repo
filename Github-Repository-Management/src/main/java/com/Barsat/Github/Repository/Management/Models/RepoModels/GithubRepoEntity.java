@@ -41,8 +41,11 @@ public class GithubRepoEntity {
     private int watchers_count;
 
     @ManyToOne
-    @JoinColumn(name = "masterId")
-    private TheUser master_user;
+    @JoinColumns({
+            @JoinColumn(name = "master_id", referencedColumnName = "masterId"),
+            @JoinColumn(name = "masterUserName", referencedColumnName = "username")
+    })
+    private TheUser masterUser;
 
 
 

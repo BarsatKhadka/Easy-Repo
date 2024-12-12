@@ -1,6 +1,7 @@
 package com.Barsat.Github.Repository.Management.Models;
 
 import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
+import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCollectionsEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -54,8 +55,13 @@ public class TheUser {
     }
 
 
-    @OneToMany(mappedBy = "master_user" , cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "masterUser" , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GithubRepoEntity> githubRepoEntity = new ArrayList<>();
 
-    //add more fields if needed.
+    @OneToMany(mappedBy = "masterUser" , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RepoCollectionsEntity> repoCollectionsEntity = new ArrayList<>();
+
+
+
+    //keep adding more fields if needed.
 }

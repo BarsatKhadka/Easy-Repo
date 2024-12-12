@@ -78,7 +78,7 @@ public class GithubFetchSaveService {
             repositoryEntity.setStargazers_count(githubRepoResponse.getStargazersCount());
 
             //set the user of the repository so that foreign key can be mapped
-            repositoryEntity.setMaster_user(theUser);
+            repositoryEntity.setMasterUser(theUser);
 
             githubReposRepository.save(repositoryEntity);
 

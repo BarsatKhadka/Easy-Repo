@@ -1,5 +1,6 @@
 package com.Barsat.Github.Repository.Management.Models.RepoModels;
 
+import com.Barsat.Github.Repository.Management.Models.TheUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +33,13 @@ public class RepoCollectionsEntity {
     private int repositoryCount;
 
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "master_id", referencedColumnName = "masterId"),
+            @JoinColumn(name = "masterUserName", referencedColumnName = "username")
+    })
+    private TheUser masterUser;
 
 
 
