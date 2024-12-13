@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -46,6 +48,11 @@ public class GithubRepoEntity {
             @JoinColumn(name = "masterUserName", referencedColumnName = "username")
     })
     private TheUser masterUser;
+
+    @ManyToMany
+    @JoinColumns({
+            @JoinColumn(name = "fk_collection_id")})
+    private List<RepoCollectionsEntity> collectionsEntity;
 
 
 

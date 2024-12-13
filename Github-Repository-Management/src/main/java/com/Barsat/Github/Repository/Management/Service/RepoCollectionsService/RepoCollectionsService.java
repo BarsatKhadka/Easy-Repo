@@ -11,6 +11,14 @@ public class RepoCollectionsService {
     private RepoCollectionsRepository repoCollectionsRepository;
 
 
+    public void allCollection(){
+
+
+    }
+
+
+
+
 
 
 }

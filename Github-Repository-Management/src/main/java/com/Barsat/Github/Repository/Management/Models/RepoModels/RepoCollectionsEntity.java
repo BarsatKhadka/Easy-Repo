@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 //Entity to store your Group of repositories into custom collections like “Personal Projects,” “Team Work,” “Archived Repos”.
@@ -40,6 +42,10 @@ public class RepoCollectionsEntity {
             @JoinColumn(name = "masterUserName", referencedColumnName = "username")
     })
     private TheUser masterUser;
+
+    //because RepoCollections will many github repo entities
+    @ManyToMany(mappedBy = "collectionsEntity")
+    private List<GithubRepoEntity> githubRepo = new ArrayList<>();
 
 
 
