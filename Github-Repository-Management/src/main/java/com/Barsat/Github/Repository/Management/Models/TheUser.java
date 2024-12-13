@@ -20,7 +20,7 @@ public class TheUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer masterId;
 
-    @Column(nullable = false)  //username can't be null and should be unique
+    @Column(nullable = false , unique = true)  //username can't be null and should be unique
     private String username;
 
     @Column(unique = true)

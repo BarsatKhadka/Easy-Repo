@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,7 +41,8 @@ public class GithubFetchSaveService {
     RestTemplate restTemplate = new RestTemplate();
 
     //this is running from OAuthSuccessionHandler , meaning it does not fetch on every refresh but every login new data is fetched. This is to save calls.
-    public List<GithubRepoResponse> fetchSaveRepositories(String userName , String accessToken) {
+    public void fetchSaveRepositories(String userName , String accessToken) {
+
 
         String finalUrl =  baseUrl + "/users/" + userName + "/repos";
         HttpHeaders headers = new HttpHeaders();
@@ -51,9 +53,11 @@ public class GithubFetchSaveService {
 
         //find the current user in Userrepo
         TheUser theUser = userRepo.findByUsername(userName);
+        System.out.println(userName);
 
 
         for(GithubRepoResponse githubRepoResponse : response.getBody()){
+
             //avoid duplicate calls.
             GithubRepoEntity repositoryEntity = githubReposRepository.findByGithubId(githubRepoResponse.getRepositoryId());
 
@@ -84,7 +88,6 @@ public class GithubFetchSaveService {
 
         }
 
-        return Arrays.asList(response.getBody());
     }
 
 

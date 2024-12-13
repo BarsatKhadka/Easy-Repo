@@ -47,9 +47,9 @@ public class RepoCollectionsService {
 
         List<GithubRepoEntity> allRepoEntities = new ArrayList<>();
         for(GithubRepoEntity githubRepoEntity : githubReposRepository.findAll()){
-            //set the repoCollectionEntity object to githubRepoEntity so that mapping works well
-            //also just doing this will cause lazy load error becuase when i do .getCollectionsEntity it lazy loads and gives me proxy dummy thing instead of real value
-            // that's how many to many works (by lazy loading)
+            /*set the repoCollectionEntity object to githubRepoEntity so that mapping works well
+            also just doing this will cause lazy load error becuase when i do .getCollectionsEntity it lazy loads and gives me proxy dummy thing instead of real value
+            that's how many to many works (by lazy loading) */
             githubRepoEntity.getCollectionsEntity().add(repoCollectionsEntity);
             allRepoEntities.add(githubRepoEntity);
         }

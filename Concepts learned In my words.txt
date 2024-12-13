@@ -62,3 +62,5 @@ CascadeType.ALL works only within JPA/Hibernate's context. When you delete a par
 
 In many to many mapping , you cant directly join column , make a new join table that shows the relation.
 
+Also use child entities after saving the user. For instance i called githubFetchSaveService (which fetches github repositories of the user before saving the user in OAuth2SuccessionHandler) causing the repositories to be fetched but the user was not fetched so the mapped columns were null first login , only on the second login there was masterUser and id assosciated.
+

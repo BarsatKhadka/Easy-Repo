@@ -1,6 +1,7 @@
 package com.Barsat.Github.Repository.Management.Config.OAuth;
 
 import com.Barsat.Github.Repository.Management.Models.Provider;
+import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
 import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
 import com.Barsat.Github.Repository.Management.Service.GithubFetchService.GithubFetchSaveService;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -75,8 +77,8 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         String id = oauth2User.getAttribute("id").toString();
 
 
-        //giving githubFetchService username and accessToken to access the repositories
-        System.out.println(githubFetchSaveService.fetchSaveRepositories(name,accessToken));
+
+
         repoCollectionsService.allCollection(name);
 
 
@@ -91,8 +93,8 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         githubUser.setProviderUserId(id);
         githubUser.setProvider(Provider.GITHUB);
 
-//        githubUser.setEnabled(true);   Enable this only when needed. Enbaling this allows oAuth users to login through normal sign in.
 
+//        githubUser.setEnabled(true);   Enable this only when needed. Enbaling this allows oAuth users to login through normal sign in.
 
 
 
@@ -100,6 +102,11 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         if(!userRepo.existsByEmail(email)) {
             userRepo.save(githubUser);
         }
+
+        //giving githubFetchService username and accessToken to access the repositories
+        //also do it only after saving the user because if you do it before saving the user it will return null the first login hence it won't be mapped at first login.
+        githubFetchSaveService.fetchSaveRepositories(name,accessToken);
+        repoCollectionsService.allCollection(name);
 
 
         //redirect to the url after approved
