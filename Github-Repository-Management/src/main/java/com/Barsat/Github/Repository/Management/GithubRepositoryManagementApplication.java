@@ -14,8 +14,8 @@ public class GithubRepositoryManagementApplication  {
 //	@Autowired
 //	UserRepo userRepo;
 
-	@Autowired
-	RepoCollectionsService repoCollectionsService;
+//	@Autowired
+//	RepoCollectionsService repoCollectionsService;
 
 
 	public static void main(String[] args) {
@@ -34,9 +34,6 @@ public class GithubRepositoryManagementApplication  {
 //			System.out.println("User with ID " + masterIdToDelete + " does not exist.");
 //		}
 //	}
-
-
-
 
 
 }

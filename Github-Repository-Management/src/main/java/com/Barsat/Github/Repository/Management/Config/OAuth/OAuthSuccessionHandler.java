@@ -44,6 +44,8 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
     private String clientId;
 
+    private String userName;
+
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -75,11 +77,6 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         String avatar_url = oauth2User.getAttribute("avatar_url").toString();
         String bio = oauth2User.getAttribute("bio").toString();
         String id = oauth2User.getAttribute("id").toString();
-
-
-
-
-        repoCollectionsService.allCollection(name);
 
 
 
