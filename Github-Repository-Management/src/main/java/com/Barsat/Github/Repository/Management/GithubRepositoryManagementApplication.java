@@ -1,6 +1,7 @@
 package com.Barsat.Github.Repository.Management;
 
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
+import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,9 @@ public class GithubRepositoryManagementApplication  {
 
 //	@Autowired
 //	UserRepo userRepo;
+
+	@Autowired
+	RepoCollectionsService repoCollectionsService;
 
 
 	public static void main(String[] args) {
@@ -30,6 +34,9 @@ public class GithubRepositoryManagementApplication  {
 //			System.out.println("User with ID " + masterIdToDelete + " does not exist.");
 //		}
 //	}
+
+
+
 
 
 }

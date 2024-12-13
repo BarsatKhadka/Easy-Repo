@@ -5,6 +5,7 @@ import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
 import com.Barsat.Github.Repository.Management.Service.GithubFetchService.GithubFetchSaveService;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
+import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionsService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,6 +30,9 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
 
     @Autowired
     private OAuthService oAuthService;
+
+    @Autowired
+    private RepoCollectionsService repoCollectionsService;
 
     //setting githubFetchService so that we can extract the user's data from here to githubFetchService class. (The name can be misleading)
     @Autowired
@@ -73,6 +77,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
 
         //giving githubFetchService username and accessToken to access the repositories
         System.out.println(githubFetchSaveService.fetchSaveRepositories(name,accessToken));
+        repoCollectionsService.allCollection(name);
 
 
 

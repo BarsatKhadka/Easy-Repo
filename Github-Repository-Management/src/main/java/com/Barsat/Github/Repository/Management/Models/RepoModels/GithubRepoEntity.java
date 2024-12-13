@@ -14,7 +14,7 @@ public class GithubRepoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer repoId;
 
     private int githubId;
 
@@ -50,8 +50,11 @@ public class GithubRepoEntity {
     private TheUser masterUser;
 
     @ManyToMany
-    @JoinColumns({
-            @JoinColumn(name = "fk_collection_id")})
+    @JoinTable(
+            name = "github_repo_&_collection",
+            joinColumns = @JoinColumn(name = "repo_id" , referencedColumnName = "repoId"),
+            inverseJoinColumns = @JoinColumn(name = "collection_id" , referencedColumnName = "collectionId")
+    )
     private List<RepoCollectionsEntity> collectionsEntity;
 
 

@@ -22,12 +22,13 @@ public class RepoCollectionsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer collectionId;
 
     private String collectionName;
 
     @Lob
     private String collectionDescription;
+
 
     private LocalDateTime createdAt;
 
@@ -46,6 +47,11 @@ public class RepoCollectionsEntity {
     //because RepoCollections will many github repo entities
     @ManyToMany(mappedBy = "collectionsEntity")
     private List<GithubRepoEntity> githubRepo = new ArrayList<>();
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 
 
 

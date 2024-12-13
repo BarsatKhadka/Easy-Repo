@@ -60,3 +60,5 @@ FetchSaveRepositories is running from OAuthSuccessionHandler , meaning it does n
 
 CascadeType.ALL works only within JPA/Hibernate's context. When you delete a parent entity (e.g., TheUser) using JPA, Hibernate knows to cascade the DELETE operation to associated child entities (e.g., GithubRepoEntity) because it manages the entity lifecycle. However, deleting directly in the database bypasses JPA/Hibernate, so it does not trigger cascade operations or lifecycle hooks like orphanRemoval.
 
+In many to many mapping , you cant directly join column , make a new join table that shows the relation.
+
