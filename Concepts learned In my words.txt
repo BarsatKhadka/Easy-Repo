@@ -64,3 +64,7 @@ In many to many mapping , you cant directly join column , make a new join table 
 
 Also use child entities after saving the user. For instance i called githubFetchSaveService (which fetches github repositories of the user before saving the user in OAuth2SuccessionHandler) causing the repositories to be fetched but the user was not fetched so the mapped columns were null first login , only on the second login there was masterUser and id assosciated.
 
+to reference parent id column , first reference the field name of the parent in the entity. For here it's theUser 'masterUser' , then the field inside theUser you want to find by
+
+Be very careful in checking everytime , when you add things to database because mappings can be doubled every login and create duplicates in database. Be sure to keep checks if it already exists when you add.
+
