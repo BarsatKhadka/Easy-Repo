@@ -11,5 +11,7 @@ public interface RepoCollectionsRepository extends JpaRepository<RepoCollections
     boolean existsByMasterUserUsername(String masterUserName);
     RepoCollectionsEntity findByMasterUserUsername(String masterUserName);
 
+    RepoCollectionsEntity findByMasterUserUsernameAndCollectionName(String masterUserUsername, String collectionName);
+
 }
 

@@ -48,7 +48,8 @@ public class RepoCollectionsService {
         boolean repoCollectionAlreadyExists = repoCollectionsRepository.existsByMasterUserUsername(username);
 
         if(repoCollectionAlreadyExists){
-            repoCollectionsEntity = repoCollectionsRepository.findByMasterUserUsername(username);
+            //needed double check because just checking by masterUserUsername was returning many repoCollectionsEntity and i wanted to only check All repositories
+            repoCollectionsEntity = repoCollectionsRepository.findByMasterUserUsernameAndCollectionName(username, "All Repositories");
             for(GithubRepoEntity githubRepoEntity : repoCollectionsEntity.getGithubRepo()){
                 allRepoEntities.add(githubRepoEntity);
             }
