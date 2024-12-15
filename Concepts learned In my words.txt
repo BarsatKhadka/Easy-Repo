@@ -74,3 +74,5 @@ needed double check at repositoryentity creating all collection because just che
 
 Incorrect size exception usually occurs when repository jpa method is designed to return one element but multiple elements are being returned from database.
 
+From react its very easy to redirect from login with XYZ : just on onClick function: window.href = http://localhost:8080/oauth2/authorization/XYZ.
+
