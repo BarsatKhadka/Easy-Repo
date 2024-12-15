@@ -58,8 +58,7 @@ public class RepoCollectionCreate {
         }
 
         repoCollectionsEntity.setGithubRepo(githubRepoEntities);
+        repoCollectionsEntity.setRepositoryCount(githubRepoEntities.size());
         repoCollectionsRepository.save(repoCollectionsEntity);
-
-
     }
 }

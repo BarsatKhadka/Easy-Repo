@@ -52,26 +52,26 @@ public class SecurityConfig {
                 .ignoringRequestMatchers("/api/auth/public/**" , "/register" ,"/login" ));
 
         //http session management stateless + giving permit all to public requests.
-        http.sessionManagement(Management -> Management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        http.sessionManagement(Management -> Management.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
 
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/api/auth/public/**" , "/register" , "/login" , "/oauth2/**" ).permitAll()
                         .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults())
+//                .formLogin(Customizer.withDefaults())
                 .oauth2Login(oauth -> {
                     oauth.successHandler(oAuthSuccessionHandler);
 
 
                 })
 
-//                .addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
 
 
 
         //enabling this makes you require to pass authorization header with base64 code
-        http.httpBasic(withDefaults());
+//        http.httpBasic(withDefaults());
 
 
         //return this by building it.
