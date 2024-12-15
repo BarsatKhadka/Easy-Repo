@@ -7,6 +7,8 @@ import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
 import com.Barsat.Github.Repository.Management.Repository.RepoCollectionsRepository;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
 import jakarta.transaction.Transactional;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Service
 @ToString
+@Getter
+@Setter
 public class RepoCollectionsService {
 
     @Autowired
@@ -27,11 +31,12 @@ public class RepoCollectionsService {
     @Autowired
     private UserRepo userRepo;
 
+    private String username;
 
 
     //Default created collection called all collection which contains all collection.
     @Transactional         //manage hibernate session all at once. session closed before accessing so use transactional which wont allow that until it acheives its goal
-    public void allCollection(String name){
+    public void allCollection(){
         List<GithubRepoEntity> allRepoEntities = new ArrayList<>();
 
         /* this logic prevents from creating allCollection every login as it checks if a entity already exists. If an entity already exists then it has repoCollectionsEntity ,
@@ -40,10 +45,10 @@ public class RepoCollectionsService {
          */
         RepoCollectionsEntity repoCollectionsEntity;
 
-        boolean repoCollectionAlreadyExists = repoCollectionsRepository.existsByMasterUserUsername(name);
+        boolean repoCollectionAlreadyExists = repoCollectionsRepository.existsByMasterUserUsername(username);
 
         if(repoCollectionAlreadyExists){
-            repoCollectionsEntity = repoCollectionsRepository.findByMasterUserUsername(name);
+            repoCollectionsEntity = repoCollectionsRepository.findByMasterUserUsername(username);
             for(GithubRepoEntity githubRepoEntity : repoCollectionsEntity.getGithubRepo()){
                 allRepoEntities.add(githubRepoEntity);
             }
@@ -53,7 +58,7 @@ public class RepoCollectionsService {
         }
 
         //find the user from userRepo and set his/her name on column along with collection name. (name comes from OAuthSuccessionHandler , so that it is never wrong)
-        TheUser masterUser = userRepo.findByUsername(name);
+        TheUser masterUser = userRepo.findByUsername(username);
 
         repoCollectionsEntity.setCollectionName("All Repositories");
 
@@ -78,10 +83,6 @@ public class RepoCollectionsService {
         repoCollectionsEntity.setGithubRepo(allRepoEntities);
         repoCollectionsRepository.save(repoCollectionsEntity);
     }
-
-
-
-
 
 
 }

@@ -65,6 +65,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         oAuthService.generateAccessToken(oauth2AuthenticationToken, "github");
         String accessToken = oAuthService.getAccessToken();
         oAuthService.setAccessToken(accessToken);
+        System.out.println(accessToken);
 
 //        allows you to look at all attributes that is coming from the user
         Map<String, Object> attributes = oauth2User.getAttributes();
@@ -91,8 +92,8 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         githubUser.setProvider(Provider.GITHUB);
 
 
-//        githubUser.setEnabled(true);   Enable this only when needed. Enbaling this allows oAuth users to login through normal sign in.
-
+//        Enable this only when needed. Enbaling this allows oAuth users to login through normal sign in.(like when authenticating through postman)
+        githubUser.setEnabled(true);
 
 
         //save github user , if there is no email assosciated to it.
@@ -103,7 +104,9 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         //giving githubFetchService username and accessToken to access the repositories
         //also do it only after saving the user because if you do it before saving the user it will return null the first login hence it won't be mapped at first login.
         githubFetchSaveService.fetchSaveRepositories(name,accessToken);
-        repoCollectionsService.allCollection(name);
+        repoCollectionsService.setUsername(name);
+        repoCollectionsService.allCollection();
+
 
 
         //redirect to the url after approved

@@ -68,3 +68,5 @@ to reference parent id column , first reference the field name of the parent in 
 
 Be very careful in checking everytime , when you add things to database because mappings can be doubled every login and create duplicates in database. Be sure to keep checks if it already exists when you add.
 
+Finally understood DTO Clearly. Whenever you want to send client data into service class , you dont directly request body a entity but make a data transfer object that looks similar to entity and pass from there. Also You may not want to expose all entity fields to the client
+

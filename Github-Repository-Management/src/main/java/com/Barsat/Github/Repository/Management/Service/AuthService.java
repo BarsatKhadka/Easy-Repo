@@ -6,6 +6,7 @@ import com.Barsat.Github.Repository.Management.Models.RequestModels.LoginRequest
 import com.Barsat.Github.Repository.Management.Models.RequestModels.SignUpRequest;
 import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
+import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,9 @@ public class AuthService {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    @Autowired
+    RepoCollectionsService repoCollectionsService;
+
     public ResponseEntity<TheUser> register(SignUpRequest signUpRequest) {
 
         //creating a new user instance with the information of signup request.
@@ -54,8 +58,12 @@ public class AuthService {
     public String loginVerify(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
+
+
         //generate jwt token if authenticated
         if(authentication.isAuthenticated()) {
+            //repoCollectionsServices need username. If the user is logging in from custom login , set it from here.
+            repoCollectionsService.setUsername(loginRequest.getUsername());
             return jwtUtils.generateToken(loginRequest.getUsername());
         }
 
