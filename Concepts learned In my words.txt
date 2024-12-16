@@ -76,3 +76,8 @@ Incorrect size exception usually occurs when repository jpa method is designed t
 
 From react its very easy to redirect from login with XYZ : just on onClick function: window.href = http://localhost:8080/oauth2/authorization/XYZ.
 
+I am using typescript for this project for typesafety , it is one of the first times i am using unlike springboot and spring security. So i will document every step.
+First is the type AxiosInstance , it contains predefined set of axios types and does not allow you to call wrong methods.
+
+When doing with oauth , you should put withCredentials: true in requests to allow access header control or something.
+

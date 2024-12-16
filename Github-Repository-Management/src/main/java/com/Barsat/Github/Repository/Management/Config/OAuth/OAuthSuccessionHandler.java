@@ -110,7 +110,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
 
 
         //redirect to the url after approved
-        new DefaultRedirectStrategy().sendRedirect(request, response, "/hello");
+        new DefaultRedirectStrategy().sendRedirect(request, response, "http://localhost:5174");
 
     }
 

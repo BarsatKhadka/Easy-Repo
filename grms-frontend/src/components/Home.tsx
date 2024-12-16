@@ -1,10 +1,8 @@
-// pages/index.js
-import { Button } from '@nextui-org/react';
-
-export default function Home() {
+export const Home = () => {
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <Button>Test NextUI</Button>
+    <div>
+      <h1>This is home page</h1>
+
     </div>
   );
 }

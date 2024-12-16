@@ -108,6 +108,7 @@ public class SecurityConfig {
                 cfg.setAllowedOrigins(Arrays.asList(
                         "http://localhost:3000",
                         "http://localhost:5173",
+                        "http://localhost:5174",
                         "http://localhost:4200"
 
                 ));
@@ -117,7 +118,7 @@ public class SecurityConfig {
                 cfg.setAllowCredentials(true);
 
                 //all headers allowed for frontend to send to backend.
-                cfg.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "X-Requested-With"));
+                cfg.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "X-Requested-With" ));
 
 
                 //frontend will get this headers as a response.
