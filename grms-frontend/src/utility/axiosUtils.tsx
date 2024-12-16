@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import axios , {AxiosInstance , AxiosError} from "axios";
 
 interface FetchDataTypes{
@@ -24,11 +24,39 @@ const axiosInstance : AxiosInstance  = axios.create({
     withCredentials: true
     })
 
+
+    axiosInstance.interceptors.request.use((config) => {
+        return config
+    }, 
+    (error) =>{
+        return Promise.reject(error)
+    }
+)
+
+    axiosInstance.interceptors.response.use((response) =>{
+        return response
+    },
+    (error) =>{
+    return Promise.reject(error)
+    })
+
+    let controller = new AbortController()
+    useEffect(() =>{
+        return ()=> controller?.abort()
+
+    }, [])
+
+
     //passing these vars into a curly braces here in js is destructuring an object.
     const fetchData = async({url,method,data = {}, params = {}} : FetchDataTypes) =>{
+
+        //abort if there are any controller previously , a detailed example is in my 'Concepts i learned thing'
+        controller.abort()
+        controller = new AbortController()
+
         setLoading(true)
         try{
-            const fetchDataResponse = await axiosInstance({method : method , url: url , data: data , params: params})
+            const fetchDataResponse = await axiosInstance({method : method , url: url , data: data , params: params , signal: controller.signal})
             setResponse(fetchDataResponse.data)
 
         }
