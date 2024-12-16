@@ -81,3 +81,7 @@ First is the type AxiosInstance , it contains predefined set of axios types and 
 
 When doing with oauth , you should put withCredentials: true in requests to allow access header control or something.
 
+Through defining abortController never see outdated data. If i make two requests like there is a button for 1 and 2 , i am clicking 1 and data is loading but i suddenly click 2 and data 1 is still processing then it aborts 1 and goes on 2. This can be seen while clicking youtube videos , when i click on one and it is loading but while loading if i click another thumbnail , it loads that. 
+
+passing the data like {url: 'fkdsf' , someproperty: 'someproperty'} looks super convenient , it is known as destructuring an object and in arguments besides function call also you should make object accept it like the same way function_name({url , someprpoerty})
+

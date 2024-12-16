@@ -1,22 +1,26 @@
 import {useQuery } from '@tanstack/react-query'
-import client from '../utility/axiosUtils'
+import {useAxios} from '../utility/axiosUtils'
+import { useEffect } from 'react'
 export const DashBoard = () => {
 
-    const fetchData = async() =>{
-        const data = await client.get("/easyrepo/user" , {withCredentials: true})
-        return data.data
+    const {response , loading ,error , fetchData} = useAxios()
+
+    const fetchDataHere = () =>{
+        useEffect(()=>{
+
+            fetchData({url : '/easyrepo/user' , method: 'get'})
+        }, [])
+        
+        //
     }
 
-    const {data}  = useQuery({
-        queryKey: ["test"],
-        queryFn: () => fetchData(),
-       })
+    fetchDataHere()
     
 
     return(
         <>
         <p>User Details</p>
-        <p>username : {data?.["username: "]}</p>
+        <p>username : {response?.["username: "]}</p>
 
         </>
     )
