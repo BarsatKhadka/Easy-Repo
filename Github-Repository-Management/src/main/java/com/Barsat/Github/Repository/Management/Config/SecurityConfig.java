@@ -61,7 +61,6 @@ public class SecurityConfig {
                 .oauth2Login(oauth -> {
                     oauth.successHandler(oAuthSuccessionHandler);
 
-
                 })
 
                 .addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class)
