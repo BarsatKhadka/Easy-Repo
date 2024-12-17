@@ -3,7 +3,6 @@ import {Home} from "./components/Home"
 import {useQuery , QueryClient , QueryClientProvider , useQueryClient} from "@tanstack/react-query"
 import {BrowserRouter as Router , Routes , Route} from 'react-router-dom'
 import {DashBoard} from "./components/DashBoard"
-import { UserLoginContext } from "./ContextAPI/UserLoginContext"
 import {useState} from 'react'
 
 function App() {
@@ -11,8 +10,8 @@ function App() {
   
   const queryClient = new QueryClient();
 
-  const [userDetails , setUserDetails] = useState("")
-  const [userDetailsError , setUserDetailsError] = useState(null)
+  const [userDetails , setUserDetails] = useState<any>(null)
+  const [userDetailsError , setuserDetailsError] = useState<any>(null)
   
 
 
@@ -20,7 +19,7 @@ function App() {
   return (
     <>
     <QueryClientProvider client = {queryClient}>
-      <UserLoginContext.Provider value={{userDetails, setUserDetails , userDetailsError , setUserDetailsError}}>
+
   
 
     <Router>
@@ -31,7 +30,6 @@ function App() {
     </Routes>
     </Router>
 
-    </UserLoginContext.Provider>
     </QueryClientProvider>
     
     

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import axios , {AxiosInstance , AxiosError} from "axios";
+import axios , {AxiosInstance , AxiosError, AxiosRequestConfig} from "axios";
 
 export interface FetchDataTypes{
     url : string;
@@ -10,10 +10,20 @@ export interface FetchDataTypes{
 
 }
 
+export interface AxiosResponseType{
+    data: any;
+    status: number;
+    statusText: string;
+    headers: any;
+    config: AxiosRequestConfig;
+    request?: any;
+
+}
+
 export const useAxios = () =>{
 
     //states
-    const[response,setResponse] = useState(null)
+    const[response,setResponse] = useState<AxiosResponseType |null>(null)
     const[loading,setLoading] = useState(false)
     const[error,setError] = useState(null)
 
@@ -58,7 +68,7 @@ const axiosInstance : AxiosInstance  = axios.create({
         setLoading(true)
         try{
             const fetchDataResponse = await axiosInstance({method : method , url: url , data: data , params: params , signal: controller.signal})
-            setResponse(fetchDataResponse.data)
+            setResponse(fetchDataResponse)
 
         }
         catch(error){

@@ -85,3 +85,5 @@ Through defining abortController never see outdated data. If i make two requests
 
 passing the data like {url: 'fkdsf' , someproperty: 'someproperty'} looks super convenient , it is known as destructuring an object and in arguments besides function call also you should make object accept it like the same way function_name({url , someprpoerty})
 
+Strategy to gain user details after authentication: my approach is that right after authenticating backend redirects to / so in / use an useEffect that fetches authenticated user details from /easyrepo/user and then store those in context api and pass it through out application.
+
