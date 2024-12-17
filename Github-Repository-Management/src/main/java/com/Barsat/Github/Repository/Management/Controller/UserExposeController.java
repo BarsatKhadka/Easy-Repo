@@ -9,31 +9,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/easyrepo/user")
 public class UserExposeController {
 
-    @GetMapping("/isAuthenticated")
-    public ResponseEntity<Map<String , Boolean>> isAuthenticated(Authentication authentication) {
+    @GetMapping
+    public Map<String,Object> getUser(@AuthenticationPrincipal OAuth2User principal , Authentication authentication) {
+        Map<String,Object> userStatus = new HashMap<>();
+
         boolean isAuthenticated = authentication != null  && authentication.isAuthenticated() ;
         if (isAuthenticated) {
             System.out.println("isAuthenticated");
-            return ResponseEntity.ok(Map.of("isAuthenticated", true));
+            return Map.of("username: ", principal.getAttribute("name") ,
+                    "email: ", principal.getAttribute("email"),
+                    "isAuthenticated", true);
         }
         else{
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("isAuthenticated", false));
+            return Map.of(
+                    "username: ", "not found" ,
+                    "email: ", "not found" ,
+                    "isAuthenticated", false);
         }
 
-    }
 
-    @GetMapping
-    public Map<String,Object> getUser(@AuthenticationPrincipal OAuth2User principal) {
-
-        return Map.of(
-                "username: ", principal.getAttribute("name") ,
-                "email: ", principal.getAttribute("email"));
 
     }
 }

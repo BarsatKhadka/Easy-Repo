@@ -1,5 +1,6 @@
 package com.Barsat.Github.Repository.Management.Config.OAuth;
 
+import com.Barsat.Github.Repository.Management.Config.Jwt.JwtUtils;
 import com.Barsat.Github.Repository.Management.Models.Provider;
 import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
 import com.Barsat.Github.Repository.Management.Models.TheUser;
@@ -45,6 +46,9 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
     private String clientId;
 
     private String userName;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
 
     @Override
@@ -107,10 +111,11 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         repoCollectionsService.setUsername(name);
         repoCollectionsService.allCollection();
 
-
+        String jwtToken = jwtUtils.generateToken(userName);
+        response.setHeader("Authorization", "Bearer " + jwtToken);
 
         //redirect to the url after approved
-        new DefaultRedirectStrategy().sendRedirect(request, response, "http://localhost:5174");
+        new DefaultRedirectStrategy().sendRedirect(request, response, "http://localhost:5173");
 
     }
 

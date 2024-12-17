@@ -1,26 +1,20 @@
 import {useQuery } from '@tanstack/react-query'
 import {useAxios} from '../utility/axiosUtils'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { UserLoginContext, UserLoginContextType } from '../ContextAPI/UserLoginContext'
+
+
+
 export const DashBoard = () => {
 
-    const {response , loading ,error , fetchData} = useAxios()
-
-    const fetchDataHere = () =>{
-        useEffect(()=>{
-
-            fetchData({url : '/easyrepo/user' , method: 'get'})
-        }, [])
-        
-        //
-    }
-
-    fetchDataHere()
-    
+    // const {response, loading  , error , fetchData} = useAxios()
+    // const {userDetails , setUserDetails , userDetailsError , setUserDetailsError} = useContext(UserLoginContext) as UserLoginContextType
 
     return(
         <>
         <p>User Details</p>
-        <p>username : {response?.["username: "]}</p>
+        <p>username : </p>
+        
 
         </>
     )

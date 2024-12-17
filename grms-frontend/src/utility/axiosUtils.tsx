@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react'
 import axios , {AxiosInstance , AxiosError} from "axios";
 
-interface FetchDataTypes{
+export interface FetchDataTypes{
     url : string;
     method : 'get' | 'post' | 'put' | 'delete';
     data? : Record<string,any>;   // type similar to Map<String,Object> in java. question mark makes this optional
     params?: Record<string , any>;
+
 
 }
 
@@ -14,7 +15,7 @@ export const useAxios = () =>{
     //states
     const[response,setResponse] = useState(null)
     const[loading,setLoading] = useState(false)
-    const[error,setError] = useState("")
+    const[error,setError] = useState(null)
 
 //client is axiosInstance type which is a predefined typescript interface including methods like get , post , put , delete
 const axiosInstance : AxiosInstance  = axios.create({
@@ -67,7 +68,7 @@ const axiosInstance : AxiosInstance  = axios.create({
                 setError(error.response ? error.response.data : error.message)
             }
             else{
-                setError("unknown Error")
+                setError(null)
             }
 
 
