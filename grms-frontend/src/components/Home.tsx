@@ -7,20 +7,20 @@ export const Home = () => {
   const {authenticated,setAuthenticated} = useUserStore()
 
   //when user is authenticated , it directly comes to / (home) , so at that point just fetch from /easyrepo/user (which contains user details) cthe backend.
-  useEffect(()=>{
+useEffect(()=>{
     //fetch only if user is not authenticated , this way i can use this context api throughout react.
     if(!authenticated){
     fetchData({url: "/easyrepo/user" , method: "get"})
     }
-
 }, [authenticated])
 
 useEffect(()=>{
   if(response?.status == 200){
     setAuthenticated(true)
-  } 
-  
 
+    //set to localstorage that user is authenticated.
+    localStorage.setItem('authenticated', 'True')
+  } 
 }, [response])
 
 

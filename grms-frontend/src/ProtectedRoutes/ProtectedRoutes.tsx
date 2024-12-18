@@ -1,9 +1,13 @@
 import { Outlet, Navigate } from "react-router-dom";
 
-const ProtectedRoutes = () =>{
-    const authenticated = true
-    return authenticated ? <Outlet/> : <Navigate to = "/login"/>
 
-}
+// Use the defined type for the props
+const ProtectedRoutes = () => {
+  let authenticated = false
+    if(localStorage.getItem('authenticated') == 'True'){
+      authenticated = true
+    }
+  return authenticated ? <Outlet /> : <Navigate to="/login" />;
+};
 
-export default ProtectedRoutes
+export default ProtectedRoutes;
