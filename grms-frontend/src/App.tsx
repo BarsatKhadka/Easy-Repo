@@ -2,17 +2,17 @@ import { Login } from "./components/Login"
 import {Home} from "./components/Home"
 import {BrowserRouter as Router , Routes , Route} from 'react-router-dom'
 import {DashBoard} from "./components/DashBoard"
-import {useState} from "react"
 import ProtectedRoutes from "./ProtectedRoutes/ProtectedRoutes"
+import { useUserStore } from "./store/UserStore"
 
 
 function App() {
 
-  const[authenticated , setAuthenticated] = useState<boolean>(false)
-  const[userDetails, setUserDetails] = useState<any>("")
-  
+  const {authenticated,setAuthenticated} = useUserStore()
+
   return (
     <>
+    {authenticated ? "Authenticated" : "Not authenticated"}
     <Router>
       <Routes>
       <Route path = "/" element = {<Home/>}/>

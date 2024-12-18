@@ -1,9 +1,10 @@
 import {useAxios} from '../utility/axiosUtils'
+import { useUserStore } from '../store/UserStore';
 import {useState, useEffect } from 'react';
 
 export const Home = () => {
   const {response, fetchData} = useAxios()
-  const [authenticated , setAuthenticated ]= useState<boolean>(false)
+  const {authenticated,setAuthenticated} = useUserStore()
 
   //when user is authenticated , it directly comes to / (home) , so at that point just fetch from /easyrepo/user (which contains user details) cthe backend.
   useEffect(()=>{
