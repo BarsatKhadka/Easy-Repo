@@ -87,3 +87,5 @@ passing the data like {url: 'fkdsf' , someproperty: 'someproperty'} looks super 
 
 Strategy to gain user details after authentication: my approach is that right after authenticating backend redirects to / so in / use an useEffect that fetches authenticated user details from /easyrepo/user and then store those in context api and pass it through out application.
 
+I had hard time working with context apis so i just decided to pass props. Yeah not a good idea but i will keep it minimal for sure. Protected routes will help me pass authenticated state only one time other than that , i just need to pass userDetails wherever i want , i hope that's the only state i will pass on this application.
+
