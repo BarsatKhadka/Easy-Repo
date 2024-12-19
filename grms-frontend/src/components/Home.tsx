@@ -1,6 +1,7 @@
 import {useAxios} from '../utility/axiosUtils'
 import { useUserStore } from '../store/UserStore';
 import { useEffect } from 'react';
+import { CollectionsMain } from './CollectionsComponents/CollectionsMain';
 
 export const Home = () => {
   const {response, fetchData} = useAxios()
@@ -19,10 +20,12 @@ useEffect(()=>{
 
     setAuthenticated(true)
 
-    //set to localstorage that user is authenticated.
+    //do all this sessionstorage thing after that user is authenticated.
     if(sessionStorage.getItem('authenticated') != 'True'){
       sessionStorage.setItem('authenticated', 'True')
+
     }
+    //csrf token refreshes with every refresh hence facilitating that.
     if(sessionStorage.getItem('csrf') == null || sessionStorage.getItem('csrf') != response?.data["csrfController"]["token"]){
       sessionStorage.setItem('csrf', response?.data["csrfController"]["token"])
       console.log(sessionStorage.getItem('csrf'))
@@ -40,6 +43,10 @@ console.log(response)
       <h1>This is home page</h1>
       <h1>username: {response?.data["username: "]} </h1>
       <h1>csrf: {response?.data["csrfController"]["token"]}</h1>
+      <div>
+        {/* Show collections only if authenticated */}
+        {authenticated && <CollectionsMain/>}
+      </div>
       
       
       

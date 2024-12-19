@@ -93,3 +93,7 @@ Session storage persists across session , local persists even after browser is c
 
 403 Error on post usually happens if you forget to pass csrf token.
 
+When you send data from springboot backend to frontend , you usually send an @Entity , there is a class and there are fields. These fields and their data are automatically serialized by Springboot backend through the help of @RequestBody annotation. It is included in the @RestController annotation. How cool.
+
+In postman whenever you get something , if there are mapping especially many relations , you will most probably get repeated results of some value, use @JsonBackReference by diagnosing the field it is happening on.
+

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 export const Logout = () =>{
 
+    //to navigate after logging out.
     const navigate = useNavigate()
 
     const logoutFunction = async() =>{
@@ -19,7 +20,7 @@ export const Logout = () =>{
 
     return (
         <>
-        <button onClick = {logoutFunction}>Logout </button>
+        <button onClick = {logoutFunction} className='underline'>Logout </button>
 
         </>
     )

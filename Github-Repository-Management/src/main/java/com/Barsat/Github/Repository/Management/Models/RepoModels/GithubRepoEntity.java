@@ -1,6 +1,7 @@
 package com.Barsat.Github.Repository.Management.Models.RepoModels;
 
 import com.Barsat.Github.Repository.Management.Models.TheUser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,6 +56,7 @@ public class GithubRepoEntity {
             joinColumns = @JoinColumn(name = "repo_id" , referencedColumnName = "repoId"),
             inverseJoinColumns = @JoinColumn(name = "collection_id" , referencedColumnName = "collectionId")
     )
+    @JsonBackReference
     private List<RepoCollectionsEntity> collectionsEntity;
 
 

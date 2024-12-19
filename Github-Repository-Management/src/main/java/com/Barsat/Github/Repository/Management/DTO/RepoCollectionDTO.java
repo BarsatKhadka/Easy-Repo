@@ -15,6 +15,4 @@ public class RepoCollectionDTO {
     private String collectionDescription;
     private List<Integer> githubRepoIds = new ArrayList<>();
 
-
-
 }

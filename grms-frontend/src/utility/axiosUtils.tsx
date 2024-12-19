@@ -8,6 +8,7 @@ export interface FetchDataTypes{
     params?: Record<string , any>;
 
 
+
 }
 
 export interface AxiosResponseType{
@@ -32,7 +33,8 @@ const axiosInstance : AxiosInstance  = axios.create({
 
     //baseURL coming from springboot
     baseURL : "http://localhost:8080",
-    withCredentials: true
+    withCredentials: true,
+
     })
 
 
@@ -59,7 +61,7 @@ const axiosInstance : AxiosInstance  = axios.create({
 
 
     //passing these vars into a curly braces here in js is destructuring an object.
-    const fetchData = async({url,method,data = {}, params = {}} : FetchDataTypes) =>{
+    const fetchData = async({url,method,data = {}, params = {} } : FetchDataTypes) =>{
 
         //abort if there are any controller previously , a detailed example is in my 'Concepts i learned thing'
         controller.abort()
@@ -67,7 +69,7 @@ const axiosInstance : AxiosInstance  = axios.create({
 
         setLoading(true)
         try{
-            const fetchDataResponse = await axiosInstance({method : method , url: url , data: data , params: params , signal: controller.signal})
+            const fetchDataResponse = await axiosInstance({method : method , url: url , data: data , params: params  , signal: controller.signal})
             setResponse(fetchDataResponse)
 
         }

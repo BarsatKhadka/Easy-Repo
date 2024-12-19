@@ -63,14 +63,14 @@ public class SecurityConfig {
 
                 })
 
-                .addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
 
 
 
         //enabling this makes you require to pass authorization header with base64 code
-//        http.httpBasic(withDefaults());
+        http.httpBasic(withDefaults());
 
 
         //return this by building it.
@@ -117,11 +117,11 @@ public class SecurityConfig {
                 cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
                 cfg.setAllowCredentials(true);
 
-                //all headers allowed for frontend to send to backend.
+                //which http headers can be used while making request
                 cfg.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "X-Requested-With", "X-CSRF-TOKEN" ));
 
 
-                //frontend will get this headers as a response.
+                //these browsers can access.
                 cfg.setExposedHeaders(List.of("Authorization" , "Content-Type"));
 
                 cfg.setMaxAge(3600L);

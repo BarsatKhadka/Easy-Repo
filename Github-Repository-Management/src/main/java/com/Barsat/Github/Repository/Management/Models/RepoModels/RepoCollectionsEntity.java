@@ -1,6 +1,7 @@
 package com.Barsat.Github.Repository.Management.Models.RepoModels;
 
 import com.Barsat.Github.Repository.Management.Models.TheUser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

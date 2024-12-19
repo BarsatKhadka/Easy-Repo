@@ -1,9 +1,10 @@
-import { Login } from "./AuthComponents/Login"
+import { Login } from "./components/AuthComponents/Login"
 import {Home} from "./components/Home"
 import {BrowserRouter as Router , Routes , Route} from 'react-router-dom'
 import {DashBoard} from "./components/DashBoard"
 import ProtectedRoutes from "./ProtectedRoutes/ProtectedRoutes"
-import { Logout } from "./AuthComponents/Logout"
+import { Logout } from "./components/AuthComponents/Logout"
+
 
 
 function App() {
