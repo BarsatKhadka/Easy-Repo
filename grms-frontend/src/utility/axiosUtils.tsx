@@ -27,12 +27,14 @@ export const useAxios = () =>{
     const[response,setResponse] = useState<AxiosResponseType |null>(null)
     const[loading,setLoading] = useState(false)
     const[error,setError] = useState(null)
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 //client is axiosInstance type which is a predefined typescript interface including methods like get , post , put , delete
 const axiosInstance : AxiosInstance  = axios.create({
 
     //baseURL coming from springboot
-    baseURL : "http://localhost:8080",
+    baseURL : backendUrl,
     withCredentials: true,
 
     })

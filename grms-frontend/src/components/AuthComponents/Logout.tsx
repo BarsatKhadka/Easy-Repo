@@ -5,10 +5,11 @@ export const Logout = () =>{
 
     //to navigate after logging out.
     const navigate = useNavigate()
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
 
     const logoutFunction = async() =>{
         try{
-       await axios.post('http://localhost:8080/logout' , {}, {withCredentials: true , headers: {'X-CSRF-TOKEN' : sessionStorage.getItem('csrf')}})
+       await axios.post(backendUrl + '/logout' , {}, {withCredentials: true , headers: {'X-CSRF-TOKEN' : sessionStorage.getItem('csrf')}})
        sessionStorage.removeItem('authenticated')
        navigate('/')
         }

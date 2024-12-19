@@ -97,3 +97,5 @@ When you send data from springboot backend to frontend , you usually send an @En
 
 In postman whenever you get something , if there are mapping especially many relations , you will most probably get repeated results of some value, use @JsonBackReference by diagnosing the field it is happening on.
 
+Use env files man, helps a lot on all these changing environments.
+
