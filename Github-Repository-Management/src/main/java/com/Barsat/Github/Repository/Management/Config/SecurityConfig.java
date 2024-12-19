@@ -57,7 +57,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/api/auth/public/**" , "/register" , "/login" , "/oauth2/**" ).permitAll()
                         .anyRequest().authenticated())
-//                .formLogin(Customizer.withDefaults())
+//                .formLogin(Customizer.withDefaults()
                 .oauth2Login(oauth -> {
                     oauth.successHandler(oAuthSuccessionHandler);
 
@@ -118,7 +118,7 @@ public class SecurityConfig {
                 cfg.setAllowCredentials(true);
 
                 //all headers allowed for frontend to send to backend.
-                cfg.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "X-Requested-With" ));
+                cfg.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "X-Requested-With", "X-CSRF-TOKEN" ));
 
 
                 //frontend will get this headers as a response.

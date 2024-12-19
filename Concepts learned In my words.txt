@@ -89,3 +89,7 @@ Strategy to gain user details after authentication: my approach is that right af
 
 I had hard time working with context apis so i just decided to pass props. Yeah not a good idea but i will keep it minimal for sure. Protected routes will help me pass authenticated state only one time other than that , i just need to pass userDetails wherever i want , i hope that's the only state i will pass on this application.
 
+Session storage persists across session , local persists even after browser is closed. i used session so that it becomes easier to force users to login every session Oauth style.
+
+403 Error on post usually happens if you forget to pass csrf token.
+
