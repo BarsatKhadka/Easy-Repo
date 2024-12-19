@@ -1,6 +1,6 @@
 import {useAxios} from '../utility/axiosUtils'
 import { useUserStore } from '../store/UserStore';
-import {useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 export const Home = () => {
   const {response, fetchData} = useAxios()
@@ -12,16 +12,20 @@ useEffect(()=>{
     if(!authenticated){
     fetchData({url: "/easyrepo/user" , method: "get"})
     }
-}, [authenticated])
+}, [])
 
 useEffect(()=>{
   if(response?.status == 200){
     setAuthenticated(true)
 
     //set to localstorage that user is authenticated.
-    localStorage.setItem('authenticated', 'True')
+    if(sessionStorage.getItem('authenticated') != 'True'){
+      sessionStorage.setItem('authenticated', 'True')
+    }
+    
   } 
 }, [response])
+
 
 
   return (
