@@ -16,15 +16,22 @@ useEffect(()=>{
 
 useEffect(()=>{
   if(response?.status == 200){
+
     setAuthenticated(true)
 
     //set to localstorage that user is authenticated.
     if(sessionStorage.getItem('authenticated') != 'True'){
       sessionStorage.setItem('authenticated', 'True')
     }
+    if(sessionStorage.getItem('csrf') == null || sessionStorage.getItem('csrf') != response?.data["csrfController"]["token"]){
+      sessionStorage.setItem('csrf', response?.data["csrfController"]["token"])
+      console.log(sessionStorage.getItem('csrf'))
+    }
     
   } 
 }, [response])
+
+console.log(response)
 
 
 
@@ -32,6 +39,7 @@ useEffect(()=>{
     <div>
       <h1>This is home page</h1>
       <h1>username: {response?.data["username: "]} </h1>
+      <h1>csrf: {response?.data["csrfController"]["token"]}</h1>
       
       
       

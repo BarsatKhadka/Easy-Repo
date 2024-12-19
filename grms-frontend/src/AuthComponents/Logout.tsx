@@ -7,8 +7,9 @@ export const Logout = () =>{
 
     const logoutFunction = async() =>{
         try{
-       await axios.post('http://localhost:8080/logout' , {}, {withCredentials: true})
+       await axios.post('http://localhost:8080/logout' , {}, {withCredentials: true , headers: {'X-CSRF-TOKEN' : sessionStorage.getItem('csrf')}})
        sessionStorage.removeItem('authenticated')
+       navigate('/')
         }
 
         catch(error){
