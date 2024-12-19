@@ -5,6 +5,7 @@ import com.Barsat.Github.Repository.Management.Repository.RepoCollectionsReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,22 @@ public class RepoCollectionGet {
 
         //getting the username so that i don't extract other's all repositories collection.
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        String username = null;
+
+        if(authentication != null && authentication.getPrincipal() instanceof OAuth2User){
+            OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
+            username = oauth2User.getAttribute("name");
+            System.out.println(username);
+
+        }
+
+        else{
+
+            username = authentication.getName();
+
+        }
+
+
 
         RepoCollectionsEntity allRepoCollectionsEntity = repoCollectionsRepository.findByMasterUserUsernameAndCollectionName(username, "All Repositories");
         return allRepoCollectionsEntity;
