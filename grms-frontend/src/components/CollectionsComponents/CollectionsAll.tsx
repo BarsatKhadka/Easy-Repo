@@ -1,26 +1,22 @@
-import axios from "axios"
+interface allCollectionPropType{
+    allCollection: any;
 
+}
 
-export const CollectionsAll = () =>{
+//allCollection prop is coming from CollectionsMain.
+export const CollectionsAll = ({allCollection}: allCollectionPropType) =>{
 
-    const backendURL = import.meta.env.VITE_BACKEND_URL
+    console.log(allCollection)
 
-    const allCollectionsFetch = async() =>{
-        try{
-         const response = await axios.get(backendURL+'/easyrepo/collections/all', {withCredentials: true})
-         console.log(response)
-         console.log("success")
-        }
-        catch(error){
+   
+    
 
-        }
-
-    }
     return (
         <>
 
         <p>This is collections ALl</p>
-        <button onClick = {allCollectionsFetch}>This is a button</button>
+        <p>{allCollection?.collectionId}</p>
+       
         </>
 
     )

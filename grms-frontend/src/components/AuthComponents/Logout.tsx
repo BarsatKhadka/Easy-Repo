@@ -5,6 +5,7 @@ export const Logout = () =>{
 
     //to navigate after logging out.
     const navigate = useNavigate()
+    
     const backendUrl = import.meta.env.VITE_BACKEND_URL
 
     const logoutFunction = async() =>{
