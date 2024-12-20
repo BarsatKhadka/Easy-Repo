@@ -1,6 +1,11 @@
 import { CollectionsAll } from "./CollectionsAll"
+import { CreateCollections } from "./CreateCollections"
+
+//library imports
 import {useAxios} from "../../utility/axiosUtils"
 import {useEffect} from 'react'
+
+
 //this will contain all the collections.
 export const CollectionsMain = () =>{
 
@@ -22,6 +27,7 @@ export const CollectionsMain = () =>{
 
          {/* the type this prop must return is defined in the element itself , not here. */}
         <CollectionsAll allCollection = {data}/>
+        <CreateCollections/>    
 
         
         </>

@@ -101,3 +101,7 @@ Use env files man, helps a lot on all these changing environments.
 
 Since github username can be changed and my backend processes all these information by checking username , i know this is a bad practice and i should migrate this system to githubProvider id.
 
+?. is called optional chaining in javascript , way of handling null value. Terminology.
+
+@JsonIgnore to the fields you dont want to send. Like password.
+

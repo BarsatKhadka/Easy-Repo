@@ -10,7 +10,7 @@ export const Logout = () =>{
 
     const logoutFunction = async() =>{
         try{
-       await axios.post(backendUrl + '/logout' , {}, {withCredentials: true , headers: {'X-CSRF-TOKEN' : sessionStorage.getItem('csrf')}})
+       await axios.post(backendUrl + '/logout' , {}, {withCredentials: true , headers: {'X-CSRF-TOKEN' : sessionStorage.getItem('csrf') }})
        sessionStorage.removeItem('authenticated')
        navigate('/')
         }

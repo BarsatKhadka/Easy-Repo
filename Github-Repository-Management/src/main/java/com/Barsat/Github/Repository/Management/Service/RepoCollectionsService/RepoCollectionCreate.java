@@ -9,6 +9,9 @@ import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
 import com.Barsat.Github.Repository.Management.Repository.RepoCollectionsRepository;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,7 +40,22 @@ public class RepoCollectionCreate {
         List<GithubRepoEntity> githubRepoEntities = new ArrayList<>();
 
         //get the username and find the user to set the user in collections record.
-        String username = repoCollectionsService.getUsername();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = null;
+
+        if(authentication != null && authentication.getPrincipal() instanceof OAuth2User){
+            OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
+            username = oauth2User.getAttribute("name");
+            System.out.println(username);
+
+        }
+
+        else{
+
+            username = authentication.getName();
+
+        }
+
 
         TheUser masterUser = userRepo.findByUsername(username);
 

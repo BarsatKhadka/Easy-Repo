@@ -3,6 +3,7 @@ package com.Barsat.Github.Repository.Management.Models;
 import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
 import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCollectionsEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class TheUser {
     @Column(unique = true)
     private String email;
 
+    @JsonIgnore
     private String password;
 
     @Column(length = 10000)
