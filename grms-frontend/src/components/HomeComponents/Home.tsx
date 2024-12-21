@@ -1,7 +1,11 @@
-import {useAxios} from '../utility/axiosUtils'
-import { useUserStore } from '../store/UserStore';
+import {useAxios} from '../../utility/axiosUtils'
+import { useUserStore } from '../../store/UserStore';
 import { useEffect } from 'react';
-import { CollectionsMain } from './CollectionsComponents/CollectionsMain';
+
+
+import { CollectionsMain } from '../CollectionsComponents/CollectionsMain';
+import { HomeAfterAuth } from './HomeAfterAuth';
+import { HomeBeforeAuth } from './HomeBeforeAuth';
 
 export const Home = () => {
   const {response, fetchData} = useAxios()
@@ -40,12 +44,13 @@ console.log(response)
 
   return (
     <div>
-      <h1>This is home page</h1>
+      {/* This is the home to be displayed before authentication */}
+      {!authenticated && <HomeBeforeAuth/>}
       <h1>username: {response?.data["username: "]} </h1>
       <h1>csrf: {response?.data["csrfController"]["token"]}</h1>
       <div>
         {/* Show collections only if authenticated */}
-        {authenticated && <CollectionsMain/>}
+        {authenticated && <CollectionsMain/> && <HomeAfterAuth/>}
       </div>
       
       

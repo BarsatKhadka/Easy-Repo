@@ -4,7 +4,7 @@ import{QueryClient, QueryClientProvider} from '@tanstack/react-query'
 
 //Component imports
 import { Login } from "./components/AuthComponents/Login"
-import {Home} from "./components/Home"
+import {Home} from "./components/HomeComponents/Home"
 import {DashBoard} from "./components/DashBoard"
 import ProtectedRoutes from "./ProtectedRoutes/ProtectedRoutes"
 import { Logout } from "./components/AuthComponents/Logout"
