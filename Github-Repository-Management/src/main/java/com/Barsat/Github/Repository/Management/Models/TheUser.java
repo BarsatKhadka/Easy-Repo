@@ -2,6 +2,7 @@ package com.Barsat.Github.Repository.Management.Models;
 
 import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
 import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCollectionsEntity;
+import com.Barsat.Github.Repository.Management.Models.RepoModels.TagEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -65,6 +66,9 @@ public class TheUser {
     @OneToMany(mappedBy = "masterUser" , cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<RepoCollectionsEntity> repoCollectionsEntity = new ArrayList<>();
+
+    @OneToMany(mappedBy = "masterUser" , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TagEntity> tagEntity = new ArrayList<>();
 
 
 

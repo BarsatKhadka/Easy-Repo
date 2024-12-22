@@ -50,7 +50,7 @@ console.log(response)
       <h1>csrf: {response?.data["csrfController"]["token"]}</h1>
       <div>
         {/* Show collections only if authenticated */}
-        {authenticated && <CollectionsMain/> && <HomeAfterAuth/>}
+        {authenticated && <><CollectionsMain/> <HomeAfterAuth/></>}
       </div>
       
       
