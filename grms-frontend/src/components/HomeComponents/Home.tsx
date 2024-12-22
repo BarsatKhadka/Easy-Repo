@@ -3,7 +3,7 @@ import { useUserStore } from '../../store/UserStore';
 import { useEffect } from 'react';
 
 
-import { CollectionsMain } from '../CollectionsComponents/CollectionsMain';
+
 import { HomeAfterAuth } from './HomeAfterAuth';
 import { HomeBeforeAuth } from './HomeBeforeAuth';
 
@@ -50,7 +50,7 @@ console.log(response)
       <h1>csrf: {response?.data["csrfController"]["token"]}</h1>
       <div>
         {/* Show collections only if authenticated */}
-        {authenticated && <><CollectionsMain/> <HomeAfterAuth/></>}
+        {authenticated && <><HomeAfterAuth/></>}
       </div>
       
       
