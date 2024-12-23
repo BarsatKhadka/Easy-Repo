@@ -116,3 +116,6 @@ Sometimes csrf can return null. Just see if you have disabled it previously to r
 
 And sometimes data cannot be fetched due to backReference issue.
 
+git reset --soft HEAD~1  (Remove last commit but does not undo the changes.)
+
+
