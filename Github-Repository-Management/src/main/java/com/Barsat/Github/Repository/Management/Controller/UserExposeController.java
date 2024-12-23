@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/easyrepo/user")
@@ -23,12 +24,13 @@ public class UserExposeController {
         Map<String,Object> userStatus = new HashMap<>();
 
         boolean isAuthenticated = authentication != null  && authentication.isAuthenticated() ;
-        if (isAuthenticated) {
+        if (isAuthenticated && principal != null) {
             System.out.println("isAuthenticated");
-            return Map.of("username: ", principal.getAttribute("name") ,
-                    "email: ", principal.getAttribute("email"),
+
+            return Map.of("username: ", "idk",
+                    "email: ", "idk",
                     "isAuthenticated", true,
-                    "csrfController" , (CsrfToken) request.getAttribute(CsrfToken.class.getName()));
+                    "csrfController" , "some here");
         }
         else{
             return Map.of(

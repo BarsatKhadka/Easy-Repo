@@ -7,6 +7,8 @@ export const HomeAfterAuth = () =>{
         <p>This is home after authentication</p>
         <CollectionsMain/> 
         <Tags/>
+        
+        
 
         </>
     )

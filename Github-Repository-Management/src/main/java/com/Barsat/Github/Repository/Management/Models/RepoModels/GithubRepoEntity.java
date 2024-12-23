@@ -59,12 +59,7 @@ public class GithubRepoEntity {
     @JsonBackReference
     private List<RepoCollectionsEntity> collectionsEntity;
 
-    @ManyToMany
-    @JoinTable(
-            name = "tag & github_repo",
-            joinColumns = @JoinColumn(name = "repo_id", referencedColumnName = "repoId"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id" , referencedColumnName = "tagId")
-    )
+    @ManyToMany(mappedBy = "githubRepoEntityList" , cascade = CascadeType.ALL )
     private List<TagEntity> tagEntity;
 
 

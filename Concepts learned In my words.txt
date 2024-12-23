@@ -105,3 +105,10 @@ Since github username can be changed and my backend processes all these informat
 
 @JsonIgnore to the fields you dont want to send. Like password.
 
+I have made a utility service class to get the authenticated username. It could be easy as just getting security context holder and get authenticated username but not that easy when oauth2 is involved so ..... 
+
+
+There is no orphanRemoval in many to many relationships.
+
+If sometimes you cannot use .get even after having lombok or getters , just see if the class is private man.
+

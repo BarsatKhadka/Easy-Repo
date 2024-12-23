@@ -22,6 +22,11 @@ public class TagEntity {
     private TheUser masterUser;
 
     @ManyToMany
+    @JoinTable(
+            name = "Tag & Repo",
+            joinColumns = @JoinColumn(name = "Tag id" , referencedColumnName = "tagId"),
+            inverseJoinColumns = @JoinColumn(name = "Github Repo Id" , referencedColumnName = "repoId")
+    )
     private List<GithubRepoEntity> githubRepoEntityList;
 
 }

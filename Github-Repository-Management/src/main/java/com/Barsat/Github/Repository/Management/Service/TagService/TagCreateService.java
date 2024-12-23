@@ -7,6 +7,7 @@ import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
 import com.Barsat.Github.Repository.Management.Repository.TagRepository;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
+import com.Barsat.Github.Repository.Management.Service.UtilityService.GetAuthenticatedUserName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,28 +29,16 @@ public class TagCreateService {
     @Autowired
     private GithubReposRepository githubReposRepository;
 
+    @Autowired
+    private GetAuthenticatedUserName getAuthenticatedUserName;
+
     public void createTag(TagDTO tag){
 
         //list to set in githubRepoEntity List
         List<GithubRepoEntity> githubRepoEntities = new ArrayList<>();
 
 
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = null;
-
-        if(authentication != null && authentication.getPrincipal() instanceof OAuth2User){
-            OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
-            username = oauth2User.getAttribute("name");
-            System.out.println(username);
-
-        }
-
-        else{
-
-            username = authentication.getName();
-
-        }
+        String username = getAuthenticatedUserName.getUsername();
 
         TheUser masterUser = userRepo.findByUsername(username);
 
