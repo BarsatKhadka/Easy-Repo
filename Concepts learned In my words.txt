@@ -112,3 +112,7 @@ There is no orphanRemoval in many to many relationships.
 
 If sometimes you cannot use .get even after having lombok or getters , just see if the class is private man.
 
+Sometimes csrf can return null. Just see if you have disabled it previously to run tests.
+
+And sometimes data cannot be fetched due to backReference issue.
+

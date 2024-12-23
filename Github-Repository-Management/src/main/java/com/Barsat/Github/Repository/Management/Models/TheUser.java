@@ -68,6 +68,7 @@ public class TheUser {
     private List<RepoCollectionsEntity> repoCollectionsEntity = new ArrayList<>();
 
     @OneToMany(mappedBy = "masterUser" , cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<TagEntity> tagEntity = new ArrayList<>();
 
 

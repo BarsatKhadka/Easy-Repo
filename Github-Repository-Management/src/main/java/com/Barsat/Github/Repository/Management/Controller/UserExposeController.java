@@ -21,16 +21,17 @@ public class UserExposeController {
 
     @GetMapping
     public Map<String,Object> getUser(@AuthenticationPrincipal OAuth2User principal , Authentication authentication , HttpServletRequest request) {
+
         Map<String,Object> userStatus = new HashMap<>();
 
         boolean isAuthenticated = authentication != null  && authentication.isAuthenticated() ;
         if (isAuthenticated && principal != null) {
             System.out.println("isAuthenticated");
 
-            return Map.of("username: ", "idk",
-                    "email: ", "idk",
+            return Map.of("username: ", principal.getAttribute("name"),
+                    "email: ", principal.getAttribute("email"),
                     "isAuthenticated", true,
-                    "csrfController" , "some here");
+                    "csrfController" , (CsrfToken) request.getAttribute(CsrfToken.class.getName()));
         }
         else{
             return Map.of(
