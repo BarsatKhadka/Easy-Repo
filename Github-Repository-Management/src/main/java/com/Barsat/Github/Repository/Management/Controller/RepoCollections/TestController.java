@@ -3,6 +3,7 @@ package com.Barsat.Github.Repository.Management.Controller.RepoCollections;
 
 import com.Barsat.Github.Repository.Management.Service.TreeServices.GetRepoSHAKey;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
+import com.Barsat.Github.Repository.Management.Service.TreeServices.TreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,28 +22,14 @@ public class TestController {
     @Autowired
     private GetRepoSHAKey getRepoSHAKey;
 
-//    @Autowired
-//    private TreeService treeService;
-
-    RestTemplate restTemplate = new RestTemplate();
-
-    @GetMapping("/getCommit")
-    public String getCommit() throws Exception {
-        return getRepoSHAKey.getSHA();
-    }
+    @Autowired
+    private TreeService treeService;
 
     @GetMapping("/getTree")
     public String getTree() {
-//        return treeService.getTree();
-
-        return "hello";
-
+        return treeService.getTree();
 
     }
 
-    @GetMapping("/access")
-    public String getAccess() {
-        return oAuthService.getAccessToken();
-    }
 
 }

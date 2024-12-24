@@ -19,11 +19,14 @@ public class GetRepoSHAKey {
 
     private String accessToken;
 
-    @Autowired
-    private OAuthService oAuthService;
 
-    @Autowired
-    private SHAResponse shaResponse;
+    private final OAuthService oAuthService;
+    private final SHAResponse shaResponse;
+
+    public GetRepoSHAKey(OAuthService oAuthService, SHAResponse shaResponse) {
+        this.oAuthService = oAuthService;
+        this.shaResponse = shaResponse;
+    }
 
     RestTemplate restTemplate = new RestTemplate();
 
