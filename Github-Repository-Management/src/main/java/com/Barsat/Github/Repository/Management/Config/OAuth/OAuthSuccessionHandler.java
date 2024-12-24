@@ -111,6 +111,9 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         repoCollectionsService.setUsername(name);
         repoCollectionsService.allCollection();
 
+        //setting access token for use across the application
+        oAuthService.setAccessToken(accessToken);
+
         String jwtToken = jwtUtils.generateToken(userName);
         response.setHeader("Authorization", "Bearer " + jwtToken);
 
