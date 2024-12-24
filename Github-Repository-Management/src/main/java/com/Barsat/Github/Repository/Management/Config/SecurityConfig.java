@@ -32,17 +32,19 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private MyUserDetailsService userDetailsService;
-
-    @Autowired
-    private JwtFilter jwtFilter;
+    private final MyUserDetailsService userDetailsService;
+    private final JwtFilter jwtFilter;
+    private final OAuthSuccessionHandler oAuthSuccessionHandler;
 
 
     private AuthenticationManager authenticationManager;
 //
-    @Autowired
-    private OAuthSuccessionHandler oAuthSuccessionHandler;
+
+    public SecurityConfig(MyUserDetailsService userDetailsService, JwtFilter jwtFilter,OAuthSuccessionHandler oAuthSuccessionHandler) {
+        this.userDetailsService = userDetailsService;
+        this.jwtFilter = jwtFilter;
+        this.oAuthSuccessionHandler = oAuthSuccessionHandler;
+    }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {

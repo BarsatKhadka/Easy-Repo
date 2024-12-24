@@ -22,33 +22,36 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 @Component
 public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
 
-    @Autowired
-    private UserRepo userRepo;
+    //field injection is not reccomended so using constructor injection
+    private final UserRepo userRepo;
+    private final OAuthService oAuthService;
+    private final RepoCollectionsService repoCollectionsService;
+    private final GithubFetchSaveService githubFetchSaveService;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    private OAuthService oAuthService;
+    public OAuthSuccessionHandler(UserRepo userRepo,
+                                  OAuthService oAuthService,
+                                  RepoCollectionsService repoCollectionsService,
+                                  GithubFetchSaveService githubFetchSaveService,
+                                  JwtUtils jwtUtils) {
+        this.userRepo = userRepo;
+        this.oAuthService = oAuthService;
+        this.repoCollectionsService = repoCollectionsService;
+        this.githubFetchSaveService = githubFetchSaveService;
+        this.jwtUtils = jwtUtils;
+    }
 
-    @Autowired
-    private RepoCollectionsService repoCollectionsService;
-
-    //setting githubFetchService so that we can extract the user's data from here to githubFetchService class. (The name can be misleading)
-    @Autowired
-    private GithubFetchSaveService githubFetchSaveService;
 
 
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
     private String clientId;
 
     private String userName;
-
-    @Autowired
-    private JwtUtils jwtUtils;
 
 
     @Override
@@ -109,10 +112,12 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         //also do it only after saving the user because if you do it before saving the user it will return null the first login hence it won't be mapped at first login.
         githubFetchSaveService.fetchSaveRepositories(name,accessToken);
         repoCollectionsService.setUsername(name);
+
+        //all collection is made as soon as user is authenticated.
         repoCollectionsService.allCollection();
 
         //setting access token for use across the application
-        oAuthService.setAccessToken(accessToken);
+
 
         String jwtToken = jwtUtils.generateToken(userName);
         response.setHeader("Authorization", "Bearer " + jwtToken);

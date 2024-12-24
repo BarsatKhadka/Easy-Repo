@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/easyrepo/tags")
 public class TagController {
 
-    @Autowired
-    private TagCreateService tagCreateService;
+    private final TagCreateService tagCreateService;
+    public TagController(TagCreateService tagCreateService) {
+        this.tagCreateService = tagCreateService;
+    }
 
     @PostMapping("/create")
     public String createTag(@RequestBody TagDTO tag) {

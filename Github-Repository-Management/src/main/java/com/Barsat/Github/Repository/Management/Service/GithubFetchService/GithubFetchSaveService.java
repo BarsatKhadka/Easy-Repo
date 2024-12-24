@@ -24,16 +24,16 @@ import java.util.List;
 @Setter
 public class GithubFetchSaveService {
 
-    private OAuthService oAuthService;
+    private final OAuthService oAuthService;
+    private final GithubReposRepository githubReposRepository;
+    private final UserRepo userRepo;
 
-    @Autowired
-    private GithubReposRepository githubReposRepository;
 
-    @Autowired
-    private UserRepo userRepo;
 
-    public GithubFetchSaveService(OAuthService oAuthService) {
+    public GithubFetchSaveService(OAuthService oAuthService, GithubReposRepository githubReposRepository, UserRepo userRepo) {
         this.oAuthService = oAuthService;
+        this.githubReposRepository = githubReposRepository;
+        this.userRepo = userRepo;
     }
 
     private final String baseUrl = "https://api.github.com";

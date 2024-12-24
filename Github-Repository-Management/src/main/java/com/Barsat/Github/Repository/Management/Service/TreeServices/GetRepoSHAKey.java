@@ -1,7 +1,9 @@
-package com.Barsat.Github.Repository.Management.Models.TreeModels;
+package com.Barsat.Github.Repository.Management.Service.TreeServices;
 
 import com.Barsat.Github.Repository.Management.Models.ResponseModels.SHAResponse;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
+@Getter
+@Setter
 public class GetRepoSHAKey {
+
+    private String accessToken;
 
     @Autowired
     private OAuthService oAuthService;
@@ -21,7 +27,7 @@ public class GetRepoSHAKey {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    public String getSHA() throws Exception {
+    public String getSHA()  {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/vnd.github+json");
         headers.set("Authorization" , "Bearer "+ oAuthService.getAccessToken());
@@ -34,5 +40,7 @@ public class GetRepoSHAKey {
         return shaResponse.sha(response.getBody());
 
     }
+
+
 
 }

@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/easyrepo/collections")
 public class CollectionsController {
 
-    @Autowired
-    private RepoCollectionCreate repoCollectionsCreate;
+    private final RepoCollectionCreate repoCollectionsCreate;
+    private final RepoCollectionGet repoCollectionGet;
 
-    @Autowired
-    private RepoCollectionGet repoCollectionGet;
+    public CollectionsController(RepoCollectionCreate repoCollectionsCreate, RepoCollectionGet repoCollectionGet) {
+        this.repoCollectionsCreate = repoCollectionsCreate;
+        this.repoCollectionGet = repoCollectionGet;
+    }
 
     @GetMapping("/all")
     public RepoCollectionsEntity allRepoCollections(){

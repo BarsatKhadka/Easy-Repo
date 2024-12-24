@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/easyrepo/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
-    @Autowired
-    private UserRepo userRepo;
+
+    private final AuthService authService;
+    private final UserRepo userRepo;
+
+    public AuthController(AuthService authService, UserRepo userRepo) {
+        this.authService = authService;
+        this.userRepo = userRepo;
+    }
 
     @GetMapping("/hello")
     public String hello() {

@@ -22,14 +22,15 @@ import java.util.List;
 @Setter
 public class RepoCollectionsService {
 
-    @Autowired
-    private GithubReposRepository githubReposRepository;
+    private final GithubReposRepository githubReposRepository;
+    private final RepoCollectionsRepository repoCollectionsRepository;
+    private final UserRepo userRepo;
 
-    @Autowired
-    private RepoCollectionsRepository repoCollectionsRepository;
-
-    @Autowired
-    private UserRepo userRepo;
+    public RepoCollectionsService(GithubReposRepository githubReposRepository, RepoCollectionsRepository repoCollectionsRepository, UserRepo userRepo) {
+        this.githubReposRepository = githubReposRepository;
+        this.repoCollectionsRepository = repoCollectionsRepository;
+        this.userRepo = userRepo;
+    }
 
     private String username;
 

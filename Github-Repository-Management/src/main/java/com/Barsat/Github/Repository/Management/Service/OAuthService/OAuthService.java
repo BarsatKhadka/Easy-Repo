@@ -24,6 +24,7 @@ import java.util.Map;
 @Data
 @Service
 public class OAuthService {
+
     private String code;
 
     public String accessToken;
@@ -55,4 +56,6 @@ public class OAuthService {
         }
 
     }
+
+
 }
