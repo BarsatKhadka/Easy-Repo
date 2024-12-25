@@ -1,9 +1,11 @@
     package com.Barsat.Github.Repository.Management.Service.TreeServices;
 
     import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
+    import com.Barsat.Github.Repository.Management.Models.ResponseModels.TreeStructureResponse;
     import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
     import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
     import com.Barsat.Github.Repository.Management.Service.UtilityService.GetAuthenticatedUserName;
+    import com.fasterxml.jackson.core.JsonProcessingException;
     import com.fasterxml.jackson.databind.ObjectMapper;
     import org.springframework.http.HttpEntity;
     import org.springframework.http.HttpHeaders;
@@ -58,6 +60,15 @@
 
         public String getTree(Integer repoId) {
             String treeStringStructure = getTreeString(repoId);
+
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                TreeStructureResponse treeStructureResponse = mapper.readValue(treeStringStructure, TreeStructureResponse.class);
+                System.out.println(treeStructureResponse);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+
 
             return treeStringStructure;
         }
