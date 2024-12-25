@@ -124,4 +124,6 @@ I have used object mapper and jsonnode way to get sha key deserialization instea
 
 Field injection is not reccomended! I had been using field injection all the way and it is not reccomended because of testing challenges and hidden transparency.
 
+Use static classes when the class is Independent of Outer Class Instance but still relates to it somehow. A static class doesnot hold implicit reference of outer class.
+
 

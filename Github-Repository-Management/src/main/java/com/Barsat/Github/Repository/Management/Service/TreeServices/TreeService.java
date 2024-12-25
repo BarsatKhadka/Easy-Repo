@@ -4,12 +4,17 @@
     import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
     import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
     import com.Barsat.Github.Repository.Management.Service.UtilityService.GetAuthenticatedUserName;
+    import com.fasterxml.jackson.databind.ObjectMapper;
     import org.springframework.http.HttpEntity;
     import org.springframework.http.HttpHeaders;
     import org.springframework.http.HttpMethod;
     import org.springframework.http.ResponseEntity;
     import org.springframework.stereotype.Service;
     import org.springframework.web.client.RestTemplate;
+
+    import java.util.HashMap;
+    import java.util.Map;
+    import java.util.TreeMap;
 
     @Service
     public class TreeService {
@@ -30,7 +35,7 @@
             this.getAuthenticatedUserName = getAuthenticatedUserName;
         }
 
-        public String getTree(Integer repoId) {
+        public String getTreeString(Integer repoId) {
 
 
             GithubRepoEntity githubRepoEntity = githubReposRepository.findById(repoId).orElse(null);
@@ -49,6 +54,12 @@
             HttpEntity<String> entity = new HttpEntity<>(headers);
             ResponseEntity<String> response = restTemplate.exchange( url , HttpMethod.GET, entity, String.class);
             return response.getBody();
+        }
+
+        public String getTree(Integer repoId) {
+            String treeStringStructure = getTreeString(repoId);
+
+            return treeStringStructure;
         }
 
 
