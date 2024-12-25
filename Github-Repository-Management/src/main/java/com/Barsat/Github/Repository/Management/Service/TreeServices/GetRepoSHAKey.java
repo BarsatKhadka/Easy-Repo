@@ -30,14 +30,14 @@ public class GetRepoSHAKey {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    public String getSHA()  {
+    public String getSHA(String RepoName , String username)  {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/vnd.github+json");
         headers.set("Authorization" , "Bearer "+ oAuthService.getAccessToken());
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         //all response is fetched.
-        ResponseEntity<String> response = restTemplate.exchange("https://api.github.com/repos/barsatKhadka/Github-Repository-Management-System/commits?per_page=1", HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange("https://api.github.com/repos/"+ username +"/"+ RepoName+ "/commits?per_page=1", HttpMethod.GET, entity, String.class);
 
         //pass all response and get only sha (in string).
         return shaResponse.sha(response.getBody());

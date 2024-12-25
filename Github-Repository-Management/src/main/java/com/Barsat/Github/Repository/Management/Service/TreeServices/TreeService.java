@@ -36,8 +36,10 @@
             GithubRepoEntity githubRepoEntity = githubReposRepository.findById(repoId).orElse(null);
 
             String RepoName = githubRepoEntity.getName();
-            String SHAKey = getRepoSHAKey.getSHA();
             String username = getAuthenticatedUserName.getUsername();
+
+            //give sha key method reponame and username to get the right tree's sha key
+            String SHAKey = getRepoSHAKey.getSHA(RepoName , username);
 
             String url = "https://api.github.com/repos/"+ username+ "/"+RepoName+"/git/trees/"+SHAKey;
 
