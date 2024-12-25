@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,9 +26,19 @@ public class TestController {
     @Autowired
     private TreeService treeService;
 
-    @GetMapping("/getTree")
-    public String getTree() {
-        return treeService.getTree();
+    RestTemplate restTemplate = new RestTemplate();
+
+    @GetMapping("/getCommit")
+    public String getCommit() {
+        return getRepoSHAKey.getSHA();
+    }
+
+    @GetMapping("/getTree/{repoId}")
+    public String getTree(@PathVariable Integer repoId) {
+        return treeService.getTree(repoId);
+
+//        return "hello";
+
 
     }
 
