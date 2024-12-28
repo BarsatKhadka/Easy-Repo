@@ -87,28 +87,13 @@
             //TreeStructureResponse tree type iterating tree[] of treeStructureResponse
             for(TreeStructureResponse.tree tree :treeStructureResponse.getTree()) {
 
-                //if the path inside tree does not contain '/' then it is the first path and if it equals blobs then it has no more directory ,so false for directory
-                if (!tree.getPath().contains("/") && tree.getType().equals("blob")) {
-
-                    //Add that path and create new node for that path
-                    Node blobNodes = new Node(tree.getPath(), parentNode , false);
-
-                    // add that first iteration node to parent node (addChildrenToParent) is defined in my node class.
-                    parentNode.addChildrenToParent(parentNode,blobNodes);
-
-                    //add this name to fileNames so that duplicate is not created. Not so useful for blob type but regardless we add.
-                    fileNames.add(tree.getPath());
-
-                }
-
-                else if (!tree.getPath().contains("/") && tree.getType().equals("tree")) {
-
-                    Node continuingNode = new Node(tree.getPath(), parentNode , true);
-                    parentNode.addChildrenToParent(parentNode,continuingNode);
-
-                    //since this is a directory path , it is important to add it to fileNames because it will reoccur.
+                //if it doesnot contain '/' then it is the first child the node is made for them before anything.
+                if(!tree.getPath().contains("/")){
+                    Node firstChildNode = new Node(tree.getPath(), parentNode, tree.getType() == "tree");
+                    parentNode.addChildrenToParent(firstChildNode);
                     fileNames.add(tree.getPath());
                 }
+
 
                 // else case if tree.getPath contains '/' , it needs to be iterated and done accordingly.
                 else{
@@ -132,7 +117,7 @@
                             Node node = new Node(split.get(i), ParentNode , tree.getType() == "tree");
 
                             //add this children node to parent node (one position previous node)
-                            ParentNode.addChildrenToParent(ParentNode,node);
+                            ParentNode.addChildrenToParent(node);
 
                             //add the /path to filename
                             fileNames.add(split.get(i));
@@ -152,7 +137,7 @@
 
 
 
-            System.out.println(parentNode.toStringHelper(parentNode,8));
+            System.out.println(parentNode.toStringHelper(parentNode,20));
             return treeStructureResponse.toString();
         }
 

@@ -127,3 +127,6 @@ Field injection is not reccomended! I had been using field injection all the way
 Use static classes when the class is Independent of Outer Class Instance but still relates to it somehow. A static class doesnot hold implicit reference of outer class.
 
 
+Problem in tree Structure implementation is : if two files named same are present in the tree then all files will be assigned in the first file because second file is not stored due to hashmap. Only one is stored.
+
+

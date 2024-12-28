@@ -21,8 +21,8 @@ public class Node {
         this.isDirectory = isDirectory;
     }
 
-    public void addChildrenToParent(Node parent , Node children){
-        parent.children.add(children);
+    public void addChildrenToParent(Node children){
+        this.children.add(children);
 
     }
 
