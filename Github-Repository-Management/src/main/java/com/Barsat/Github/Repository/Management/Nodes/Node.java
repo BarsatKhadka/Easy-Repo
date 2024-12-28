@@ -13,12 +13,14 @@ public class Node {
     public String name;
     public boolean isDirectory;
     public Node parent;
+    public String path;
     public List<Node> children = new ArrayList<>();
 
-    public Node(String name , Node parent , boolean isDirectory) {
+    public Node(String name , Node parent , boolean isDirectory , String path) {
         this.name = name;
         this.parent = parent;
         this.isDirectory = isDirectory;
+        this.path = path;
     }
 
     public void addChildrenToParent(Node children){
@@ -54,7 +56,9 @@ public class Node {
 
 
         sb.append(node.getName()).append("\n");
+//        sb.append(node.getPath()).append("\n");
 //        sb.append(node.isDirectory);
+
 
 
 
