@@ -66,7 +66,6 @@ public class TreeService {
         headers.set("Authorization" , "Bearer "+ oAuthService.getAccessToken());
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange( url , HttpMethod.GET, entity, String.class);
-        System.out.println(response.getBody());
         return Arrays.asList(response.getBody() , RepoName , RepoUrl , RepoBranch);
     }
 
@@ -78,7 +77,6 @@ public class TreeService {
         //all details collected to form a individual files url because github doesnot provide that.
         String repoName = treeStringStructure.get(1);
         String repoUrl = treeStringStructure.get(2);
-        String username = getAuthenticatedUserName.getUsername();
         String repoBranch = treeStringStructure.get(3);
 
         TreeStructureResponse treeStructureResponse;
@@ -119,9 +117,6 @@ public class TreeService {
 
                 //constructing individual url for every path.
                 String formattedUrl = getFormattedURL.getURL(rawUrl);
-
-                System.out.println(formattedUrl);
-
 
                 Node firstChildNode = new Node(tree.getPath()+tree.getPath(), parentNode, tree.getType().equals("tree") , tree.getPath() , tree.getPath() , formattedUrl);
                 parentNode.addChildrenToParent(firstChildNode);
@@ -181,7 +176,6 @@ public class TreeService {
 
 
 
-        System.out.println(parentNode.toStringHelper(parentNode,10));
         return parentNode;
 
     }
