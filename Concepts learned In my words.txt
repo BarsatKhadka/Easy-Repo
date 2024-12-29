@@ -135,4 +135,6 @@ URL Encoder encodes the query's but it does not work so well while encoding the 
 
 Using user's access token lowers there limit of 5000 per hour , not my OAUth app limit.
 
+In entity classes , if you define your class itself in its field like i have done in NodeEntity then it creates a hierarchial relationships. This is the way to store hierarchial relationships.
+
 

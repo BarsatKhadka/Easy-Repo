@@ -35,7 +35,10 @@ public class TreeService {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    public TreeService(GetRepoSHAKey getRepoSHAKey , OAuthService oAuthService, GithubReposRepository githubReposRepository , GetAuthenticatedUserName getAuthenticatedUserName , GetFormattedURL getFormattedURL) {
+    public TreeService(GetRepoSHAKey getRepoSHAKey , OAuthService oAuthService, GithubReposRepository githubReposRepository ,
+                       GetAuthenticatedUserName getAuthenticatedUserName , GetFormattedURL getFormattedURL
+
+    ) {
         this.getRepoSHAKey = getRepoSHAKey;
         this.oAuthService = oAuthService;
         this.githubReposRepository = githubReposRepository;
@@ -93,6 +96,9 @@ public class TreeService {
 
         //parent node with repository name and null parent , it is always a directory
         Node parentNode = new Node(repoName , null , true , repoName, repoName , null);
+
+
+
 
             /*
             to store filenames so that there is no duplicate. After iterating a path like eg- git/barsat/src , i store every git , barsat and src but if i come
@@ -172,6 +178,8 @@ public class TreeService {
 
             }
         }
+
+
 
         System.out.println(parentNode.toStringHelper(parentNode,10));
         return parentNode;
