@@ -129,4 +129,6 @@ Use static classes when the class is Independent of Outer Class Instance but sti
 
 Problem in tree Structure implementation is : if two files named same are present in the tree then all files will be assigned in the first file because second file is not stored due to hashmap. Only one is stored.
 
+Whenever data is serialized to json , there is high chance of recursion in parent-child relationships. Recognize getter setters and add @JsonIgnore. for this type of issue.
+
 

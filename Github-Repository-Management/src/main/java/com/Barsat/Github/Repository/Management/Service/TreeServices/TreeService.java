@@ -57,7 +57,7 @@ public class TreeService {
         return Arrays.asList(response.getBody() , RepoName);
     }
 
-    public String getTree(Integer repoId) {
+    public Node getTree(Integer repoId) {
         List<String> treeStringStructure = getTreeString(repoId);
 
         String treeString = treeStringStructure.get(0);
@@ -112,7 +112,7 @@ public class TreeService {
                     //if fileNames does not contain the current iteration of split then there is no node for it. Make loop to create it
                     if(!fileNames.contains(split.get(i) + split.get(0))){
 
-                        
+
                         // i was first suprised when this worked lol.
                         //adding the get(0) [first directory name] so that two different parent nodes with same filename not get jumbled.
                         Node ParentNode = parentNode.accessAnyNode(split.get(i - 1)+split.get(0));
@@ -131,7 +131,9 @@ public class TreeService {
 
 
 
+
                 }
+
 
 //                    System.out.println(split);
 
@@ -141,7 +143,7 @@ public class TreeService {
         }
 
         System.out.println(parentNode.toStringHelper(parentNode,10));
-        return treeStructureResponse.toString();
+        return parentNode;
     }
 
 

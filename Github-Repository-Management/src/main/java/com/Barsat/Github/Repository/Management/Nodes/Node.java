@@ -1,11 +1,16 @@
 package com.Barsat.Github.Repository.Management.Nodes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,7 +19,7 @@ public class Node {
     public boolean isDirectory;
     public Node parent;
     public String path;
-    public List<Node> children = new ArrayList<>();
+    public Set<Node> children = new HashSet<>();
 
     public Node(String name , Node parent , boolean isDirectory , String path) {
         this.name = name;
@@ -26,6 +31,11 @@ public class Node {
     public void addChildrenToParent(Node children){
         this.children.add(children);
 
+    }
+
+    @JsonIgnore
+    public Node getParent(){
+        return parent;
     }
 
 
@@ -44,6 +54,8 @@ public class Node {
         }
         return null;
     }
+
+
 
 
     // Helper method  generate a string representation of the tree structure
@@ -68,6 +80,8 @@ public class Node {
 
         return sb.toString();
     }
+
+
 
 
 }
