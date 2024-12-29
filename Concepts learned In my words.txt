@@ -133,4 +133,6 @@ Whenever data is serialized to json , there is high chance of recursion in paren
 
 URL Encoder encodes the query's but it does not work so well while encoding the URL so i have implemented a utility class that builds URL object then passes to URI object with different parameters and returns as ASCII String , as a ASCII string because that url will contains things like %20 for space. Beyond the reach of normal string.. sometimes.
 
+Using user's access token lowers there limit of 5000 per hour , not my OAUth app limit.
+
 
