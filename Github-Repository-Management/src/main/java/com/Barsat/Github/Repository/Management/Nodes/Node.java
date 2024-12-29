@@ -19,13 +19,16 @@ public class Node {
     public boolean isDirectory;
     public Node parent;
     public String path;
+    public String displayName;
+    public String url;
     public Set<Node> children = new HashSet<>();
 
-    public Node(String name , Node parent , boolean isDirectory , String path) {
+    public Node(String name , Node parent , boolean isDirectory , String path , String displayName , String url) {
         this.name = name;
         this.parent = parent;
         this.isDirectory = isDirectory;
         this.path = path;
+        this.displayName = displayName;
     }
 
     public void addChildrenToParent(Node children){

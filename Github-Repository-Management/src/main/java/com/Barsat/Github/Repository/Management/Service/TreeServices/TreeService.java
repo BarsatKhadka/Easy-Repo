@@ -42,6 +42,7 @@ public class TreeService {
         GithubRepoEntity githubRepoEntity = githubReposRepository.findById(repoId).orElse(null);
 
         String RepoName = githubRepoEntity.getName();
+        String RepoUrl = githubRepoEntity.getHtml_url();
         String username = getAuthenticatedUserName.getUsername();
 
         //give sha key method reponame and username to get the right tree's sha key
@@ -54,14 +55,19 @@ public class TreeService {
         headers.set("Authorization" , "Bearer "+ oAuthService.getAccessToken());
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange( url , HttpMethod.GET, entity, String.class);
-        return Arrays.asList(response.getBody() , RepoName);
+        System.out.println(response.getBody());
+        return Arrays.asList(response.getBody() , RepoName , RepoUrl);
     }
 
     public Node getTree(Integer repoId) {
         List<String> treeStringStructure = getTreeString(repoId);
 
         String treeString = treeStringStructure.get(0);
+
+        //all details collected to form a individual files url because github doesnot provide that.
         String repoName = treeStringStructure.get(1);
+        String repoUrl = treeStringStructure.get(2);
+        String username = getAuthenticatedUserName.getUsername();
 
         TreeStructureResponse treeStructureResponse;
 
@@ -75,7 +81,7 @@ public class TreeService {
 
 
         //parent node with repository name and null parent , it is always a directory
-        Node parentNode = new Node(repoName , null , true , repoName);
+        Node parentNode = new Node(repoName , null , true , repoName, repoName , null);
 
             /*
             to store filenames so that there is no duplicate. After iterating a path like eg- git/barsat/src , i store every git , barsat and src but if i come
@@ -89,7 +95,7 @@ public class TreeService {
 
             //if it doesnot contain '/' then it is the first child the node is made for them before anything.
             if(!tree.getPath().contains("/")){
-                Node firstChildNode = new Node(tree.getPath()+tree.getPath(), parentNode, tree.getType().equals("tree") , tree.getPath());
+                Node firstChildNode = new Node(tree.getPath()+tree.getPath(), parentNode, tree.getType().equals("tree") , tree.getPath() , tree.getPath() , null);
                 parentNode.addChildrenToParent(firstChildNode);
                 fileNames.add(tree.getPath());
             }
@@ -99,6 +105,7 @@ public class TreeService {
             else{
 
                 String wholePath = tree.getPath();
+
 
                     /*  get all the paths related on list of strings , if git/barsat/src then git , barsat and src will come. This way i can track because barsat
                     is inside git and src is inside barsat.
@@ -118,7 +125,7 @@ public class TreeService {
                         Node ParentNode = parentNode.accessAnyNode(split.get(i - 1)+split.get(0));
 
                         //new node if filename does not contain it. Parent node is always one position beofe it , access that node.
-                        Node node = new Node(split.get(i)+split.get(0), ParentNode , tree.getType().equals("tree") , wholePath);
+                        Node node = new Node(split.get(i)+split.get(0), ParentNode , tree.getType().equals("tree") , wholePath , split.get(i) , null);
 
                         //add this children node to parent node (one position previous node)
                         ParentNode.addChildrenToParent(node);
@@ -144,7 +151,9 @@ public class TreeService {
 
         System.out.println(parentNode.toStringHelper(parentNode,10));
         return parentNode;
+
     }
+
 
 
 
