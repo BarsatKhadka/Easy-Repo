@@ -6,6 +6,7 @@ import com.Barsat.Github.Repository.Management.Nodes.Node;
 import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
 import com.Barsat.Github.Repository.Management.Service.UtilityService.GetAuthenticatedUserName;
+import com.Barsat.Github.Repository.Management.Service.UtilityService.GetFormattedURL;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
@@ -28,16 +29,18 @@ public class TreeService {
     private final OAuthService oAuthService;
     private final GithubReposRepository githubReposRepository;
     private final GetAuthenticatedUserName getAuthenticatedUserName;
+    private final GetFormattedURL getFormattedURL;
 
 
 
     RestTemplate restTemplate = new RestTemplate();
 
-    public TreeService(GetRepoSHAKey getRepoSHAKey , OAuthService oAuthService, GithubReposRepository githubReposRepository , GetAuthenticatedUserName getAuthenticatedUserName) {
+    public TreeService(GetRepoSHAKey getRepoSHAKey , OAuthService oAuthService, GithubReposRepository githubReposRepository , GetAuthenticatedUserName getAuthenticatedUserName , GetFormattedURL getFormattedURL) {
         this.getRepoSHAKey = getRepoSHAKey;
         this.oAuthService = oAuthService;
         this.githubReposRepository = githubReposRepository;
         this.getAuthenticatedUserName = getAuthenticatedUserName;
+        this.getFormattedURL = getFormattedURL;
     }
 
     public List<String> getTreeString(Integer repoId) {
@@ -101,16 +104,20 @@ public class TreeService {
         //TreeStructureResponse tree type iterating tree[] of treeStructureResponse
         for(TreeStructureResponse.tree tree :treeStructureResponse.getTree()) {
 
+            String baseUrl = repoUrl + "/" + "tree" + "/" + repoBranch + "/";
+
             //if it doesnot contain '/' then it is the first child the node is made for them before anything.
             if(!tree.getPath().contains("/")){
 
-                String url = repoUrl + "/" + "tree" + "/" + repoBranch + "/" + tree.getPath();
+                String rawUrl =  baseUrl + tree.getPath();
 
                 //constructing individual url for every path.
+                String formattedUrl = getFormattedURL.getURL(rawUrl);
+
+                System.out.println(formattedUrl);
 
 
-
-                Node firstChildNode = new Node(tree.getPath()+tree.getPath(), parentNode, tree.getType().equals("tree") , tree.getPath() , tree.getPath() , url);
+                Node firstChildNode = new Node(tree.getPath()+tree.getPath(), parentNode, tree.getType().equals("tree") , tree.getPath() , tree.getPath() , formattedUrl);
                 parentNode.addChildrenToParent(firstChildNode);
                 fileNames.add(tree.getPath());
             }
@@ -119,7 +126,9 @@ public class TreeService {
             // else case if tree.getPath contains '/' , it needs to be iterated and done accordingly.
             else{
 
-                String wholePath = tree.getPath();
+                String rawUrl =  baseUrl + tree.getPath();
+                String formattedUrl = getFormattedURL.getURL(rawUrl);
+
 
 
                     /*  get all the paths related on list of strings , if git/barsat/src then git , barsat and src will come. This way i can track because barsat
@@ -140,7 +149,7 @@ public class TreeService {
                         Node ParentNode = parentNode.accessAnyNode(split.get(i - 1)+split.get(0));
 
                         //new node if filename does not contain it. Parent node is always one position beofe it , access that node.
-                        Node node = new Node(split.get(i)+split.get(0), ParentNode , tree.getType().equals("tree") , wholePath , split.get(i) , null);
+                        Node node = new Node(split.get(i)+split.get(0), ParentNode , tree.getType().equals("tree") , tree.getPath() , split.get(i) , formattedUrl);
 
                         //add this children node to parent node (one position previous node)
                         ParentNode.addChildrenToParent(node);
