@@ -29,6 +29,7 @@ public class Node {
         this.isDirectory = isDirectory;
         this.path = path;
         this.displayName = displayName;
+        this.url = url;
     }
 
     public void addChildrenToParent(Node children){
@@ -71,6 +72,7 @@ public class Node {
 
 
         sb.append(node.getName()).append("\n");
+        sb.append(node.getUrl()).append("\n");
 //        sb.append(node.getPath()).append("\n");
 //        sb.append(node.isDirectory);
 

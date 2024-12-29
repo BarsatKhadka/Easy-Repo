@@ -45,6 +45,9 @@ public class GithubRepoResponse {
     @JsonProperty("language")
     private String Language;
 
+    @JsonProperty("default_branch")
+    private String DefaultBranch;
+
 
 
 }

@@ -67,6 +67,7 @@ public class RepoCollectionsService {
         repoCollectionsEntity.setCollectionDescription("Access all your repositories from here. This is a default collection and cannot be deleted.");
         repoCollectionsEntity.setMasterUser(masterUser);
         repoCollectionsEntity.setRepositoryCount(githubReposRepository.findAll().size());
+
         //repoCollectionsEntity.setGithubRepo(githubReposRepository.findAll()); setting like this is wrong because i set those githubRepoEntity that do not have collections set in them
 
 

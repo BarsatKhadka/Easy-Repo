@@ -43,6 +43,8 @@ public class GithubRepoEntity {
 
     private int watchers_count;
 
+    private String default_branch;
+
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "master_id", referencedColumnName = "masterId"),

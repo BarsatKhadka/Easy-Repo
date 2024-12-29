@@ -15,6 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.*;
 
 @Service
@@ -43,6 +47,7 @@ public class TreeService {
 
         String RepoName = githubRepoEntity.getName();
         String RepoUrl = githubRepoEntity.getHtml_url();
+        String RepoBranch = githubRepoEntity.getDefault_branch();
         String username = getAuthenticatedUserName.getUsername();
 
         //give sha key method reponame and username to get the right tree's sha key
@@ -56,7 +61,7 @@ public class TreeService {
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange( url , HttpMethod.GET, entity, String.class);
         System.out.println(response.getBody());
-        return Arrays.asList(response.getBody() , RepoName , RepoUrl);
+        return Arrays.asList(response.getBody() , RepoName , RepoUrl , RepoBranch);
     }
 
     public Node getTree(Integer repoId) {
@@ -68,6 +73,7 @@ public class TreeService {
         String repoName = treeStringStructure.get(1);
         String repoUrl = treeStringStructure.get(2);
         String username = getAuthenticatedUserName.getUsername();
+        String repoBranch = treeStringStructure.get(3);
 
         TreeStructureResponse treeStructureResponse;
 
@@ -78,6 +84,8 @@ public class TreeService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
+
 
 
         //parent node with repository name and null parent , it is always a directory
@@ -95,7 +103,14 @@ public class TreeService {
 
             //if it doesnot contain '/' then it is the first child the node is made for them before anything.
             if(!tree.getPath().contains("/")){
-                Node firstChildNode = new Node(tree.getPath()+tree.getPath(), parentNode, tree.getType().equals("tree") , tree.getPath() , tree.getPath() , null);
+
+                String url = repoUrl + "/" + "tree" + "/" + repoBranch + "/" + tree.getPath();
+
+                //constructing individual url for every path.
+
+
+
+                Node firstChildNode = new Node(tree.getPath()+tree.getPath(), parentNode, tree.getType().equals("tree") , tree.getPath() , tree.getPath() , url);
                 parentNode.addChildrenToParent(firstChildNode);
                 fileNames.add(tree.getPath());
             }

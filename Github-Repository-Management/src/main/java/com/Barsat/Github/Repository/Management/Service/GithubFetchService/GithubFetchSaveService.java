@@ -80,6 +80,7 @@ public class GithubFetchSaveService {
             repositoryEntity.setPrivate(githubRepoResponse.isPrivate());
             repositoryEntity.setWatchers_count(githubRepoResponse.getWatchersCount());
             repositoryEntity.setStargazers_count(githubRepoResponse.getStargazersCount());
+            repositoryEntity.setDefault_branch(githubRepoResponse.getDefaultBranch());
 
             //set the user of the repository so that foreign key can be mapped
             repositoryEntity.setMasterUser(theUser);
