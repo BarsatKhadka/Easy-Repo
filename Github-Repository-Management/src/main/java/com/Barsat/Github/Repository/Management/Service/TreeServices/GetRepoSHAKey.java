@@ -37,7 +37,8 @@ public class GetRepoSHAKey {
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         //all response is fetched.
-        ResponseEntity<String> response = restTemplate.exchange("https://api.github.com/repos/"+ username +"/"+ RepoName+ "/commits?per_page=1", HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange("https://api.github.com/repos/"+ username +"/"+ RepoName+   "/commits?per_page=1", HttpMethod.GET, entity, String.class);
+        System.out.println(response.getBody());
 
         //pass all response and get only sha (in string).
         return shaResponse.sha(response.getBody());

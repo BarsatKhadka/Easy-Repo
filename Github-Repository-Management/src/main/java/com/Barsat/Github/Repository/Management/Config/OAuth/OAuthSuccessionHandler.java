@@ -5,6 +5,7 @@ import com.Barsat.Github.Repository.Management.Models.Provider;
 import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
 import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
+import com.Barsat.Github.Repository.Management.Service.CommitGraph.CommitGraphService;
 import com.Barsat.Github.Repository.Management.Service.GithubFetchService.GithubFetchSaveService;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
 import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionsService;
@@ -33,17 +34,20 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
     private final RepoCollectionsService repoCollectionsService;
     private final GithubFetchSaveService githubFetchSaveService;
     private final JwtUtils jwtUtils;
+    private final CommitGraphService commitGraphService;
 
     public OAuthSuccessionHandler(UserRepo userRepo,
                                   OAuthService oAuthService,
                                   RepoCollectionsService repoCollectionsService,
                                   GithubFetchSaveService githubFetchSaveService,
-                                  JwtUtils jwtUtils) {
+                                  JwtUtils jwtUtils,
+                                  CommitGraphService commitGraphService) {
         this.userRepo = userRepo;
         this.oAuthService = oAuthService;
         this.repoCollectionsService = repoCollectionsService;
         this.githubFetchSaveService = githubFetchSaveService;
         this.jwtUtils = jwtUtils;
+        this.commitGraphService = commitGraphService;
     }
 
 
@@ -116,7 +120,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         //all collection is made as soon as user is authenticated.
         repoCollectionsService.allCollection();
 
-        //setting access token for use across the application
+        commitGraphService.getCommitForAllRepo();
 
 
         String jwtToken = jwtUtils.generateToken(userName);
