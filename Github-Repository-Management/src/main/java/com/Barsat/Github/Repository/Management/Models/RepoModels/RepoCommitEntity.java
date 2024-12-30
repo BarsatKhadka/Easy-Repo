@@ -1,9 +1,6 @@
 package com.Barsat.Github.Repository.Management.Models.RepoModels;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +17,15 @@ public class RepoCommitEntity {
 
     private String sha;
 
+    private String date;
+
     private String url;
+
+    @ManyToOne
+    @JoinColumn(name="parent_repo_id", referencedColumnName = "repoId")
+    private GithubRepoEntity githubRepoEntity;
+
+
 
 
 }

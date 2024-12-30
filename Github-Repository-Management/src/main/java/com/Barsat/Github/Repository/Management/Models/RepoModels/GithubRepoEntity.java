@@ -64,7 +64,8 @@ public class GithubRepoEntity {
     @ManyToMany(mappedBy = "githubRepoEntityList" , cascade = CascadeType.ALL )
     private List<TagEntity> tagEntity;
 
-
+    @OneToMany(mappedBy = "githubRepoEntity")
+    private List<RepoCommitEntity> repoCommitEntity;
 
 
 }

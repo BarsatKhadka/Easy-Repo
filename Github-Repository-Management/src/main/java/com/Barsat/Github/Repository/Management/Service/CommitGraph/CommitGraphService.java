@@ -1,7 +1,9 @@
 package com.Barsat.Github.Repository.Management.Service.CommitGraph;
 
 import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
+import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCommitEntity;
 import com.Barsat.Github.Repository.Management.Models.ResponseModels.RepoCommitResponseModel;
+import com.Barsat.Github.Repository.Management.Repository.CommitRepository;
 import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
 import com.Barsat.Github.Repository.Management.Service.TreeServices.GetRepoSHAKey;
 import com.Barsat.Github.Repository.Management.Service.UtilityService.GetAuthenticatedUserName;
@@ -22,12 +24,17 @@ public class CommitGraphService {
     private final GetAuthenticatedUserName getAuthenticatedUserName;
     private final GithubReposRepository githubReposRepository;
     private final GetRepoSHAKey getRepoSHAKey;
+    private  RepoCommitEntity repoCommitEntity;
+    private final CommitRepository commitRepository;
 
 
-    public CommitGraphService(GetAuthenticatedUserName getAuthenticatedUserName, GithubReposRepository githubReposRepository, GetRepoSHAKey getRepoSHAKey) {
+    public CommitGraphService(GetAuthenticatedUserName getAuthenticatedUserName, GithubReposRepository githubReposRepository, GetRepoSHAKey getRepoSHAKey , CommitRepository commitRepository) {
         this.getAuthenticatedUserName = getAuthenticatedUserName;
         this.githubReposRepository = githubReposRepository;
         this.getRepoSHAKey = getRepoSHAKey;
+        this.commitRepository = commitRepository;
+
+
 
     }
 
@@ -53,7 +60,12 @@ public class CommitGraphService {
                 ResponseEntity<RepoCommitResponseModel[]> response = restTemplate.exchange(url, HttpMethod.GET, entity , RepoCommitResponseModel[].class);
 
                 for(RepoCommitResponseModel repoCommitResponseModel : response.getBody()){
-
+                    RepoCommitEntity repoCommitEntity = new RepoCommitEntity();
+                    repoCommitEntity.setGithubRepoEntity(githubRepoEntity1);
+                    repoCommitEntity.setDate(repoCommitResponseModel.getCommit().getAuthor().getDate());
+                    repoCommitEntity.setMessage(repoCommitResponseModel.getCommit().getMessage());
+                    repoCommitEntity.setSha(repoCommitResponseModel.getSha());
+                    commitRepository.save(repoCommitEntity);
                     System.out.println(repoCommitResponseModel.getCommit().getMessage());
 //                    System.out.println(repoCommitResponseModel.toString());
                 }
