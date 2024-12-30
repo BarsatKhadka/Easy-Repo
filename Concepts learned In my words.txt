@@ -139,4 +139,6 @@ In entity classes , if you define your class itself in its field like i have don
 
 I will just stick to directly consuming the tree on every api call. No storing the tree in database.
 
+Put @Getter @Setter in inner classes of response models.
+
 
