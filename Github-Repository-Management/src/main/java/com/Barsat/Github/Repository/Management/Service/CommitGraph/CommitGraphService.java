@@ -42,15 +42,22 @@ public class CommitGraphService {
         headers.set("Authorization", "Bearer "+ accessToken);
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
+        String username = getAuthenticatedUserName.getUsername();
+
         for(GithubRepoEntity githubRepoEntity1 : githubRepoEntity){
             if(githubRepoEntity1!= null && !githubRepoEntity1.getName().isEmpty()){
                 String repoName = githubRepoEntity1.getName();
-                String username = getAuthenticatedUserName.getUsername();
                 String sha = getRepoSHAKey.getSHA(repoName , username);
 
                 String url = "https://api.github.com/repos/"+ username + "/" + repoName + "/commits" ;
                 ResponseEntity<RepoCommitResponseModel[]> response = restTemplate.exchange(url, HttpMethod.GET, entity , RepoCommitResponseModel[].class);
-                System.out.println(Arrays.toString(response.getBody()));
+
+                for(RepoCommitResponseModel repoCommitResponseModel : response.getBody()){
+
+                    System.out.println(repoCommitResponseModel.getCommit().getMessage());
+//                    System.out.println(repoCommitResponseModel.toString());
+                }
+
             }
 
         }
