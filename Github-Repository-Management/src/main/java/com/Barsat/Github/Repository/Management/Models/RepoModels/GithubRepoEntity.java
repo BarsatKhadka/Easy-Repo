@@ -1,7 +1,6 @@
 package com.Barsat.Github.Repository.Management.Models.RepoModels;
 
 import com.Barsat.Github.Repository.Management.Models.TheUser;
-import com.Barsat.Github.Repository.Management.Models.TreeModels.TreeEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -65,9 +64,6 @@ public class GithubRepoEntity {
     @ManyToMany(mappedBy = "githubRepoEntityList" , cascade = CascadeType.ALL )
     private List<TagEntity> tagEntity;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "treeId" , referencedColumnName = "treeId")
-    private TreeEntity treeEntity;
 
 
 
