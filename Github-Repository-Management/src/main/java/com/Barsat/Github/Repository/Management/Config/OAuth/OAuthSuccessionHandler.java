@@ -9,6 +9,7 @@ import com.Barsat.Github.Repository.Management.Service.CommitGraph.CommitGraphSe
 import com.Barsat.Github.Repository.Management.Service.GithubFetchService.GithubFetchSaveService;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
 import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionsService;
+import com.Barsat.Github.Repository.Management.Service.UtilityService.NotifyService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
@@ -35,19 +37,22 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
     private final GithubFetchSaveService githubFetchSaveService;
     private final JwtUtils jwtUtils;
     private final CommitGraphService commitGraphService;
+    private final NotifyService notifyService;
 
     public OAuthSuccessionHandler(UserRepo userRepo,
                                   OAuthService oAuthService,
                                   RepoCollectionsService repoCollectionsService,
                                   GithubFetchSaveService githubFetchSaveService,
                                   JwtUtils jwtUtils,
-                                  CommitGraphService commitGraphService) {
+                                  CommitGraphService commitGraphService,
+                                  NotifyService notifyService) {
         this.userRepo = userRepo;
         this.oAuthService = oAuthService;
         this.repoCollectionsService = repoCollectionsService;
         this.githubFetchSaveService = githubFetchSaveService;
         this.jwtUtils = jwtUtils;
         this.commitGraphService = commitGraphService;
+        this.notifyService = notifyService;
     }
 
 
@@ -120,7 +125,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         //all collection is made as soon as user is authenticated.
         repoCollectionsService.allCollection();
 
-//        commitGraphService.getCommitForAllRepo(accessToken);
+        commitGraphService.getCommitForAllRepo(accessToken);
 
 
         String jwtToken = jwtUtils.generateToken(userName);

@@ -57,6 +57,7 @@ public class GithubFetchSaveService {
         System.out.println(userName);
 
 
+
         for(GithubRepoResponse githubRepoResponse : response.getBody()){
 
             //avoid duplicate calls.
@@ -85,6 +86,7 @@ public class GithubFetchSaveService {
 
             //set the user of the repository so that foreign key can be mapped
             repositoryEntity.setMasterUser(theUser);
+
 
             githubReposRepository.save(repositoryEntity);
 

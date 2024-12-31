@@ -149,6 +149,6 @@ In graphQL you can request only particular data's from api.
 
 If you define an async function and call it , the code inside the function will pause at every await until the awaited Promise resolves.
 
-
+Asynchronous programming is when you write non blocking code which you can run in seperate thread withour blocking main thread.
 
 

@@ -70,13 +70,14 @@ public class CommitGraphService {
                 String sha = getRepoSHAKey.getSHA(repoName, username);
 
                 boolean commitEntityExists = commitRepository.existsByGithubRepoEntityRepoIdAndSha(githubRepoEntity1.getRepoId(), sha);
-//                System.out.println(commitEntityExists + "first check" + "(this is upto date)");
+                System.out.println(commitEntityExists + "first check" + "(this is upto date)" + "for" + githubRepoEntity1.getName());
 
                 if(!commitEntityExists) {
                     boolean result = commitRepository.existsByGithubRepoEntityRepoId(githubRepoEntity1.getRepoId());
-//                    System.out.println(result + "second check" + "(this says that recent commit is not upto date)");
+                    System.out.println(result + "second check" + "(this says that recent commit is not upto date)" + "for" + githubRepoEntity1.getName());
 
                     if(result){
+
 
                     }
 
