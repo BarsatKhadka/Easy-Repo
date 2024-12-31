@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GithubReposRepository extends JpaRepository<GithubRepoEntity, Integer> {
     GithubRepoEntity findByGithubId(Integer id);
+
+    GithubRepoEntity findByRepoId(int repoId);
 }

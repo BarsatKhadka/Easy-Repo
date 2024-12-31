@@ -50,9 +50,10 @@ public class CommitGraphService {
 
 
     //i will modify this to be called individually for each repo rather than generating all before hand on another commit.
-    public String getCommitForAllRepo(String accessToken , int repoId){
+    public void createUpdateCommitsForRepo(String accessToken , int repoId){
 
-        List<GithubRepoEntity> githubRepoEntity = githubReposRepository.findAll();
+        GithubRepoEntity githubRepoEntity = githubReposRepository.findByRepoId(repoId);
+        System.out.println(githubRepoEntity.getName());
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept","application/vnd.github+json");
@@ -61,32 +62,35 @@ public class CommitGraphService {
 
         String username = getAuthenticatedUserName.getUsername();
 
-//        getting commit for all repo starts from getting all repositories (repoEntities)
-        for(GithubRepoEntity githubRepoEntity1 : githubRepoEntity){
-
             //if they are not null , then hit the /commits end point , get all commits and parse the required response then set that to repoCommitEntity.
-            if(githubRepoEntity1!= null && !githubRepoEntity1.getName().isEmpty()){
+            if(githubRepoEntity!= null && !githubRepoEntity.getName().isEmpty()) {
 
-                String repoName = githubRepoEntity1.getName();
+                String repoName = githubRepoEntity.getName();
 
                 //this gets the latest commit
                 String sha = getRepoSHAKey.getSHA(repoName, username);
 
-                boolean commitEntityExists = commitRepository.existsByGithubRepoEntityRepoIdAndSha(githubRepoEntity1.getRepoId(), sha);
-                System.out.println(commitEntityExists + "first check" + "(this is upto date)" + "for" + githubRepoEntity1.getName());
+                boolean commitEntityExists = commitRepository.existsByGithubRepoEntityRepoIdAndSha(githubRepoEntity.getRepoId(), sha);
+                System.out.println(commitEntityExists + "first check" + "(this is upto date)" + "for" + githubRepoEntity.getName());
 
-                if(!commitEntityExists) {
-                    boolean result = commitRepository.existsByGithubRepoEntityRepoId(githubRepoEntity1.getRepoId());
-                    System.out.println(result + "second check" + "(this says that recent commit is not upto date)" + "for" + githubRepoEntity1.getName());
+                if (!commitEntityExists) {
+                    boolean result = commitRepository.existsByGithubRepoEntityRepoId(githubRepoEntity.getRepoId());
+                    System.out.println(result + "second check" + "(this says that recent commit is not upto date)" + "for" + githubRepoEntity.getName());
 
-                    if(result){
-                        String maxDate = commitRepository.findMaxDateByGithubRepoEntityRepoId(githubRepoEntity1.getRepoId());
+                    if (result) {
+                        //getting the current max Date in database
+                        String maxDate = commitRepository.findMaxDateByGithubRepoEntityRepoId(githubRepoEntity.getRepoId());
 
+                        //look at commits since that max Date to fetch any new commits after that date
                         String url = "https://api.github.com/repos/" + username + "/" + repoName + "/commits" + "?since=" + maxDate;
+
+                        //fetch after that Date
                         ResponseEntity<RepoCommitResponseModel[]> response = restTemplate.exchange(url, HttpMethod.GET, entity, RepoCommitResponseModel[].class);
-                        for(RepoCommitResponseModel repoCommitResponseModel : response.getBody()){
+
+                        //set them as a repo entity.
+                        for (RepoCommitResponseModel repoCommitResponseModel : response.getBody()) {
                             RepoCommitEntity repoCommitEntity = new RepoCommitEntity();
-                            repoCommitEntity.setGithubRepoEntity(githubRepoEntity1);
+                            repoCommitEntity.setGithubRepoEntity(githubRepoEntity);
                             repoCommitEntity.setMessage(repoCommitResponseModel.getCommit().getMessage());
                             repoCommitEntity.setDate(repoCommitResponseModel.getCommit().getAuthor().getDate());
                             repoCommitEntity.setMessage(repoCommitResponseModel.getCommit().getMessage());
@@ -94,22 +98,18 @@ public class CommitGraphService {
                             commitRepository.save(repoCommitEntity);
                         }
 
-                    }
-
-                    else {
+                    } else {
 
                         String url = "https://api.github.com/repos/" + username + "/" + repoName + "/commits";
                         ResponseEntity<RepoCommitResponseModel[]> response = restTemplate.exchange(url, HttpMethod.GET, entity, RepoCommitResponseModel[].class);
 
                         for (RepoCommitResponseModel repoCommitResponseModel : response.getBody()) {
                             RepoCommitEntity repoCommitEntity = new RepoCommitEntity();
-                            repoCommitEntity.setGithubRepoEntity(githubRepoEntity1);
+                            repoCommitEntity.setGithubRepoEntity(githubRepoEntity);
                             repoCommitEntity.setDate(repoCommitResponseModel.getCommit().getAuthor().getDate());
                             repoCommitEntity.setMessage(repoCommitResponseModel.getCommit().getMessage());
                             repoCommitEntity.setSha(repoCommitResponseModel.getSha());
                             commitRepository.save(repoCommitEntity);
-//                            System.out.println(repoCommitResponseModel.getCommit().getMessage());
-//                    System.out.println(repoCommitResponseModel.toString());
                         }
                     }
 
@@ -118,16 +118,17 @@ public class CommitGraphService {
 
             }
 
-        }
 
-
-
-//        ResponseEntity<String> response = restTemplate.exchange()
-
-
-
-        return "hello";
     }
+
+    public String getCommitsOfRepo(String accessToken, int repoId){
+        createUpdateCommitsForRepo(accessToken, repoId);
+        return "hello";
+
+    }
+
+
+
 
 
 }
