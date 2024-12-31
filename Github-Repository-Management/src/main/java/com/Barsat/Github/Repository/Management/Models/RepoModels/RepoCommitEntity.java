@@ -1,5 +1,6 @@
 package com.Barsat.Github.Repository.Management.Models.RepoModels;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class RepoCommitEntity {
 
     @ManyToOne
     @JoinColumn(name="parent_repo_id", referencedColumnName = "repoId")
+    @JsonBackReference
     private GithubRepoEntity githubRepoEntity;
 
 

@@ -45,7 +45,7 @@ export const CollectionsAll = ({allCollection}: allCollectionPropType) =>{
 
         <p>This is collections ALl</p>
         <div>{allCollection?.githubRepo?.map((items) =>
-        <div>
+        <div key={items.repoId}>
            <p>{items.name}</p> 
         </div>
 

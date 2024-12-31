@@ -141,4 +141,14 @@ I will just stick to directly consuming the tree on every api call. No storing t
 
 Put @Getter @Setter in inner classes of response models.
 
+I think i need to work on optimization in commit graph class , so many api calls and database actions is causing the app to be slower during login. I will resort to GraphQL and Redis.
+
+Redis is used to store data in ram not in harddisk to make caching faster. Usually used for data that does not change frequently.
+
+In graphQL you can request only particular data's from api.
+
+If you define an async function and call it , the code inside the function will pause at every await until the awaited Promise resolves.
+
+
+
 
