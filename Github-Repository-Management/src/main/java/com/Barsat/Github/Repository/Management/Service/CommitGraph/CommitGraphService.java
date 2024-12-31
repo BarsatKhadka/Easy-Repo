@@ -12,13 +12,15 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CommitGraphService {
@@ -47,7 +49,8 @@ public class CommitGraphService {
     RestTemplate restTemplate = new RestTemplate();
 
 
-    public String getCommitForAllRepo(String accessToken){
+    //i will modify this to be called individually for each repo rather than generating all before hand on another commit.
+    public String getCommitForAllRepo(String accessToken , int repoId){
 
         List<GithubRepoEntity> githubRepoEntity = githubReposRepository.findAll();
 
@@ -77,7 +80,19 @@ public class CommitGraphService {
                     System.out.println(result + "second check" + "(this says that recent commit is not upto date)" + "for" + githubRepoEntity1.getName());
 
                     if(result){
+                        String maxDate = commitRepository.findMaxDateByGithubRepoEntityRepoId(githubRepoEntity1.getRepoId());
 
+                        String url = "https://api.github.com/repos/" + username + "/" + repoName + "/commits" + "?since=" + maxDate;
+                        ResponseEntity<RepoCommitResponseModel[]> response = restTemplate.exchange(url, HttpMethod.GET, entity, RepoCommitResponseModel[].class);
+                        for(RepoCommitResponseModel repoCommitResponseModel : response.getBody()){
+                            RepoCommitEntity repoCommitEntity = new RepoCommitEntity();
+                            repoCommitEntity.setGithubRepoEntity(githubRepoEntity1);
+                            repoCommitEntity.setMessage(repoCommitResponseModel.getCommit().getMessage());
+                            repoCommitEntity.setDate(repoCommitResponseModel.getCommit().getAuthor().getDate());
+                            repoCommitEntity.setMessage(repoCommitResponseModel.getCommit().getMessage());
+                            repoCommitEntity.setSha(repoCommitResponseModel.getSha());
+                            commitRepository.save(repoCommitEntity);
+                        }
 
                     }
 

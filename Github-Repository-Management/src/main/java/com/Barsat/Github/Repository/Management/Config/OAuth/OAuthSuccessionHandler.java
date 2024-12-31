@@ -125,7 +125,11 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         //all collection is made as soon as user is authenticated.
         repoCollectionsService.allCollection();
 
-        commitGraphService.getCommitForAllRepo(accessToken);
+        //just run this another thread because it makes heavy api calls
+        // (for now reducing login time but probably this will not be called from oauth succession handler)
+
+        commitGraphService.getCommitForAllRepo(accessToken , 1);
+
 
 
         String jwtToken = jwtUtils.generateToken(userName);
