@@ -2,18 +2,16 @@ package com.Barsat.Github.Repository.Management.Config.OAuth;
 
 import com.Barsat.Github.Repository.Management.Config.Jwt.JwtUtils;
 import com.Barsat.Github.Repository.Management.Models.Provider;
-import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
 import com.Barsat.Github.Repository.Management.Models.TheUser;
 import com.Barsat.Github.Repository.Management.Repository.UserRepo;
 import com.Barsat.Github.Repository.Management.Service.CommitGraph.CommitGraphService;
 import com.Barsat.Github.Repository.Management.Service.GithubFetchService.GithubFetchSaveService;
+import com.Barsat.Github.Repository.Management.Service.Insights.UserInsightService;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
 import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionsService;
-import com.Barsat.Github.Repository.Management.Service.UtilityService.NotifyService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,7 +23,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 @Component
 public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
@@ -37,7 +34,8 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
     private final GithubFetchSaveService githubFetchSaveService;
     private final JwtUtils jwtUtils;
     private final CommitGraphService commitGraphService;
-    private final NotifyService notifyService;
+    private final UserInsightService userInsightService;
+
 
     public OAuthSuccessionHandler(UserRepo userRepo,
                                   OAuthService oAuthService,
@@ -45,14 +43,16 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
                                   GithubFetchSaveService githubFetchSaveService,
                                   JwtUtils jwtUtils,
                                   CommitGraphService commitGraphService,
-                                  NotifyService notifyService) {
+                                  UserInsightService userInsightService
+                                  ) {
         this.userRepo = userRepo;
         this.oAuthService = oAuthService;
         this.repoCollectionsService = repoCollectionsService;
         this.githubFetchSaveService = githubFetchSaveService;
         this.jwtUtils = jwtUtils;
         this.commitGraphService = commitGraphService;
-        this.notifyService = notifyService;
+        this.userInsightService = userInsightService;
+
     }
 
 
@@ -95,6 +95,9 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         String bio = oauth2User.getAttribute("bio").toString();
         String id = oauth2User.getAttribute("id").toString();
 
+        //getting Attributes for user insights.
+        String disk_usage = oauth2User.getAttribute("disk_usage");
+
 
 
         //registering github user to my custom user model
@@ -111,6 +114,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
 //        Enable this only when needed. Enbaling this allows oAuth users to login through normal sign in.(like when authenticating through postman)
         githubUser.setEnabled(true);
 
+        userInsightService.setDiskUsage(disk_usage);
 
         //save github user , if there is no email assosciated to it.
         if(!userRepo.existsByEmail(email)) {
