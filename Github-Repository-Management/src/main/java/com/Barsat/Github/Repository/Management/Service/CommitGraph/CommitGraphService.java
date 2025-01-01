@@ -1,6 +1,8 @@
 package com.Barsat.Github.Repository.Management.Service.CommitGraph;
 
+import com.Barsat.Github.Repository.Management.DTO.CommitGraphDTO;
 import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
+import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCollectionsEntity;
 import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCommitEntity;
 import com.Barsat.Github.Repository.Management.Models.ResponseModels.RepoCommitResponseModel;
 import com.Barsat.Github.Repository.Management.Models.ResponseModels.SHAResponse;
@@ -20,6 +22,7 @@ import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -121,9 +124,18 @@ public class CommitGraphService {
 
     }
 
-    public String getCommitsOfRepo(String accessToken, int repoId){
+    public List<CommitGraphDTO> getCommitsOfRepo(String accessToken, int repoId){
         createUpdateCommitsForRepo(accessToken, repoId);
-        return "hello";
+
+
+        List<RepoCommitEntity> repoCommitEntities = commitRepository.findAllByGithubRepoEntityRepoId(repoId);
+
+        List<CommitGraphDTO> commitGraphDTOList = new ArrayList<>();
+        repoCommitEntities.forEach(repoCommitEntity -> {
+            CommitGraphDTO commitGraphDTO = new CommitGraphDTO(repoCommitEntity.getSha(), repoCommitEntity.getMessage() , repoCommitEntity.getDate());
+            commitGraphDTOList.add(commitGraphDTO);
+        });
+        return commitGraphDTOList;
 
     }
 

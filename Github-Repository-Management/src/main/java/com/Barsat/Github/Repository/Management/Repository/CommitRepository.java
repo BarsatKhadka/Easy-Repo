@@ -18,4 +18,6 @@ public interface CommitRepository extends JpaRepository<RepoCommitEntity, Intege
     @Query("SELECT MAX(r.date) FROM RepoCommitEntity r WHERE r.githubRepoEntity.repoId = :RepoId")
     String findMaxDateByGithubRepoEntityRepoId(Integer RepoId);
 
+    List<RepoCommitEntity> findAllByGithubRepoEntityRepoId(Integer RepoId);
+
 }

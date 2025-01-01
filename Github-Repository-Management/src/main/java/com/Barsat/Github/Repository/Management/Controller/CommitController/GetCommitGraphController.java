@@ -1,11 +1,14 @@
 package com.Barsat.Github.Repository.Management.Controller.CommitController;
 
+import com.Barsat.Github.Repository.Management.DTO.CommitGraphDTO;
 import com.Barsat.Github.Repository.Management.Service.CommitGraph.CommitGraphService;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("easyrepo/getCommitGraph")
@@ -20,7 +23,7 @@ public class GetCommitGraphController {
     }
 
     @GetMapping("/{repoId}")
-    public String getCommitGraph(@PathVariable int repoId) {
+    public List<CommitGraphDTO> getCommitGraph(@PathVariable int repoId) {
         String accessToken = oAuthService.getAccessToken();
         return commitGraphService.getCommitsOfRepo(accessToken, repoId);
 
