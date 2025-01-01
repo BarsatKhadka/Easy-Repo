@@ -5,6 +5,7 @@ import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCollections
 import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionCreate;
 import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionGet;
 import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionsAddRepo;
+import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionsRemoveRepo;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,11 +15,13 @@ public class CollectionsController {
     private final RepoCollectionCreate repoCollectionsCreate;
     private final RepoCollectionGet repoCollectionGet;
     private final RepoCollectionsAddRepo repoCollectionsAddRepo;
+    private final RepoCollectionsRemoveRepo repoCollectionsRemoveRepo;
 
-    public CollectionsController(RepoCollectionCreate repoCollectionsCreate, RepoCollectionGet repoCollectionGet , RepoCollectionsAddRepo repoCollectionsAddRepo) {
+    public CollectionsController(RepoCollectionCreate repoCollectionsCreate, RepoCollectionGet repoCollectionGet , RepoCollectionsAddRepo repoCollectionsAddRepo , RepoCollectionsRemoveRepo repoCollectionsRemoveRepo) {
         this.repoCollectionsCreate = repoCollectionsCreate;
         this.repoCollectionGet = repoCollectionGet;
         this.repoCollectionsAddRepo = repoCollectionsAddRepo;
+        this.repoCollectionsRemoveRepo = repoCollectionsRemoveRepo;
     }
 
     @GetMapping("/all")
@@ -37,6 +40,10 @@ public class CollectionsController {
     public void addRepoToCollection(@PathVariable Integer collectionId, @RequestBody RepoCollectionDTO repoCollectionsDTO) {
         repoCollectionsAddRepo.addRepo(collectionId,repoCollectionsDTO);
 
+    }
 
+    @PostMapping("/removeRepoFromCollection/{collectionId}")
+    public void removeRepoFromCollection(@PathVariable Integer collectionId, @RequestBody RepoCollectionDTO repoCollectionsDTO) {
+        repoCollectionsRemoveRepo.removeRepoFromCollection(collectionId,repoCollectionsDTO);
     }
 }

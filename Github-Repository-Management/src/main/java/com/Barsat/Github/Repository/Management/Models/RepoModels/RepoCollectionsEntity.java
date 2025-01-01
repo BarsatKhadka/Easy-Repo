@@ -48,13 +48,16 @@ public class RepoCollectionsEntity {
     private TheUser masterUser;
 
     //because RepoCollections will many github repo entities
-    @ManyToMany(mappedBy = "collectionsEntity")
+    @ManyToMany(mappedBy = "collectionsEntity", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<GithubRepoEntity> githubRepo = new HashSet<>();
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+
+
+
 
 
 
