@@ -84,7 +84,7 @@ public class CommitGraphService {
                         //getting the current max Date in database
                         String maxDate = commitRepository.findMaxDateByGithubRepoEntityRepoId(githubRepoEntity.getRepoId());
 
-                        //look at commits since that max Date to fetch any new commits after that date
+                        //url to look at commits since that max Date to fetch any new commits after that date
                         String url = "https://api.github.com/repos/" + username + "/" + repoName + "/commits" + "?since=" + maxDate;
 
                         //fetch after that Date
