@@ -60,11 +60,13 @@ public class RepoCollectionCreate {
             }
             else{
                 githubRepoEntities.add(githubRepoEntity);
+                githubRepoEntity.getCollectionsEntity().add(repoCollectionsEntity);
             }
         }
 
         repoCollectionsEntity.setGithubRepo(githubRepoEntities);
         repoCollectionsEntity.setRepositoryCount(githubRepoEntities.size());
+
         repoCollectionsRepository.save(repoCollectionsEntity);
     }
 }

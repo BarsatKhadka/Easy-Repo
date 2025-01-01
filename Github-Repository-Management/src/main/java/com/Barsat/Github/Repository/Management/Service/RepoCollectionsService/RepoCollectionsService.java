@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @ToString
@@ -38,7 +40,7 @@ public class RepoCollectionsService {
     //Default created collection called all collection which contains all collection.
     @Transactional         //manage hibernate session all at once. session closed before accessing so use transactional which wont allow that until it acheives its goal
     public void allCollection(){
-        List<GithubRepoEntity> allRepoEntities = new ArrayList<>();
+        List <GithubRepoEntity> allRepoEntities = new ArrayList<>();
 
         /* this logic prevents from creating allCollection every login as it checks if a entity already exists. If an entity already exists then it has repoCollectionsEntity ,
          we will load that EXISTING entity else make a new Entity.  This method 'all collection' is called every login and updates the list of existing

@@ -52,7 +52,7 @@ public class GithubRepoEntity {
     })
     private TheUser masterUser;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "github_repo_&_collection",
             joinColumns = @JoinColumn(name = "repo_id" , referencedColumnName = "repoId"),
