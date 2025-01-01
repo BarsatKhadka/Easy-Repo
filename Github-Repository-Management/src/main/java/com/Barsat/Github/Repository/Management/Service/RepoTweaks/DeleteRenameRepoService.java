@@ -1,21 +1,18 @@
 package com.Barsat.Github.Repository.Management.Service.RepoTweaks;
 
-import com.Barsat.Github.Repository.Management.Controller.RepoTweaks.DeleteRepoController;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
 import com.Barsat.Github.Repository.Management.Service.UtilityService.GetAuthenticatedUserName;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class DeleteRepoService {
+public class DeleteRenameRepoService {
 
     private final GetAuthenticatedUserName getAuthenticatedUserName;
     private final OAuthService oAuthService;
 
-    public DeleteRepoService(GetAuthenticatedUserName getAuthenticatedUserName , OAuthService oAuthService){
+    public DeleteRenameRepoService(GetAuthenticatedUserName getAuthenticatedUserName , OAuthService oAuthService){
         this.getAuthenticatedUserName = getAuthenticatedUserName;
         this.oAuthService = oAuthService;
     }

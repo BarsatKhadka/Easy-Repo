@@ -153,4 +153,6 @@ Asynchronous programming is when you write non blocking code which you can run i
 
 In redis there are key value pair. But there are two types of key. One key is the main key , the main key contains all other key value pairs.
 
+Put completely replaces the fields while patch only replace certain fields of the targeted object.
+
 

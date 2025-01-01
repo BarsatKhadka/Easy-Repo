@@ -51,8 +51,8 @@ public class SecurityConfig {
 
         //Csrf configurations (Ignoring csrf in public api's)
         http.csrf(csrf -> csrf
-//                .disable());
-                .ignoringRequestMatchers("/api/auth/public/**" , "/register" ,"/login" ));
+                .disable());
+//                .ignoringRequestMatchers("/api/auth/public/**" , "/register" ,"/login" ));
 
         //http session management stateless + giving permit all to public requests.
         http.sessionManagement(Management -> Management.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
@@ -117,7 +117,7 @@ public class SecurityConfig {
                 ));
 
                 //CRUD , which methods to allow cors.
-                cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+                cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH"));
                 cfg.setAllowCredentials(true);
 
                 //which http headers can be used while making request
