@@ -9,6 +9,6 @@ import org.springframework.stereotype.Service;
 @Setter
 public class UserInsightService {
 
-    private String diskUsage;
+    private Integer diskUsage;
 
 }

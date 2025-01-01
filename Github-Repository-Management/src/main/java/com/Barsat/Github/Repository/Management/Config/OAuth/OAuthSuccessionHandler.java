@@ -96,7 +96,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         String id = oauth2User.getAttribute("id").toString();
 
         //getting Attributes for user insights.
-        String disk_usage = oauth2User.getAttribute("disk_usage");
+        Integer disk_usage = oauth2User.getAttribute("disk_usage");
 
 
 
