@@ -30,7 +30,7 @@ public class DeleteRepoService {
         headers.set("Authorization", "Bearer " + accessToken);
         headers.set("Content-Type", "application/vnd.github+json");
 
-        String url = "https://github.com/" + username + "/" + repoName + "-/settings";
+        String url = "https://github.com/" + username + "/" + repoName + "/settings";
         return url;
 
     }
