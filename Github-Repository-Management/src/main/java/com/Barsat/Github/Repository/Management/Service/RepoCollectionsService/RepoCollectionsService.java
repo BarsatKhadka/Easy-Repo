@@ -40,7 +40,7 @@ public class RepoCollectionsService {
     //Default created collection called all collection which contains all collection.
     @Transactional         //manage hibernate session all at once. session closed before accessing so use transactional which wont allow that until it acheives its goal
     public void allCollection(){
-        List <GithubRepoEntity> allRepoEntities = new ArrayList<>();
+        Set <GithubRepoEntity> allRepoEntities = new HashSet<>();
 
         /* this logic prevents from creating allCollection every login as it checks if a entity already exists. If an entity already exists then it has repoCollectionsEntity ,
          we will load that EXISTING entity else make a new Entity.  This method 'all collection' is called every login and updates the list of existing

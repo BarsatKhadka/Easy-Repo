@@ -16,7 +16,9 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class RepoCollectionCreate {
@@ -41,7 +43,7 @@ public class RepoCollectionCreate {
     public void createCollection(RepoCollectionDTO repoCollectionDTO){
 
         //to set the list of repositories to repoCollections. User will pass id , i will find by id and add it here then set this to repoEntities.
-        List<GithubRepoEntity> githubRepoEntities = new ArrayList<>();
+        Set<GithubRepoEntity> githubRepoEntities = new HashSet<>();
 
         String username = getAuthenticatedUserName.getUsername();
 

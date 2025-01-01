@@ -26,7 +26,7 @@ public class RepoCollectionsAddRepo {
     public void addRepo(Integer collectionId , RepoCollectionDTO repoCollectionDTO) {
         List<Integer> githubRepoIds = repoCollectionDTO.getGithubRepoIds();
 
-        List<GithubRepoEntity> addGithubRepoEntities = new ArrayList<>();
+        Set<GithubRepoEntity> addGithubRepoEntities = new HashSet<>();
 
         RepoCollectionsEntity repoCollectionsEntity = repoCollectionsRepository.findByCollectionId(collectionId);
         if(repoCollectionsEntity != null) {
@@ -35,13 +35,18 @@ public class RepoCollectionsAddRepo {
             });
             for(Integer githubRepoId : githubRepoIds) {
                 GithubRepoEntity githubRepoEntity = githubReposRepository.findByRepoId(githubRepoId);
-                addGithubRepoEntities.add(githubRepoEntity);
-                repoCollectionsEntity.setGithubRepo(addGithubRepoEntities);
+                if(!addGithubRepoEntities.contains(githubRepoEntity)) {
 
-                //i was stuck here and i read my code for allCollections and figured it out.
-                githubRepoEntity.getCollectionsEntity().add(repoCollectionsEntity);
+                    addGithubRepoEntities.add(githubRepoEntity);
+                    repoCollectionsEntity.setGithubRepo(addGithubRepoEntities);
 
-                repoCollectionsEntity.setRepositoryCount(addGithubRepoEntities.size());
+                    //i was stuck here and i read my code for allCollections and figured it out.
+                    githubRepoEntity.getCollectionsEntity().add(repoCollectionsEntity);
+
+                    repoCollectionsEntity.setRepositoryCount(addGithubRepoEntities.size());
+
+                }
+
 
 
             }

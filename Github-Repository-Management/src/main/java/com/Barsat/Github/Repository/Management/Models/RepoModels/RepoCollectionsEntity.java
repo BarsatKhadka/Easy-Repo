@@ -49,7 +49,7 @@ public class RepoCollectionsEntity {
 
     //because RepoCollections will many github repo entities
     @ManyToMany(mappedBy = "collectionsEntity")
-    private List<GithubRepoEntity> githubRepo = new ArrayList<>();
+    private Set<GithubRepoEntity> githubRepo = new HashSet<>();
 
     @PrePersist
     protected void onCreate() {
