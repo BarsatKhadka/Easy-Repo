@@ -11,11 +11,13 @@ public class CommitGraphDTO {
     private String sha;
     private String message;
     private String date;
+    private String url;
 
-    public CommitGraphDTO(String sha, String message, String date) {
+    public CommitGraphDTO(String sha, String message, String date , String url) {
         this.sha = sha;
         this.message = message;
         this.date = date;
+        this.url = url;
     }
 
 }

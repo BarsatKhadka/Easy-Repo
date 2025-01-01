@@ -97,6 +97,10 @@ public class CommitGraphService {
                             repoCommitEntity.setMessage(repoCommitResponseModel.getCommit().getMessage());
                             repoCommitEntity.setDate(repoCommitResponseModel.getCommit().getAuthor().getDate());
                             repoCommitEntity.setMessage(repoCommitResponseModel.getCommit().getMessage());
+
+                            String repoCommitEntityUrl = "https://github.com/" + username + "/" + repoName + "/commit/" + repoCommitResponseModel.getSha();
+                            repoCommitEntity.setUrl(repoCommitEntityUrl);
+
                             repoCommitEntity.setSha(repoCommitResponseModel.getSha());
                             commitRepository.save(repoCommitEntity);
                         }
@@ -112,6 +116,9 @@ public class CommitGraphService {
                             repoCommitEntity.setDate(repoCommitResponseModel.getCommit().getAuthor().getDate());
                             repoCommitEntity.setMessage(repoCommitResponseModel.getCommit().getMessage());
                             repoCommitEntity.setSha(repoCommitResponseModel.getSha());
+                            String repoCommitEntityUrl = "https://github.com/" + username + "/" + repoName + "/commit/" + repoCommitResponseModel.getSha();
+                            repoCommitEntity.setUrl(repoCommitEntityUrl);
+
                             commitRepository.save(repoCommitEntity);
                         }
                     }
@@ -132,7 +139,7 @@ public class CommitGraphService {
 
         List<CommitGraphDTO> commitGraphDTOList = new ArrayList<>();
         repoCommitEntities.forEach(repoCommitEntity -> {
-            CommitGraphDTO commitGraphDTO = new CommitGraphDTO(repoCommitEntity.getSha(), repoCommitEntity.getMessage() , repoCommitEntity.getDate());
+            CommitGraphDTO commitGraphDTO = new CommitGraphDTO(repoCommitEntity.getSha(), repoCommitEntity.getMessage() , repoCommitEntity.getDate(), repoCommitEntity.getUrl());
             commitGraphDTOList.add(commitGraphDTO);
         });
         return commitGraphDTOList;
