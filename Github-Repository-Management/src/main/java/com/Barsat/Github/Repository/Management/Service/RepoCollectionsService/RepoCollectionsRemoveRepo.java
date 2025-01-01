@@ -5,7 +5,6 @@ import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntit
 import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCollectionsEntity;
 import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
 import com.Barsat.Github.Repository.Management.Repository.RepoCollectionsRepository;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,14 +24,12 @@ public class RepoCollectionsRemoveRepo {
 
         List<Integer> IdsToRemove= repoCollectionsDTO.getGithubRepoIds();
         List<Integer> IdsThatCanBeRemoved= new ArrayList<>();
-        for(Integer IdToRemove : IdsToRemove){
-            System.out.println(IdToRemove);
-        }
+
 
         RepoCollectionsEntity repoCollectionsEntity = repoCollectionsRepository.findByCollectionId(collectionId);
 
         if(repoCollectionsEntity != null){
-            System.out.println("repoCollectionsEntity is not null");
+
             for(GithubRepoEntity githubRepoEntity: repoCollectionsEntity.getGithubRepo()){
                 System.out.println(githubRepoEntity.getRepoId());
                 if(IdsToRemove.contains(githubRepoEntity.getRepoId())){
