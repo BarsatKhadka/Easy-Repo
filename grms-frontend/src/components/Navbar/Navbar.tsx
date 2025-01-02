@@ -14,7 +14,7 @@ import {  Navbar,
   Button,
   Divider,
 } from "@nextui-org/react";
-// import {Icon} from "@iconify/react";
+import {Icon} from "@iconify/react";
 import {cn} from "@nextui-org/react";
 
 // import {AcmeIcon} from "./acme";
@@ -29,6 +29,7 @@ const menuItems = [
 ];
 
 export default function NavbaComponent(props: NavbarProps) {
+    let backendUrl = import.meta.env.VITE_BACKEND_URL + "/oauth2/authorization/github"
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
@@ -95,15 +96,15 @@ export default function NavbaComponent(props: NavbarProps) {
           </Button>
           </Link>
 
-          <Link href = "/login">
+          <Link href = {backendUrl}>
           <Button
             className="bg-foreground font-medium text-background"
             color="secondary"
-            // endContent={<Icon icon="solar:alt-arrow-right-linear" />}
+            endContent={<Icon icon="solar:alt-arrow-right-linear" />}
             radius="full"
             variant="flat"
           >
-            Get Started
+            One Tap Login
           </Button>
           </Link>
         </NavbarItem>

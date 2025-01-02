@@ -3,17 +3,22 @@
 
 import {Button, Input, Checkbox, Link, Divider} from "@nextui-org/react";
 import {Icon} from "@iconify/react";
+import NavbaComponent from "../Navbar/Navbar";
 
 
 
 export default function Login() {
 
+   let backendUrl = import.meta.env.VITE_BACKEND_URL
+
   const githubLogin = () =>{
-    window.location.href = "http://localhost:8080/oauth2/authorization/github" 
+    window.location.href = backendUrl + "/oauth2/authorization/github" 
     
 }
 
   return (
+    <>
+    <NavbaComponent/>
     <div className="flex h-full w-full items-center justify-center">
       <div className="flex w-full max-w-sm flex-col gap-4 rounded-large">
         <div className="flex flex-col items-center pb-6">
@@ -67,5 +72,6 @@ export default function Login() {
     
       </div>
     </div>
+    </>
   );
 }

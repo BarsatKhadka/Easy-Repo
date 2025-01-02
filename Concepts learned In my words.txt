@@ -157,4 +157,6 @@ Put completely replaces the fields while patch only replace certain fields of th
 
 Concurrent Modification Exception happens when you update fast fail iterators while iterating through them.
 
+When clicking something if it comes as a pop up and other things at background then it is called modal. (frontend)
+
 
