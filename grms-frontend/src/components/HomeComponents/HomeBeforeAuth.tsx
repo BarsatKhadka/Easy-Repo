@@ -1,7 +1,9 @@
+import NavbarComponent from "../Navbar/Navbar"
+
 export const HomeBeforeAuth = () =>{
     return(
         <div>
-            <p>This is home before authentication</p>
+            <NavbarComponent/>
             
         </div>
     )

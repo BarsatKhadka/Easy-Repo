@@ -46,12 +46,20 @@ console.log(response)
     <div>
       {/* This is the home to be displayed before authentication */}
       {!authenticated && <HomeBeforeAuth/>}
-      <h1>username: {response?.data["username: "]} </h1>
-      <h1>csrf: {response?.data["csrfController"]["token"]}</h1>
-      <div>
+      {/* <h1>username: {response?.data["username: "]} </h1>
+      <h1>csrf: {response?.data["csrfController"]["token"]}</h1> */}
+      
         {/* Show collections only if authenticated */}
-        {authenticated && <><HomeAfterAuth/></>}
-      </div>
+
+      {authenticated && 
+
+      <>
+
+      <HomeAfterAuth/>
+
+      </>}
+
+      
       
       
       

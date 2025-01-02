@@ -7,7 +7,10 @@ import App from './App.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <NextUIProvider>
+    <main className="dark text-foreground bg-background">
     <App />
+    </main>
+  
     </NextUIProvider>
   </StrictMode>,
 )
