@@ -43,8 +43,8 @@ console.log(response)
 
 
   return (
-    <div>
-      
+    <>
+      <div className='h-screen flex flex-col '>
       {/* This is the home to be displayed before authentication */}
       {!authenticated && <HomeBeforeAuth/>}
       {/* <h1>username: {response?.data["username: "]} </h1>
@@ -59,12 +59,13 @@ console.log(response)
       <HomeAfterAuth/>
 
       </>}
+      </div>
+      
+      
+      
+      
+      
 
-      
-      
-      
-      
-
-    </div>
+    </>
   );
 }

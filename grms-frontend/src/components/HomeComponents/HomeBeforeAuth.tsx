@@ -2,7 +2,8 @@ import {NavbarComponent} from "../Navbar/Navbar"
 
 export const HomeBeforeAuth = () =>{
     return(
-        <div>
+      <div className='h-screen flex flex-col '>
+        
             <NavbarComponent  />
             
         </div>
