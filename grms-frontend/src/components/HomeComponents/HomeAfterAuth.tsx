@@ -3,6 +3,12 @@ import { useAxios } from "../../utility/axiosUtils"
 
 import { NavbarAfterAuth } from "../Navbar/Navbar"
 import {HeroSectionAfterAuth} from "../HeroSection/HeroSectionAfterAuth"
+import { CollectionsMain } from "../CollectionsComponents/CollectionsMain"
+
+
+
+
+
 
 
 export const HomeAfterAuth = () =>{
@@ -14,12 +20,12 @@ export const HomeAfterAuth = () =>{
     return(
         <>
       <div className='h-screen flex flex-col '>
-      <div className="grid grid-cols-4 grid-rows-7 gap-8 flex-grow overflow-auto">
+      <div className="grid grid-cols-4 grid-rows-7 gap-5 flex-grow overflow-auto">
   <div key="item-1" className="col-start-1 row-start-1 col-span-4 row-span-1">
   <NavbarAfterAuth data = {response?.data} />
   </div>
   <div key="item-2" className="col-start-1 row-start-2 col-span-1 row-span-6">
-    2
+    <CollectionsMain/>
   </div>
   <div key="item-3" className="col-start-2 row-start-2 col-span-2 row-span-1">
   <HeroSectionAfterAuth username={response?.data.username}/>
