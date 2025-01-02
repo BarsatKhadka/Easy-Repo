@@ -53,7 +53,7 @@ export default function NavbaComponent(props: NavbarProps) {
         <div className="rounded-full bg-foreground text-background">
           {/* <AcmeIcon size={34} /> */}
         </div>
-        <span className="ml-2 text-small font-medium">EasyRepo</span>
+        <span className="ml-2 text font-medium">EasyRepo</span>
       </NavbarBrand>
 
       {/* Center Content */}
@@ -87,10 +87,15 @@ export default function NavbaComponent(props: NavbarProps) {
 
       {/* Right Content */}
       <NavbarContent className="hidden md:flex" justify="end">
+        
         <NavbarItem className="ml-2 !flex gap-2">
+            <Link href = "/login">
           <Button className="text-default-500" radius="full" variant="light">
             Login
           </Button>
+          </Link>
+
+          <Link href = "/login">
           <Button
             className="bg-foreground font-medium text-background"
             color="secondary"
@@ -100,6 +105,7 @@ export default function NavbaComponent(props: NavbarProps) {
           >
             Get Started
           </Button>
+          </Link>
         </NavbarItem>
       </NavbarContent>
 
