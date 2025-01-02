@@ -16,8 +16,10 @@ import {  Navbar,
 } from "@nextui-org/react";
 import {Icon} from "@iconify/react";
 import {cn} from "@nextui-org/react";
+import Logo from "../../assets/images/FinalLogo.png"
 
-// import {AcmeIcon} from "./acme";
+
+
 
 const menuItems = [
   "About",
@@ -51,8 +53,8 @@ export default function NavbaComponent(props: NavbarProps) {
       {/* Left Content */}
       
       <NavbarBrand >
-        <div className="rounded-full bg-foreground text-background">
-          {/* <AcmeIcon size={34} /> */}
+        <div className="rounded-full w-12 bg-foreground  ">
+          <img src = {Logo} alt="Logo"/>
         </div>
         <span className="ml-2 text font-medium">EasyRepo</span>
       </NavbarBrand>
@@ -60,7 +62,7 @@ export default function NavbaComponent(props: NavbarProps) {
       {/* Center Content */}
       <NavbarContent justify="center">
         <NavbarItem>
-          <Link className="text-default-500" href="#" size="sm">
+          <Link className="text-default-500" href="/" size="sm">
             Home
           </Link>
         </NavbarItem>
