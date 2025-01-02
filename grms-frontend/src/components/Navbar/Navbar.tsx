@@ -13,11 +13,15 @@ import {  Navbar,
   Link,
   Button,
   Divider,
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Avatar,
 } from "@nextui-org/react";
 import {Icon} from "@iconify/react";
 import {cn} from "@nextui-org/react";
 import Logo from "../../assets/images/FinalLogo.png"
-
 
 
 
@@ -30,7 +34,8 @@ const menuItems = [
   "Contact Me",
 ];
 
-export default function NavbaComponent(props: NavbarProps) {
+//Navbar Before Authorization.
+export const NavbarComponent = (props: NavbarProps) => {
     let backendUrl = import.meta.env.VITE_BACKEND_URL + "/oauth2/authorization/github"
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -138,4 +143,87 @@ export default function NavbaComponent(props: NavbarProps) {
     </Navbar>
   );
 }
+
+
+//Navbar After Authorization
+interface NavbarAfterAuthProps{
+    data:{
+    masterId: number;
+    username: string;
+    email: string;
+    avatarUrl: string;
+    bio: string;
+    emailVeriied: boolean;
+    provider: string;
+    providerUserId: string;
+    enabled: string;
+    }
+
+
+}
+
+
+export const NavbarAfterAuth = (props: NavbarAfterAuthProps) => {
+  return (
+    <Navbar>
+     <NavbarBrand >
+        <div className="rounded-full w-12 bg-foreground  ">
+          <img src = {Logo} alt="Logo"/>
+        </div>
+        <span className="ml-2 text font-medium">EasyRepo</span>
+      </NavbarBrand>
+
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarItem>
+          <Link color="foreground" href="#">
+            Features
+          </Link>
+        </NavbarItem>
+        <NavbarItem isActive>
+          <Link aria-current="page" color="secondary" href="#">
+            Collections
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="#">
+            How to CLI
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
+
+      <NavbarContent as="div" justify="end">
+        <Dropdown placement="bottom-end">
+          <DropdownTrigger>
+            <Avatar
+              isBordered
+              as="button"
+              className="transition-transform"
+              color="secondary"
+              name="Jason Hughes"
+              size="sm"
+              src={props.data?.avatarUrl}
+            />
+          </DropdownTrigger>
+          <DropdownMenu aria-label="Profile Actions" variant="flat">
+            <DropdownItem key="profile" className="h-14 gap-2">
+              <p className="font-semibold">{props.data?.username}</p>
+            </DropdownItem>
+            <DropdownItem key="settings">My Settings</DropdownItem>
+            <DropdownItem key="team_settings">Team Settings</DropdownItem>
+            <DropdownItem key="analytics">Analytics</DropdownItem>
+            <DropdownItem key="system">System</DropdownItem>
+            <DropdownItem key="configurations">Configurations</DropdownItem>
+            <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+            <DropdownItem key="logout" color="danger">
+              Log Out
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </NavbarContent>
+    </Navbar>
+  );
+}
+
+
+
 

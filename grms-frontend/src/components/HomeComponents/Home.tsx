@@ -44,6 +44,7 @@ console.log(response)
 
   return (
     <div>
+      
       {/* This is the home to be displayed before authentication */}
       {!authenticated && <HomeBeforeAuth/>}
       {/* <h1>username: {response?.data["username: "]} </h1>
