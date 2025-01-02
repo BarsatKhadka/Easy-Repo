@@ -3,6 +3,8 @@
 import type {NavbarProps} from "@nextui-org/react";
 
 import React from "react";
+import axios from "axios";
+
 import {  Navbar,
   NavbarBrand,
   NavbarContent,
@@ -22,6 +24,8 @@ import {  Navbar,
 import {Icon} from "@iconify/react";
 import {cn} from "@nextui-org/react";
 import Logo from "../../assets/images/FinalLogo.png"
+
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -164,6 +168,25 @@ interface NavbarAfterAuthProps{
 
 
 export const NavbarAfterAuth = (props: NavbarAfterAuthProps) => {
+  const navigate = useNavigate()
+
+  const backendUrl = import.meta.env.VITE_BACKEND_URL
+
+const logoutFunction = async() =>{
+    try{
+      console.log('hello')
+   await axios.post(backendUrl + '/logout' , {}, {withCredentials: true , headers: {'X-CSRF-TOKEN' : sessionStorage.getItem('csrf') }})
+   sessionStorage.removeItem('authenticated')
+   navigate("/")
+   window.location.reload();
+  
+    }
+
+    catch(error){
+
+    }
+}
+
   return (
     <Navbar>
      <NavbarBrand >
@@ -215,7 +238,7 @@ export const NavbarAfterAuth = (props: NavbarAfterAuthProps) => {
             <DropdownItem key="configurations">Configurations</DropdownItem>
             <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
             <DropdownItem key="logout" color="danger">
-              Log Out
+              <Button onPress={logoutFunction}>Log Out</Button>
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

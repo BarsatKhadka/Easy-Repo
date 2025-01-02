@@ -7,7 +7,7 @@ import  Login  from "./components/AuthComponents/Login"
 import {Home} from "./components/HomeComponents/Home"
 import {DashBoard} from "./components/DashBoard"
 import ProtectedRoutes from "./ProtectedRoutes/ProtectedRoutes"
-import { Logout } from "./components/AuthComponents/Logout"
+
 
 
 
@@ -31,7 +31,6 @@ function App() {
 {/* Protected Routes */}
         <Route element = {<ProtectedRoutes/>}>
         <Route path = "/dashboard" element = {<DashBoard/>}/> 
-        <Route path = "/logout" element = {<Logout/>}/> 
         </Route> 
 {/* Protected Routes */}
 
