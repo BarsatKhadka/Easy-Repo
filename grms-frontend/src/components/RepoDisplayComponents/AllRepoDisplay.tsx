@@ -2,7 +2,7 @@ import {  useEffect , useState } from "react"
 import { useAxios } from "../../utility/axiosUtils"
 
 
-import {Accordion, AccordionItem} from "@nextui-org/react";
+import {Accordion, AccordionItem , Avatar} from "@nextui-org/react";
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/breadcrumbs";
 import {Button, ButtonGroup} from "@nextui-org/button";
 
@@ -44,13 +44,13 @@ export const AllRepoDisplay = () =>{
     },[]) 
 
     //total Item by number of pages. 5 per page.
-    const totalItem = Math.ceil(response?.data?.repositoryCount /5) 
+    const totalItem = Math.ceil(response?.data?.repositoryCount /6) 
 
     const [currentPage, setCurrentPage] = useState(1);
   
 
-    const firstDataIndex = 0 + 5 * (currentPage -1)
-    const lastDataIndex = 5 * currentPage
+    const firstDataIndex = 6 * (currentPage -1)
+    const lastDataIndex = 6 * currentPage
 
     console.log(response)
     const defaultContent =
@@ -61,9 +61,8 @@ export const AllRepoDisplay = () =>{
    
     return(
         <>
-        <div className="flex flex-col gap-5">
-      <p className="text-small text-default-500">Selected Page: {currentPage}</p>
-      <Pagination color="secondary" page={currentPage} total={totalItem} onChange={setCurrentPage} />
+        <div className="flex justify-end items-start mt-8 mr-5 ">
+<Pagination color="secondary" page={currentPage} total={totalItem} onChange={setCurrentPage} />
       <div className="flex gap-2">
         <Button
           color="secondary"
@@ -82,11 +81,14 @@ export const AllRepoDisplay = () =>{
           Next
         </Button>
       </div>
+      </div>
+        <div className="flex flex-col gap-2 ">
+    
 
     </div>
-        <p>{currentPage}</p>
 
-        <div className="flex flex-col flex-wrap gap-4">
+        <div className="flex flex-col flex-wrap gap-4 justify-center items-center mb-12">
+        
     
     <Breadcrumbs  key= "success" color="success">
       <BreadcrumbItem>Collections</BreadcrumbItem>
@@ -101,13 +103,24 @@ export const AllRepoDisplay = () =>{
         .map((items: githubRepoItem) =>
     
         <div key={items.repoId}>
+            
        <Accordion isCompact>
+       
       <AccordionItem
         key={items.repoId}
         aria-label= "idk"
+        startContent={
+            <Avatar
+              isBordered
+              color="danger"
+              radius="lg"
+              src="https://pngimg.com/d/github_PNG58.png"
+            />
+          }
         subtitle="Press to expand"
         title= {items.name}
       >
+        
         
         {defaultContent}
     
@@ -117,6 +130,9 @@ export const AllRepoDisplay = () =>{
 
         
         )}</div>
+
+
+
            
         </>
     )
