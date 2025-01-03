@@ -112,9 +112,9 @@ export const AllRepoDisplay = () =>{
         startContent={
             <Avatar
               isBordered
-              color="danger"
+              style = {{backgroundColor: 'white' }}
               radius="lg"
-              src="https://pngimg.com/d/github_PNG58.png"
+              src={`https://cdn.jsdelivr.net/npm/simple-icons/icons/${items.language ? items.language.toLowerCase(): 'github'}.svg`}
             />
           }
         subtitle="Press to expand"
