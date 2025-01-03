@@ -196,7 +196,9 @@ const logoutFunction = async() =>{
         <span className="ml-2 text font-medium" style={{
           backgroundImage: 'linear-gradient(150deg, #fff000 30%, #ed008c 70%)',
           WebkitBackgroundClip: 'text',
-          color: 'transparent'
+          color: 'transparent',
+          textShadow: `
+      0.7px 0.7px 0.7px #ffffff`
         }}>EasyRepo</span>
       </NavbarBrand>
 
@@ -211,7 +213,7 @@ const logoutFunction = async() =>{
         aria-current="page" 
         href="#" 
         style={{
-          color: '#ed008c'
+          color: '#ffffff'
         }}
         >
 
