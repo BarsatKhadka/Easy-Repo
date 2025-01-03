@@ -33,6 +33,7 @@ export const HomeAfterAuth = () => {
     </div>
     <div key="item-4" className="lg:col-start-4 lg:row-start-2 lg:col-span-1 lg:row-span-3 md:col-span-2 sm:col-span-1 border border-white mr-3">
       4
+      
     </div>
     <div key="item-5" className="lg:col-start-4 lg:row-start-5 lg:col-span-1 lg:row-span-3 md:col-span-2 sm:col-span-1 border border-white mr-3">
       5

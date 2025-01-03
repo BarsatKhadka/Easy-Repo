@@ -1,47 +1,11 @@
 import { useUserStore } from "../../store/UserStore";
 
-interface allCollectionPropType{
-    allCollection: {
-        collectionId : number;
-        collectionName : string;
-        collectionDescription: string;
-        createdAt: string;
-        repositoryCount: number;
-        updatedAt: string;
 
-        masterUser:{
-            masterId: number;
-            username: string;
-            email: string;
-            avatarUrl: string;
-            bio: string;
-            emailVerified: boolean;
-            enabled: boolean;
-            provider: string;
-            providerUserId: string;
-        }
-
-        githubRepo:[{
-            repoId: number;
-            githubId: number;
-            name: string;
-
-        }]
-        
-        
-
-    };
-
-}
 
 //allCollection prop is coming from CollectionsMain.
-export const CollectionsAll = ({allCollection}: allCollectionPropType) =>{
+export const CollectionsAll = () =>{
 
-    const {collectionName , setCollectionName} = useUserStore()
-
-    console.log(allCollection)
-
-   
+    const {setCollectionName} = useUserStore()
     
 
     return (
@@ -63,13 +27,7 @@ export const CollectionsAll = ({allCollection}: allCollectionPropType) =>{
 
            
            </nav>
-        {/* <div>{allCollection?.githubRepo?.map((items) =>
-        <div key={items.repoId}>
-           <p>{items.name}</p> 
-        </div>
-
-        
-        )}</div> */}
+       
        
         </>
 

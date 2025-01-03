@@ -6,7 +6,7 @@ import { AllRepoDisplay } from "./AllRepoDisplay"
 
 export const RepoDisplayMain = () =>{
     
-    const {collectionName , setCollectionName} = useUserStore()
+    const {collectionName} = useUserStore()
 
     //when collection Name changes , hit the endpoint to display.
     useEffect(() => {

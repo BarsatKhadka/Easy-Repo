@@ -63,7 +63,7 @@ public class TheUser {
     @JsonBackReference
     private List<GithubRepoEntity> githubRepoEntity = new ArrayList<>();
 
-    @OneToMany(mappedBy = "masterUser" , cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "masterUser" , cascade = CascadeType.ALL, orphanRemoval = true , fetch = FetchType.LAZY)
     @JsonBackReference
     private List<RepoCollectionsEntity> repoCollectionsEntity = new ArrayList<>();
 
