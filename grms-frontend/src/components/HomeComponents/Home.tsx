@@ -11,6 +11,7 @@ export const Home = () => {
   const {response, fetchData} = useAxios()
   const {authenticated,setAuthenticated} = useUserStore()
 
+
   //when user is authenticated , it directly comes to / (home) , so at that point just fetch from /easyrepo/user (which contains user details) cthe backend.
 useEffect(()=>{
     //fetch only if user is not authenticated , this way i can use this context api throughout react.
@@ -23,6 +24,7 @@ useEffect(()=>{
   if(response?.status == 200){
 
     setAuthenticated(true)
+
 
     //do all this sessionstorage thing after that user is authenticated.
     if(sessionStorage.getItem('authenticated') != 'True'){
@@ -55,7 +57,8 @@ console.log(response)
       {authenticated && 
 
       <>
-
+    
+      
       <HomeAfterAuth/>
 
       </>}

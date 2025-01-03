@@ -188,12 +188,16 @@ const logoutFunction = async() =>{
 }
 
   return (
-    <Navbar>
+    <Navbar className="">
      <NavbarBrand >
         <div className="rounded-full w-12 bg-foreground  ">
           <img src = {Logo} alt="Logo"/>
         </div>
-        <span className="ml-2 text font-medium">EasyRepo</span>
+        <span className="ml-2 text font-medium" style={{
+          backgroundImage: 'linear-gradient(150deg, #fff000 30%, #ed008c 70%)',
+          WebkitBackgroundClip: 'text',
+          color: 'transparent'
+        }}>EasyRepo</span>
       </NavbarBrand>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
@@ -203,7 +207,15 @@ const logoutFunction = async() =>{
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link aria-current="page" color="secondary" href="#">
+        <Link 
+        aria-current="page" 
+        href="#" 
+        style={{
+          color: '#ed008c'
+        }}
+        >
+
+
             Collections
           </Link>
         </NavbarItem>
@@ -221,9 +233,9 @@ const logoutFunction = async() =>{
               isBordered
               as="button"
               className="transition-transform"
-              color="secondary"
               name="Jason Hughes"
               size="sm"
+              color = "default"
               src={props.data?.avatarUrl}
             />
           </DropdownTrigger>
