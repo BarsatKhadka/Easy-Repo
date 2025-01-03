@@ -19,7 +19,7 @@ import {  Navbar,
   DropdownTrigger,
   Dropdown,
   DropdownMenu,
-  Avatar,
+  User,
 } from "@nextui-org/react";
 import {Icon} from "@iconify/react";
 import {cn} from "@nextui-org/react";
@@ -229,33 +229,36 @@ const logoutFunction = async() =>{
       </NavbarContent>
 
       <NavbarContent as="div" justify="end">
-        <Dropdown placement="bottom-end">
-          <DropdownTrigger>
-            <Avatar
-              isBordered
-              as="button"
-              className="transition-transform"
-              name="Jason Hughes"
-              size="sm"
-              color = "default"
-              src={props.data?.avatarUrl}
-            />
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">{props.data?.username}</p>
-            </DropdownItem>
-            <DropdownItem key="settings">My Settings</DropdownItem>
-            <DropdownItem key="team_settings">Team Settings</DropdownItem>
-            <DropdownItem key="analytics">Analytics</DropdownItem>
-            <DropdownItem key="system">System</DropdownItem>
-            <DropdownItem key="configurations">Configurations</DropdownItem>
-            <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-            <DropdownItem key="logout" color="danger">
+      <Dropdown placement="bottom-start">
+        <DropdownTrigger>
+          <User
+            as="button"
+            avatarProps={{
+              isBordered: true,
+              src: props?.data?.avatarUrl,
+            }}
+            className="transition-transform"
+            description= {props?.data?.email}
+            name={props?.data?.username}
+          />
+        </DropdownTrigger>
+        <DropdownMenu aria-label="User Actions" variant="flat">
+          <DropdownItem key="profile" className="h-14 gap-2">
+            <p className="font-bold">Signed in as</p>
+            <p className="font-bold">barsat</p>
+          </DropdownItem>
+          <DropdownItem key="settings">My Settings</DropdownItem>
+          <DropdownItem key="team_settings">Team Settings</DropdownItem>
+          <DropdownItem key="analytics">Analytics</DropdownItem>
+          <DropdownItem key="system">System</DropdownItem>
+          <DropdownItem key="configurations">Configurations</DropdownItem>
+          <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+          <DropdownItem key="logout" color="danger">
               <Button onPress={logoutFunction}>Log Out</Button>
             </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+        
+        </DropdownMenu>
+      </Dropdown>
       </NavbarContent>
     </Navbar>
   );
