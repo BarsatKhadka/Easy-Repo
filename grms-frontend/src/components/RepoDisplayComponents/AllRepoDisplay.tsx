@@ -2,11 +2,24 @@ import { useEffect } from "react"
 import { useAxios } from "../../utility/axiosUtils"
 
 
+import {Accordion, AccordionItem} from "@nextui-org/react";
+import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/breadcrumbs";
+
+
 interface githubRepoItem{
 
     repoId: number;
     githubId: number;
-    name: string
+    name: string;
+    created_at: string;
+    default_branch: string;
+    description: string;
+    fork: boolean;
+    fullName: string;
+    html_url: string;
+    language:string;
+
+
 
 }
 interface GithubRepoType{
@@ -24,14 +37,35 @@ export const AllRepoDisplay = () =>{
 
     },[]) 
     console.log(response)
-
+    const defaultContent =
+    "View Tree   View Lines Of Code  This repo's contribution graph" 
    
     return(
         <>
-        <p>Hello i am all display</p>
-        <div>{response?.data.githubRepo.map((items: githubRepoItem) =>
+        <p>All Repositories Collection</p>
+        <div className="flex flex-col flex-wrap gap-4">
+    
+    <Breadcrumbs  key= "success" color="success">
+      <BreadcrumbItem>Collections</BreadcrumbItem>
+      <BreadcrumbItem>All Repositories Collection</BreadcrumbItem>
+    </Breadcrumbs>
+</div>
+        <div>{response?.data.githubRepo
+        .sort((a: githubRepoItem, b: githubRepoItem) => a.repoId - b.repoId)
+        .map((items: githubRepoItem) =>
         <div key={items.repoId}>
-           <p>{items.name}</p> 
+       <Accordion>
+      <AccordionItem
+        key={items.repoId}
+        aria-label= "idk"
+        subtitle="Press to expand"
+        title= {items.name}
+      >
+    
+        {defaultContent}
+    
+      </AccordionItem>
+    </Accordion>
         </div>
 
         
@@ -39,3 +73,7 @@ export const AllRepoDisplay = () =>{
         </>
     )
 }
+
+
+
+
