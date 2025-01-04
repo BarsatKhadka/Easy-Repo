@@ -44,13 +44,14 @@ export const AllRepoDisplay = () =>{
     },[]) 
 
     //total Item by number of pages. 5 per page.
-    const totalItem = Math.ceil(response?.data?.repositoryCount /6) 
+    const totalItem = Math.ceil(response?.data?.repositoryCount /5) 
 
     const [currentPage, setCurrentPage] = useState(1);
+    
   
 
-    const firstDataIndex = 6 * (currentPage -1)
-    const lastDataIndex = 6 * currentPage
+    const firstDataIndex = 5 * (currentPage -1)
+    const lastDataIndex = 5 * currentPage
 
     console.log(response)
     const defaultContent =
@@ -62,37 +63,42 @@ export const AllRepoDisplay = () =>{
     return(
         <>
         <div className="flex justify-end items-start mt-8 mr-5 ">
-<Pagination color="secondary" page={currentPage} total={totalItem} onChange={setCurrentPage} />
+<Pagination color="success" page={currentPage} total={totalItem} onChange={setCurrentPage} className="mr-1" style= {{color: 'white'}}/>
       <div className="flex gap-2">
         <Button
-          color="secondary"
+          color="default"
           size="sm"
           variant="flat"
           onPress={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
+          
+
         >
-          Previous
+            Left
+          ←
+           
         </Button>
         <Button
-          color="secondary"
+          color="default"
           size="sm"
           variant="flat"
           onPress={() => setCurrentPage((prev) => (prev < totalItem ? prev + 1 : prev))}
         >
-          Next
+          → Right
+
         </Button>
       </div>
       </div>
-        <div className="flex flex-col gap-2 ">
+        <div className="flex flex-col ">
     
 
     </div>
 
-        <div className="flex flex-col flex-wrap gap-4 justify-center items-center mb-12">
+        <div className="flex flex-col flex-wrap gap-4 ml-4 mb-12">
         
     
     <Breadcrumbs  key= "success" color="success">
-      <BreadcrumbItem>Collections</BreadcrumbItem>
-      <BreadcrumbItem>All Repositories Collection</BreadcrumbItem>
+      <BreadcrumbItem >Collections</BreadcrumbItem>
+      <BreadcrumbItem >All Repositories Collection</BreadcrumbItem>
     </Breadcrumbs>
   
 </div>
@@ -104,21 +110,34 @@ export const AllRepoDisplay = () =>{
     
         <div key={items.repoId}>
             
-       <Accordion isCompact>
+       <Accordion isCompact
+       defaultExpandedKeys={["theme"]}
+        
+        >
        
-      <AccordionItem
+      <AccordionItem 
         key={items.repoId}
         aria-label= "idk"
         startContent={
             <Avatar
               isBordered
-              style = {{backgroundColor: 'white' }}
+              style = {{backgroundColor: 'white'  }}
+              color = 'success'
               radius="lg"
               src={`https://cdn.jsdelivr.net/npm/simple-icons/icons/${items.language ? items.language.toLowerCase(): 'github'}.svg`}
+              
+
             />
+ 
           }
-        subtitle="Press to expand"
+          indicator={({isOpen}) => (isOpen ? "close" : "open")}
+
+          classNames={{subtitle: "text-green" ,trigger: "px-2 py-0 data-[hover=true]:bg-default-100 rounded-lg h-14 flex items-center" }}
+          className="mt-8"
+
+        subtitle={items.description}
         title= {items.name}
+        
       >
         
         
