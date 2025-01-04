@@ -15,6 +15,7 @@ import {Card, CardBody} from "@nextui-org/react";
 import{Pagination , usePagination} from "@nextui-org/react"
 import { GetTreeDrawer } from "../Drawers/GetTreeDrawer";
 import { useUserStore } from "../../store/UserStore";
+import { GetRepoCommitGraphDrawer } from "../Drawers/GetRepoCommitGraphDrawer";
 
 
 interface githubRepoItem{
@@ -70,6 +71,7 @@ export const AllRepoDisplay = () =>{
 
 
     const{treeDrawerOpen , setTreeDrawerOpen} = useUserStore()
+    const{graphDrawerOpen, setGraphDrawerOpen} = useUserStore()
     
 
 
@@ -170,7 +172,8 @@ export const AllRepoDisplay = () =>{
         <Card style={{backgroundColor: 'black'}}>
       <CardBody>
         <p>
-        <span style={{color: '#98FB98  '}}>get:</span> <a href="#" onClick={() => setTreeDrawerOpen(true)}> Files in Tree Structure </a>| Repo's Commit Graph | Lines of code | readMe
+        <span style={{color: '#98FB98  '}}>get:</span> <a href="#" onClick={() => setTreeDrawerOpen(true)}> Files in Tree Structure </a>| 
+        <a href="#" onClick={() => setGraphDrawerOpen(true)}> Repo's Commit Graph  </a>| Lines of code | readMe
          <span className="ml-12" style={{color: '#ED4337'}}> delete: </span> this.repository
          </p>
          <p>
@@ -179,7 +182,11 @@ export const AllRepoDisplay = () =>{
          </p>
       </CardBody>
     </Card>
+
+    {/* this will just popup from left side when onClick on Files in tree structure */}
     <GetTreeDrawer />
+
+    <GetRepoCommitGraphDrawer/>
     
       </AccordionItem>
     </Accordion>

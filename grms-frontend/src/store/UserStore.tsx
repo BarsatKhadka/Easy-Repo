@@ -7,6 +7,8 @@ interface UserStoreType{
     setCollectionName: (collectionName :string) => void;
     treeDrawerOpen: boolean;
     setTreeDrawerOpen: (treeDrawerOpen: boolean) => void;
+    graphDrawerOpen: boolean;
+    setGraphDrawerOpen: (graphDrawerOpen: boolean) => void;
 
 }
 
@@ -16,6 +18,8 @@ export const useUserStore = create<UserStoreType>((set)=>({
     collectionName: "none",
     setCollectionName: (collectionName:string) => set(() => ({collectionName})),
     treeDrawerOpen: false,
-    setTreeDrawerOpen: (treeDrawerOpen: boolean) => set(()=> ({treeDrawerOpen}) )
+    setTreeDrawerOpen: (treeDrawerOpen: boolean) => set(()=> ({treeDrawerOpen}) ),
+    graphDrawerOpen: false,
+    setGraphDrawerOpen: (graphDrawerOpen: boolean) => set(() => ({graphDrawerOpen}))
 
 }))
