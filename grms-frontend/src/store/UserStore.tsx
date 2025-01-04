@@ -9,6 +9,11 @@ interface UserStoreType{
     setTreeDrawerOpen: (treeDrawerOpen: boolean) => void;
     graphDrawerOpen: boolean;
     setGraphDrawerOpen: (graphDrawerOpen: boolean) => void;
+    locDrawerOpen: boolean;
+    setLocDrawerOpen: (locDrawerOpen: boolean) => void;
+    treeRepoId: number |null;
+    setTreeRepoId: (treeRepoId: number |null) => void;
+
 
 }
 
@@ -20,6 +25,10 @@ export const useUserStore = create<UserStoreType>((set)=>({
     treeDrawerOpen: false,
     setTreeDrawerOpen: (treeDrawerOpen: boolean) => set(()=> ({treeDrawerOpen}) ),
     graphDrawerOpen: false,
-    setGraphDrawerOpen: (graphDrawerOpen: boolean) => set(() => ({graphDrawerOpen}))
+    setGraphDrawerOpen: (graphDrawerOpen: boolean) => set(() => ({graphDrawerOpen})),
+    locDrawerOpen: false,
+    setLocDrawerOpen: (locDrawerOpen: boolean) => set(() => ({locDrawerOpen})),
+    treeRepoId: null,
+    setTreeRepoId: (treeRepoId: number|null) => set(() => ({treeRepoId}))
 
 }))

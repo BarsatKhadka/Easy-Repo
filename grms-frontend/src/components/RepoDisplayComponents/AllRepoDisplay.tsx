@@ -2,7 +2,7 @@ import {  useEffect , useState } from "react"
 import { useAxios } from "../../utility/axiosUtils"
 
 
-import {Accordion, AccordionItem , Avatar} from "@nextui-org/react";
+import {Accordion, AccordionItem , Avatar, useUser} from "@nextui-org/react";
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/breadcrumbs";
 import {Button, ButtonGroup} from "@nextui-org/button";
 import {Card, CardBody} from "@nextui-org/react";
@@ -16,6 +16,7 @@ import{Pagination , usePagination} from "@nextui-org/react"
 import { GetTreeDrawer } from "../Drawers/GetTreeDrawer";
 import { useUserStore } from "../../store/UserStore";
 import { GetRepoCommitGraphDrawer } from "../Drawers/GetRepoCommitGraphDrawer";
+import { GetLinesOfCodeDrawer } from "../Drawers/GetLinesOfCodeDrawer";
 
 
 interface githubRepoItem{
@@ -70,8 +71,12 @@ export const AllRepoDisplay = () =>{
 
 
 
+    //drawer open states that will control the drawer from here
     const{treeDrawerOpen , setTreeDrawerOpen} = useUserStore()
     const{graphDrawerOpen, setGraphDrawerOpen} = useUserStore()
+    const{locDrawerOpen , setLocDrawerOpen} = useUserStore()
+
+    const{treeRepoId, setTreeRepoId} = useUserStore()
     
 
 
@@ -172,8 +177,11 @@ export const AllRepoDisplay = () =>{
         <Card style={{backgroundColor: 'black'}}>
       <CardBody>
         <p>
-        <span style={{color: '#98FB98  '}}>get:</span> <a href="#" onClick={() => setTreeDrawerOpen(true)}> Files in Tree Structure </a>| 
-        <a href="#" onClick={() => setGraphDrawerOpen(true)}> Repo's Commit Graph  </a>| Lines of code | readMe
+        <span style={{color: '#98FB98  '}}>get:</span> 
+        <a href="#" className= "underline" onClick={() => (setTreeDrawerOpen(true) , setTreeRepoId(items.repoId))}> Files in Tree Structure </a>| 
+        <a href="#" className="underline" onClick={() => setGraphDrawerOpen(true)}> Repo's Commit Graph  </a>| 
+        <a href="#" className="underline" onClick={() => setLocDrawerOpen(true)} > Lines of code </a>|  
+        <a href="#"> readMe</a>
          <span className="ml-12" style={{color: '#ED4337'}}> delete: </span> this.repository
          </p>
          <p>
@@ -185,8 +193,8 @@ export const AllRepoDisplay = () =>{
 
     {/* this will just popup from left side when onClick on Files in tree structure */}
     <GetTreeDrawer />
-
     <GetRepoCommitGraphDrawer/>
+    <GetLinesOfCodeDrawer/>
     
       </AccordionItem>
     </Accordion>
