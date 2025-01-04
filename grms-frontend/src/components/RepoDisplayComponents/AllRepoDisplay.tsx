@@ -5,6 +5,12 @@ import { useAxios } from "../../utility/axiosUtils"
 import {Accordion, AccordionItem , Avatar} from "@nextui-org/react";
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/breadcrumbs";
 import {Button, ButtonGroup} from "@nextui-org/button";
+import {Card, CardBody} from "@nextui-org/react";
+
+
+
+
+
 
 import{Pagination , usePagination} from "@nextui-org/react"
 
@@ -53,9 +59,12 @@ export const AllRepoDisplay = () =>{
     const firstDataIndex = 5 * (currentPage -1)
     const lastDataIndex = 5 * currentPage
 
+
+    const array = ['default','success','primary','secondary','warning','danger'];
+    
+
     console.log(response)
-    const defaultContent =
-    "View Tree   View Lines Of Code  This repo's contribution graph" 
+    
 
 
     
@@ -106,12 +115,19 @@ export const AllRepoDisplay = () =>{
         <div>{response?.data.githubRepo
         .sort((a: githubRepoItem, b: githubRepoItem) => a.repoId - b.repoId)
         .slice(firstDataIndex,lastDataIndex)
-        .map((items: githubRepoItem) =>
+        .map((items: githubRepoItem) =>{
+          const randomIndex = Math.floor(Math.random() * array.length);
+        const randomColor = array[randomIndex] as "success" | "default" | "primary" | "secondary" | "warning" | "danger";;
+
+          return(
+
+        
     
         <div key={items.repoId}>
             
        <Accordion isCompact
        defaultExpandedKeys={["theme"]}
+       
         
         >
        
@@ -122,7 +138,7 @@ export const AllRepoDisplay = () =>{
             <Avatar
               isBordered
               style = {{backgroundColor: 'white'  }}
-              color = 'success'
+              color = {randomColor}
               radius="lg"
               src={`https://cdn.jsdelivr.net/npm/simple-icons/icons/${items.language ? items.language.toLowerCase(): 'github'}.svg`}
               
@@ -132,23 +148,27 @@ export const AllRepoDisplay = () =>{
           }
           indicator={({isOpen}) => (isOpen ? "close" : "open")}
 
-          classNames={{subtitle: "text-green" ,trigger: "px-2 py-0 data-[hover=true]:bg-default-100 rounded-lg h-14 flex items-center" }}
+          classNames={{subtitle: "text-green" ,trigger: "px-2 py-0 rounded-lg h-14 flex items-center bg  duration-200 ease-in-out hover:bg-default hover:bg-opacity-8 " }}
           className="mt-8"
+          
 
         subtitle={items.description}
         title= {items.name}
         
       >
         
-        
-        {defaultContent}
+        <Card style={{backgroundColor: 'black'}}>
+      <CardBody>
+        <p><span style={{color: '#98FB98  '}}>get:</span>  Files in Tree Structure | Repo's Commit Graph | Lines of code <span className="ml-12"> delete: </span></p>
+      </CardBody>
+    </Card>
     
       </AccordionItem>
     </Accordion>
         </div>
 
         
-        )}</div>
+        )})}</div>
 
 
 
