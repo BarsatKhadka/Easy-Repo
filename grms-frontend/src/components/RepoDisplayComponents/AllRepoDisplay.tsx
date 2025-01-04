@@ -13,6 +13,8 @@ import {Card, CardBody} from "@nextui-org/react";
 
 
 import{Pagination , usePagination} from "@nextui-org/react"
+import { GetTreeDrawer } from "../Drawers/GetTreeDrawer";
+import { useUserStore } from "../../store/UserStore";
 
 
 interface githubRepoItem{
@@ -64,6 +66,10 @@ export const AllRepoDisplay = () =>{
     
 
     console.log(response)
+
+
+
+    const{treeDrawerOpen , setTreeDrawerOpen} = useUserStore()
     
 
 
@@ -109,6 +115,10 @@ export const AllRepoDisplay = () =>{
       <BreadcrumbItem >Collections</BreadcrumbItem>
       <BreadcrumbItem >All Repositories Collection</BreadcrumbItem>
     </Breadcrumbs>
+
+
+
+    {/* {real display section} */}
   
 </div>
 
@@ -159,9 +169,17 @@ export const AllRepoDisplay = () =>{
         
         <Card style={{backgroundColor: 'black'}}>
       <CardBody>
-        <p><span style={{color: '#98FB98  '}}>get:</span>  Files in Tree Structure | Repo's Commit Graph | Lines of code <span className="ml-12"> delete: </span></p>
+        <p>
+        <span style={{color: '#98FB98  '}}>get:</span> <a href="#" onClick={() => setTreeDrawerOpen(true)}> Files in Tree Structure </a>| Repo's Commit Graph | Lines of code | readMe
+         <span className="ml-12" style={{color: '#ED4337'}}> delete: </span> this.repository
+         </p>
+         <p>
+        <span style={{color: '#98FB98  '}} >put: </span><span className="mr-96">this.rename</span>
+         <span  style={{color: '#ED4337', marginLeft: '86px'}}> post: </span> 
+         </p>
       </CardBody>
     </Card>
+    <GetTreeDrawer />
     
       </AccordionItem>
     </Accordion>
