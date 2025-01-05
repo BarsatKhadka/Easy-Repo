@@ -60,7 +60,7 @@ export const GetTreeDrawer = () =>{
         return (
           <div style={{ fontFamily: 'monospace', whiteSpace: 'pre' }}>
             <div>
-              <a href="#" className="">{indent}{tree.displayName}</a>
+              <a href={tree.url} target="_blank" className="hover:underline">{indent}{tree.displayName}</a>
             </div>
             {tree.children && (
               <div>
@@ -83,11 +83,11 @@ export const GetTreeDrawer = () =>{
         <DrawerContent>
           {(onClose) => (
             <>
-              <DrawerHeader className="flex flex-col gap-1">Tree Structure for Repository:  {response?.data.displayName}</DrawerHeader>
+              <DrawerHeader className="flex flex-col gap-1" >Tree Structure for Repository:  {response?.data.displayName}</DrawerHeader>
               
               <DrawerBody>
                 <p>
-                  {response?.data && renderTree(response?.data)}
+                  {response?.data ? renderTree(response?.data) : <p>Loading</p>}
                 
                 </p>
 

@@ -22,11 +22,13 @@ public class GetCommitGraphController {
         this.oAuthService = oAuthService;
     }
 
-    @GetMapping("/{repoId}")
-    public List<CommitGraphDTO> getCommitGraph(@PathVariable int repoId) {
-        String accessToken = oAuthService.getAccessToken();
-        return commitGraphService.getCommitsOfRepo(accessToken, repoId);
-
-    }
+ //Closed this for right now because i will be implementing a commit plan calender and storing every commit will take too much space , and
+    // that way i can't host therefore
+//    @GetMapping("/{repoId}")
+//    public List<CommitGraphDTO> getCommitGraph(@PathVariable int repoId) {
+//        String accessToken = oAuthService.getAccessToken();
+//        return commitGraphService.getCommitsOfRepo(accessToken, repoId);
+//
+//    }
 
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -9,12 +9,37 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { useUserStore } from "../../store/UserStore";
+import { useAxios } from "../../utility/axiosUtils";
+//@ts-ignore
+import CalHeatmap from 'cal-heatmap';
+import 'cal-heatmap/cal-heatmap.css';
+
+
 
 export const GetRepoCommitGraphDrawer = () =>{
 
+    const {response, fetchData} = useAxios()
 
-    //this lets me know if to open the drawer or not 
-    const {graphDrawerOpen , setGraphDrawerOpen} = useUserStore()
+    //this lets me know if to open the drawer or not , treeRepoId gives current repoId
+    const {graphDrawerOpen , setGraphDrawerOpen , treeRepoId , setTreeRepoId} = useUserStore()
+    
+
+    
+    useEffect(()=>{
+        fetchData({url: "/easyrepo/getCommitGraph/"+ treeRepoId , method: 'get'})
+        
+    },[treeRepoId])
+
+
+    
+
+
+   
+    
+
+
+    console.log(response?.data)
+
 
 
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -32,29 +57,49 @@ export const GetRepoCommitGraphDrawer = () =>{
           setGraphDrawerOpen(false);
         }
       };
-    
+      
+
+      const dates: any = {}
+
+      response?.data.map((items: any) => {
+        const truncatedDate = items.date.split("T")[0]
+        if(!dates.hasOwnProperty(truncatedDate))
+        {
+            dates[truncatedDate] = 1
+
+        }
+        else{
+            dates[truncatedDate] +=1 
+        }
+})
+
+
+
+
+
+console.log(dates)
+
+
 
     return(
         <>
               <div className="flex flex-wrap gap-3">
   
       </div>
-      <Drawer isOpen={graphDrawerOpen} placement={"left"} onOpenChange={handleOpenChange}>
+      <Drawer isOpen={graphDrawerOpen} size={"5xl"} placement={"left"} onOpenChange={handleOpenChange}>
+        
         <DrawerContent>
           {(onClose) => (
             <>
               <DrawerHeader className="flex flex-col gap-1">Drawer Title</DrawerHeader>
               <DrawerBody>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-                  risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor
-                  quam.
+                {response?.data.map((items: any) => 
+                <p>{items.date.split("T")[0]}{"------"}{items.message}</p>
+                )}
                 </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit dolor
-                  adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. Velit duis sit
-                  officia eiusmod Lorem aliqua enim laboris do dolor eiusmod.
-                </p>
+                <div id="cal-heatmap"></div>
+            
               </DrawerBody>
               <DrawerFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
@@ -67,6 +112,7 @@ export const GetRepoCommitGraphDrawer = () =>{
             </>
           )}
         </DrawerContent>
+       
       </Drawer>
         </>
     )

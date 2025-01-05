@@ -56,7 +56,7 @@ public class CommitGraphService {
     public void createUpdateCommitsForRepo(String accessToken , int repoId){
 
         GithubRepoEntity githubRepoEntity = githubReposRepository.findByRepoId(repoId);
-        System.out.println(githubRepoEntity.getName());
+
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept","application/vnd.github+json");

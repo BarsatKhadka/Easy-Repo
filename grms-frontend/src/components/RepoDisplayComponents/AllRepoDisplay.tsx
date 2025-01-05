@@ -6,11 +6,7 @@ import {Accordion, AccordionItem , Avatar, useUser} from "@nextui-org/react";
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/breadcrumbs";
 import {Button, ButtonGroup} from "@nextui-org/button";
 import {Card, CardBody} from "@nextui-org/react";
-
-
-
-
-
+import {Divider} from "@nextui-org/react";
 
 import{Pagination , usePagination} from "@nextui-org/react"
 import { GetTreeDrawer } from "../Drawers/GetTreeDrawer";
@@ -78,10 +74,7 @@ export const AllRepoDisplay = () =>{
 
     const{treeRepoId, setTreeRepoId} = useUserStore()
     
-
-
-    
-   
+  
     return(
         <>
         <div className="flex justify-end items-start mt-8 mr-5 ">
@@ -177,16 +170,19 @@ export const AllRepoDisplay = () =>{
         <Card style={{backgroundColor: 'black'}}>
       <CardBody>
         <p>
-        <span style={{color: '#98FB98  '}}>get:</span> 
-        <a href="#" className= "underline" onClick={() => (setTreeDrawerOpen(true) , setTreeRepoId(items.repoId))}> Files in Tree Structure </a>| 
-        <a href="#" className="underline" onClick={() => setGraphDrawerOpen(true)}> Repo's Commit Graph  </a>| 
-        <a href="#" className="underline" onClick={() => setLocDrawerOpen(true)} > Lines of code </a>|  
+        <span style={{color: '#98FB98  '}}>get:</span> ------
+        <a href="#" className= "hover:underline" onClick={() => (setTreeDrawerOpen(true) , setTreeRepoId(items.repoId))}>Files in Tree Structure </a>
+        ------
+        <a href="#" className="hover:underline" onClick={() => (setGraphDrawerOpen(true) ,setTreeRepoId(items.repoId))}> Repo's Commit Graph  </a>------
+        <a href="#" className="hover:underline" onClick={() => setLocDrawerOpen(true)} >{"   "} Lines of code </a>------
         <a href="#"> readMe</a>
-         <span className="ml-12" style={{color: '#ED4337'}}> delete: </span> this.repository
+        </p>
+        <p>
+         <span style={{color: '#ED4337'}}> delete: </span> ---this.repository
          </p>
          <p>
-        <span style={{color: '#98FB98  '}} >put: </span><span className="mr-96">this.rename</span>
-         <span  style={{color: '#ED4337', marginLeft: '86px'}}> post: </span> 
+        <span style={{color: '#fde047  '}} >put: </span><span>------this.rename</span>
+    
          </p>
       </CardBody>
     </Card>

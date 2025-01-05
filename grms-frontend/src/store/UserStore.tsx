@@ -13,6 +13,7 @@ interface UserStoreType{
     setLocDrawerOpen: (locDrawerOpen: boolean) => void;
     treeRepoId: number |null;
     setTreeRepoId: (treeRepoId: number |null) => void;
+    
 
 
 }
@@ -29,6 +30,7 @@ export const useUserStore = create<UserStoreType>((set)=>({
     locDrawerOpen: false,
     setLocDrawerOpen: (locDrawerOpen: boolean) => set(() => ({locDrawerOpen})),
     treeRepoId: null,
-    setTreeRepoId: (treeRepoId: number|null) => set(() => ({treeRepoId}))
+    setTreeRepoId: (treeRepoId: number|null) => set(() => ({treeRepoId})),
+   
 
 }))
