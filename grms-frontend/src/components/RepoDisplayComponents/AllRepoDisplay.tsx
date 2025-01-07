@@ -72,7 +72,7 @@ export const AllRepoDisplay = () =>{
     const{graphDrawerOpen, setGraphDrawerOpen} = useUserStore()
     const{locDrawerOpen , setLocDrawerOpen} = useUserStore()
 
-    const{treeRepoId, setTreeRepoId} = useUserStore()
+    const{treeRepoId, setTreeRepoId , setRepoName} = useUserStore()
     
   
     return(
@@ -174,7 +174,7 @@ export const AllRepoDisplay = () =>{
         <a href="#" className= "hover:underline" onClick={() => (setTreeDrawerOpen(true) , setTreeRepoId(items.repoId))}>Files in Tree Structure </a>
         ------
         <a href="#" className="hover:underline" onClick={() => (setGraphDrawerOpen(true) ,setTreeRepoId(items.repoId))}> Repo's Commit Graph  </a>------
-        <a href="#" className="hover:underline" onClick={() => setLocDrawerOpen(true)} >{"   "} Lines of code </a>------
+        <a href="#" className="hover:underline" onClick={() => (setLocDrawerOpen(true), setRepoName(items.name))} >{"   "} Lines of code </a>------
         <a href="#"> readMe</a>
         </p>
         <p>
