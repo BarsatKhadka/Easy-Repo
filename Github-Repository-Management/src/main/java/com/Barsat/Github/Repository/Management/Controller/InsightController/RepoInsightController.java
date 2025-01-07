@@ -30,5 +30,10 @@ public class RepoInsightController {
 
     }
 
+    @GetMapping("/getReadMe/{repoName}")
+    public String repoReadMe(@PathVariable String repoName) {
+         return githubRepoInsightService.getReadMe(repoName);
+    }
+
 
 }

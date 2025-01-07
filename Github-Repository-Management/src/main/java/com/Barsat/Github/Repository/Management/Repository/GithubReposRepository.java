@@ -9,4 +9,5 @@ public interface GithubReposRepository extends JpaRepository<GithubRepoEntity, I
     GithubRepoEntity findByGithubId(Integer id);
 
     GithubRepoEntity findByRepoId(int repoId);
+    GithubRepoEntity findByName(String repoName);
 }

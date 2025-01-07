@@ -1,5 +1,7 @@
 package com.Barsat.Github.Repository.Management.Service.Insights;
 
+import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
+import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
 import com.Barsat.Github.Repository.Management.Service.OAuthService.OAuthService;
 import com.Barsat.Github.Repository.Management.Service.UtilityService.GetAuthenticatedUserName;
 import org.springframework.core.ParameterizedTypeReference;
@@ -17,10 +19,12 @@ public class GithubRepoInsightService {
 
     private final GetAuthenticatedUserName getAuthenticatedUserName;
     private final OAuthService oAuthService;
+    private final GithubReposRepository githubReposRepository;
 
-    public GithubRepoInsightService(GetAuthenticatedUserName getAuthenticatedUserName , OAuthService oAuthService) {
+    public GithubRepoInsightService(GetAuthenticatedUserName getAuthenticatedUserName , OAuthService oAuthService, GithubReposRepository githubReposRepository) {
         this.getAuthenticatedUserName = getAuthenticatedUserName;
         this.oAuthService = oAuthService;
+        this.githubReposRepository = githubReposRepository;
     }
 
 
@@ -53,6 +57,30 @@ public class GithubRepoInsightService {
         return Map.of("keys",keys,"languages",languages);
 
 
+
+    }
+
+    public String getReadMe(String repoName) {
+        String username = getAuthenticatedUserName.getUsername();
+
+        GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoName);
+
+        String defaultBranch = "master";
+        if(githubRepoEntity != null){
+            defaultBranch = githubRepoEntity.getDefault_branch();
+        }
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "application/json");
+        headers.set("Authorization" , "Bearer "+ oAuthService.getAccessToken());
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        String url = "https://raw.githubusercontent.com/" + username + "/" + repoName + "/"+  defaultBranch + "/README.md";
+
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        return response.getBody();
 
     }
 }
