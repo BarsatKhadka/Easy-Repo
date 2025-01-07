@@ -13,6 +13,7 @@ import { GetTreeDrawer } from "../Drawers/GetTreeDrawer";
 import { useUserStore } from "../../store/UserStore";
 import { GetRepoCommitGraphDrawer } from "../Drawers/GetRepoCommitGraphDrawer";
 import { GetLinesOfCodeDrawer } from "../Drawers/GetLinesOfCodeDrawer";
+import { ReadMeDrawer } from "../Drawers/ReadMeDrawer";
 
 
 interface githubRepoItem{
@@ -71,6 +72,7 @@ export const AllRepoDisplay = () =>{
     const{treeDrawerOpen , setTreeDrawerOpen} = useUserStore()
     const{graphDrawerOpen, setGraphDrawerOpen} = useUserStore()
     const{locDrawerOpen , setLocDrawerOpen} = useUserStore()
+    const{readMeDrawerOpen, setreadMeDrawerOpen} = useUserStore()
 
     const{treeRepoId, setTreeRepoId , setRepoName} = useUserStore()
     
@@ -175,13 +177,16 @@ export const AllRepoDisplay = () =>{
         ------
         <a href="#" className="hover:underline" onClick={() => (setGraphDrawerOpen(true) ,setTreeRepoId(items.repoId))}> Repo's Commit Graph  </a>------
         <a href="#" className="hover:underline" onClick={() => (setLocDrawerOpen(true), setRepoName(items.name))} >{"   "} Lines of code </a>------
-        <a href="#"> readMe</a>
+        <a href="#" className="hover:underline" onClick={()=> (setreadMeDrawerOpen(true) , setRepoName(items.name))}> readMe</a>
         </p>
+        <p>
+         <span style={{color: '#fde047'}}> post: </span> -----Open with VS Code
+         </p>
         <p>
          <span style={{color: '#ED4337'}}> delete: </span> ---this.repository
          </p>
          <p>
-        <span style={{color: '#fde047  '}} >put: </span><span>------this.rename</span>
+        <span style={{color: '#ED008C  '}} >put: </span><span>------this.rename</span>
     
          </p>
       </CardBody>
@@ -191,6 +196,7 @@ export const AllRepoDisplay = () =>{
     <GetTreeDrawer />
     <GetRepoCommitGraphDrawer/>
     <GetLinesOfCodeDrawer/>
+    <ReadMeDrawer/>
     
       </AccordionItem>
     </Accordion>

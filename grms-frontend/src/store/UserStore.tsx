@@ -15,6 +15,8 @@ interface UserStoreType{
     setTreeRepoId: (treeRepoId: number |null) => void;
     repoName: string |null;
     setRepoName: (repoName: string |null) => void;
+    readMeDrawerOpen: boolean;
+    setreadMeDrawerOpen: (readMeDrawerOpen: boolean) => void;
     
 
 
@@ -34,7 +36,9 @@ export const useUserStore = create<UserStoreType>((set)=>({
     treeRepoId: null,
     setTreeRepoId: (treeRepoId: number|null) => set(() => ({treeRepoId})),
     repoName: null,
-    setRepoName: (repoName: string | null) => set(() => ({repoName}))
+    setRepoName: (repoName: string | null) => set(() => ({repoName})),
+    readMeDrawerOpen: false,
+    setreadMeDrawerOpen: (readMeDrawerOpen: boolean) => set(() => ({readMeDrawerOpen}))
    
 
 }))
