@@ -14,6 +14,7 @@ import { useUserStore } from "../../store/UserStore";
 import { GetRepoCommitGraphDrawer } from "../Drawers/GetRepoCommitGraphDrawer";
 import { GetLinesOfCodeDrawer } from "../Drawers/GetLinesOfCodeDrawer";
 import { ReadMeDrawer } from "../Drawers/ReadMeDrawer";
+import { html } from "framer-motion/client";
 
 
 interface githubRepoItem{
@@ -55,6 +56,9 @@ export const AllRepoDisplay = () =>{
 
     const [currentPage, setCurrentPage] = useState(1);
     
+    const convertHtmlUrl = (html_url: string) =>{
+      return html_url.replace(/https:\/\/github\.com/g, "https://github.dev");
+    }
   
 
     const firstDataIndex = 5 * (currentPage -1)
@@ -180,7 +184,10 @@ export const AllRepoDisplay = () =>{
         <a href="#" className="hover:underline" onClick={()=> (setreadMeDrawerOpen(true) , setRepoName(items.name))}> readMe</a>
         </p>
         <p>
-         <span style={{color: '#fde047'}}> post: </span> -----Open with VS Code
+    
+         
+         <span style={{color: '#fde047'}}> post: </span>-----<a href={convertHtmlUrl(items.html_url)} target="_blank" className="hover:underline">Open with VS Code
+         </a>
          </p>
         <p>
          <span style={{color: '#ED4337'}}> delete: </span> ---this.repository
