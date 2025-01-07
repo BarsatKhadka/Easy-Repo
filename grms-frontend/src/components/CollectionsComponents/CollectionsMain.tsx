@@ -3,7 +3,7 @@ import { CreateCollections } from "./CreateCollections"
 
 //library imports
 import {useAxios} from "../../utility/axiosUtils"
-import {useEffect} from 'react'
+import {useEffect , useState} from 'react'
 import {
     Modal,
     ModalContent,
@@ -14,11 +14,32 @@ import {
     useDisclosure,
     Input,
   } from "@nextui-org/react";
+  import {Autocomplete, AutocompleteItem} from "@nextui-org/react";
 
 
 export const  CollectionsPopUp = () => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    
+
+    const{response , fetchData} = useAxios();
+
+    useEffect(()=>{
+      fetchData({url: '/easyrepo/collections/all', method: 'get'})
+      console.log("success on another world")
+
+  },[onOpen]) 
+
+    const repositories = [
+      {label: "", key: "", description: ""}
+    ];
+
+    console.log(response?.data?.githubRepo)
+    response?.data?.githubRepo.forEach((item: { name: string; repoId: string }) => {
+      repositories.push({
+        label: item.name,
+        key: item.repoId,
+        description: item.name, 
+      });
+    });
   
     return (
       <>
@@ -34,32 +55,23 @@ export const  CollectionsPopUp = () => {
                 <ModalHeader className="flex flex-col gap-1">Create a Collection</ModalHeader>
                 <ModalBody>
                   <Input
-                    // endContent={
-                    //   <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                    // }
+                    
                     label="Collection Name"
                     placeholder=""
                     variant="bordered"
                   />
-                  <Input
-                    // endContent={
-                    //   <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                    // }
-                    label="Repositories To Add"
-                    placeholder=""
-                    variant="bordered"
-                  />
+                     <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+      <Autocomplete
+        className="max-w"
+        defaultItems={repositories}
+        label="Repositories to add"
+        placeholder="Search repositories"
+      >
+        {(item) => <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>}
+      </Autocomplete>
+    </div>
                   <div className="flex py-2 px-1 justify-between">
-                  {/* <Checkbox
-                      classNames={{
-                        label: "text-small",
-                      }}
-                    >
-                      Remember me
-                    </Checkbox>
-                    <Link color="primary" href="#" size="sm">
-                      Forgot password?
-                    </Link> */}
+          
                   </div>
                 </ModalBody>
                 <ModalFooter>
