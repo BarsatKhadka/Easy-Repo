@@ -96,7 +96,7 @@ const axiosInstance : AxiosInstance  = axios.create({
        
 
     }
-    return {response , loading , error , fetchData}
+    return {response , setResponse, loading , error , fetchData}
   
 
 

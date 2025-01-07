@@ -11,23 +11,34 @@ import {
 import { useUserStore } from "../../store/UserStore";
 import { useAxios } from "../../utility/axiosUtils";
 import {Card, CardHeader, CardBody, Image } from "@nextui-org/react";
+import ReactMarkdown from 'react-markdown'
 
 
 
 export const ReadMeDrawer = () =>{
 
-    // const{response, fetchData} = useAxios()
+    const{response, setResponse, fetchData} = useAxios()
 
+    
 
     //this lets me know if to open the drawer or not 
     const {readMeDrawerOpen , setreadMeDrawerOpen} = useUserStore()
     const{repoName , setRepoName} = useUserStore()
 
+    useEffect(() =>{
+        fetchData({url: "/easyrepo/insights/repo/getReadMe/" + repoName , method: 'get'})
+
+    }, [repoName])
+
     const handleOpenChange = (isOpen: boolean) => {
         if (!isOpen) {
           setreadMeDrawerOpen(false);
+          setResponse(null)    
         }
       };
+
+
+      console.log(response)
 
     return(
         <>
@@ -42,21 +53,10 @@ export const ReadMeDrawer = () =>{
             <DrawerBody>
              <>
                  <p>
-                   
-                         <Card className="py-4 mt-4">
-                         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                           <p className="text-tiny uppercase font-bold"></p>
-                           <p>Gello </p>
-                         </CardHeader>
-                         <CardBody className="overflow-visible py-2">
-              
-                         </CardBody>
-                       </Card>
+                    <ReactMarkdown>{response?.data}</ReactMarkdown>
                  </p>    
                 
                </>
-        
-            
           
            </DrawerBody>
 
