@@ -32,6 +32,11 @@ public class CollectionsController {
 
     }
 
+    @GetMapping("/{collectionName}")
+    public RepoCollectionsEntity getCollectionRepos(@PathVariable String collectionName){
+        return repoCollectionGet.getSpecificCollection(collectionName);
+    }
+
     @GetMapping("/allExistingCollections")
     public List<RepoCollectionsEntity> allExistingCollections(){
         return repoCollectionGet.allExistingCollections();

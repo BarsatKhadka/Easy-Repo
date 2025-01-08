@@ -44,7 +44,7 @@ export const  CollectionsPopUp = () => {
 
   const creatingCollect = async() =>{
     try{
-        const response = await axios.post("http://localhost:8080/easyrepo/collections/createCollection", {'collectionName': 'verynaya' , 'collectionDescription': 'wala' , 'githubRepoIds': [2,3,4,5]}, 
+        const response = await axios.post("http://localhost:8080/easyrepo/collections/createCollection", {'collectionName': 'bruh' , 'collectionDescription': 'wala' , 'githubRepoIds': [2,3,4,5]}, 
         {withCredentials: true , headers : {'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }})
         console.log('done boss')
     }
@@ -107,7 +107,7 @@ export const  CollectionsPopUp = () => {
                   <Button color="danger" variant="flat" onPress={onClose}>
                     Close
                   </Button>
-                  <Button color="success" onPress={() => {onClose ; creatingCollect()}}>
+                  <Button color="success" onPress={() => {onClose ; creatingCollect() ; location.reload()}}>
                     Create
                   </Button>
                 </ModalFooter>

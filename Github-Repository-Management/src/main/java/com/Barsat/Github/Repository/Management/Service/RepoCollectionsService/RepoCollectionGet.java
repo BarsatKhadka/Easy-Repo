@@ -47,4 +47,10 @@ public class RepoCollectionGet {
 
 
     }
+
+    public RepoCollectionsEntity getSpecificCollection(String collectionName) {
+        String username = getAuthenticatedUserName.getUsername();
+        RepoCollectionsEntity repoCollectionsEntity = repoCollectionsRepository.findByMasterUserUsernameAndCollectionName(username, collectionName);
+        return repoCollectionsEntity;
+    }
 }

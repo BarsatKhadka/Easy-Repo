@@ -43,22 +43,19 @@ export const RepoDisplayMain = () =>{
     
     const {collectionName} = useUserStore()
 
+    const{response,fetchData} = useAxios()
+
     //when collection Name changes , hit the endpoint to display.
     useEffect(() => {
+
+        fetchData({url:"/easyrepo/collections/"+ collectionName , method: 'get'})
         
 
     }, [collectionName])
 
-     const{response,fetchData} = useAxios()
+     
         
          
-        
-    
-        //i am fetching all the collections in the main component because all collections will be made from the pool of all collections , it being accessible from here makes sense.
-        useEffect(()=>{
-            
-    
-        },[]) 
     
         //total Item by number of pages. 5 per page.
         const totalItem = Math.ceil(response?.data?.repositoryCount /6) 
@@ -132,7 +129,7 @@ export const RepoDisplayMain = () =>{
 
             <Breadcrumbs  key= "success" color="success" className="mt-8">
             <BreadcrumbItem >Collections</BreadcrumbItem>
-            <BreadcrumbItem >All Repositories Collection</BreadcrumbItem>
+            <BreadcrumbItem >{collectionName}</BreadcrumbItem>
             </Breadcrumbs>
 
 
@@ -225,7 +222,6 @@ export const RepoDisplayMain = () =>{
 
             
             )})}</div>
-            This is collection {collectionName}
             </div>
         
         
