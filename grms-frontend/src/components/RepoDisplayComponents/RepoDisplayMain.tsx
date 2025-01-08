@@ -17,7 +17,7 @@ export const RepoDisplayMain = () =>{
 
     return(
         <>
-        {collectionName === "all" && <AllRepoDisplay/>}
+        {collectionName === "All Repositories" && <AllRepoDisplay/>}
         </>
     )
 }

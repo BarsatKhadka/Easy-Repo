@@ -8,6 +8,8 @@ import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.Re
 import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionsRemoveRepo;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/easyrepo/collections")
 public class CollectionsController {
@@ -30,6 +32,10 @@ public class CollectionsController {
 
     }
 
+    @GetMapping("/allExistingCollections")
+    public List<RepoCollectionsEntity> allExistingCollections(){
+        return repoCollectionGet.allExistingCollections();
+    }
 
     @PostMapping("/createCollection")
     public void createCollections(@RequestBody RepoCollectionDTO repoCollectionsDTO) {

@@ -4,6 +4,8 @@ import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCollections
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface RepoCollectionsRepository extends JpaRepository<RepoCollectionsEntity, Integer> {
     /*to reference parent id column , first reference the field name of the parent in the entity. For here it's theUser 'masterUser' , then the field inside theUser you want to
@@ -12,6 +14,8 @@ public interface RepoCollectionsRepository extends JpaRepository<RepoCollections
     RepoCollectionsEntity findByCollectionId(Integer collectionId);
 
     RepoCollectionsEntity findByMasterUserUsernameAndCollectionName(String masterUserUsername, String collectionName);
+
+    List<RepoCollectionsEntity> findAllByMasterUserUsername(String masterUserUsername);
 
 
 }

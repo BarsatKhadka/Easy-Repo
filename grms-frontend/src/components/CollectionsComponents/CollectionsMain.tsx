@@ -1,9 +1,11 @@
-import { CollectionsAll } from "./CollectionsAll"
 import { CreateCollections } from "./CreateCollections"
 
 //library imports
 import {useAxios} from "../../utility/axiosUtils"
 import {useEffect , useState} from 'react'
+import {Select, SelectItem} from "@nextui-org/react";
+import {Snippet} from "@nextui-org/snippet";
+
 import {
     Modal,
     ModalContent,
@@ -14,7 +16,8 @@ import {
     useDisclosure,
     Input,
   } from "@nextui-org/react";
-  import {Autocomplete, AutocompleteItem} from "@nextui-org/react";
+
+import { useUserStore } from "../../store/UserStore";
 
 
 export const  CollectionsPopUp = () => {
@@ -27,6 +30,11 @@ export const  CollectionsPopUp = () => {
       console.log("success on another world")
 
   },[onOpen]) 
+
+
+  
+ 
+
 
     const repositories = [
       {label: "", key: "", description: ""}
@@ -43,7 +51,7 @@ export const  CollectionsPopUp = () => {
   
     return (
       <>
-        <button color="primary" onClick={onOpen}>
+        <button color="primary" onClick={onOpen} className="mr-24 mt-2">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
@@ -61,14 +69,16 @@ export const  CollectionsPopUp = () => {
                     variant="bordered"
                   />
                      <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-      <Autocomplete
-        className="max-w"
-        defaultItems={repositories}
-        label="Repositories to add"
-        placeholder="Search repositories"
-      >
-        {(item) => <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>}
-      </Autocomplete>
+                     <Select
+      className="max-w"
+      label="Favorite Animal"
+      placeholder="Select an animal"
+      selectionMode="multiple"
+    >
+      {repositories.map((repo) => (
+        <SelectItem key={repo.key}>{repo.label}</SelectItem>
+      ))}
+    </Select>
     </div>
                   <div className="flex py-2 px-1 justify-between">
           
@@ -95,43 +105,51 @@ export const  CollectionsPopUp = () => {
 //this will contain all the collections.
 export const CollectionsMain = () =>{
 
+  const {setCollectionName} = useUserStore()
+
+  useEffect(() =>{
+
+    getAllCollections()
+
+  },[])
+  
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const [collections,setCollections] = useState<any>(null)
+
+  const getAllCollections = async() => {
+   const responseServer =  await fetch(backendUrl + "/easyrepo/collections/allExistingCollections" , {method: 'GET' , credentials: 'include'}  )
+   const responseHere = await(responseServer.json())
+   setCollections(responseHere)
+  }
+
+ 
+
+  console.log(collections)
 
     
 
     return (
         <>
 
-    <aside className="flex flex-col w-80 h-screen px-5 py-8 overflow-y-auto  ">
+    
 
     <div>
     
             <div className="flex items-center justify-between">
-                <h2 className="text-base font-semibold text-gray-800 dark:text-white">Collections</h2>
+                <h2 className="text-base font-semibold text-gray-800 dark:text-white mt-2 ml-4">Collections</h2>
                 <CollectionsPopUp/>
 
             </div>
              {/* the type this prop must return is defined in the element itself , not here. */}
-        <CollectionsAll />
 
-            <nav className="mt-4 -mx-3 space-y-3 ">
-               
-                <button className="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
-                    <div className="flex items-center gap-x-2 ">
-                        <span className="w-2 h-2 bg-pink-500 rounded-full"></span>
-                        <span>Meraki UI Components</span>
-                    </div>
-
-
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4 rtl:rotate-180">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                    </svg>
-                </button>
-
-            
-            </nav>
+        {collections?.map((item:any) =>      
+        <div className="flex flex-wrap gap-4 mt-8">
+      <Snippet variant="bordered" className="ml-3"><a href="#" className="hover:underline" onClick={() => setCollectionName(item.collectionName)}>{item.collectionName}</a></Snippet>
+    </div> ) }
+       
         </div>
     
-</aside>
+
          <button onClick = {()=> {}}>This is a button</button>
 
          

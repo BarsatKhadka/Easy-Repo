@@ -37,4 +37,14 @@ public class RepoCollectionGet {
     }
 
 
+    public List<RepoCollectionsEntity> allExistingCollections() {
+
+        String username = getAuthenticatedUserName.getUsername();
+        List<RepoCollectionsEntity> repoCollectionsEntities = repoCollectionsRepository.findAllByMasterUserUsername(username);
+
+        return repoCollectionsEntities; 
+
+
+
+    }
 }
