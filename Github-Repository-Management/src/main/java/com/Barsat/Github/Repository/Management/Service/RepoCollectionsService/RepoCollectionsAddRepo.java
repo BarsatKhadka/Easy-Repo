@@ -24,7 +24,7 @@ public class RepoCollectionsAddRepo {
     }
 
     public void addRepo(Integer collectionId , RepoCollectionDTO repoCollectionDTO) {
-        List<Integer> githubRepoIds = repoCollectionDTO.getGithubRepoIds();
+        List<String> githubRepoNames = repoCollectionDTO.getGithubRepoNames();
 
         Set<GithubRepoEntity> addGithubRepoEntities = new HashSet<>();
 
@@ -33,8 +33,8 @@ public class RepoCollectionsAddRepo {
             repoCollectionsEntity.getGithubRepo().forEach(githubRepo -> {
                 addGithubRepoEntities.add(githubRepo);
             });
-            for(Integer githubRepoId : githubRepoIds) {
-                GithubRepoEntity githubRepoEntity = githubReposRepository.findByRepoId(githubRepoId);
+            for(String githubRepoName : githubRepoNames) {
+                GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(githubRepoName);
                 if(!addGithubRepoEntities.contains(githubRepoEntity)) {
 
                     addGithubRepoEntities.add(githubRepoEntity);

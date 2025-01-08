@@ -23,8 +23,9 @@ import { useUserStore } from "../../store/UserStore";
 
 export const  CollectionsPopUp = () => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    const[values,setValues] = useState([])
+    const[values,setValues] = useState<string>("")
     
+    const[createCollectionName, setCreateCollectionName] = useState("")
 
     const{response , fetchData} = useAxios();
 
@@ -35,18 +36,31 @@ export const  CollectionsPopUp = () => {
   },[onOpen]) 
 
 
-  const handleSelectedKeys = (selectedKeys: any) =>{
-    setValues(selectedKeys)
-    console.log(selectedKeys )
+  const githubRepoIds: Array<string> = []
+    const handleSelectedKeys = (e: any) =>{
+      const selectedValues = e.target.value
+    setValues(selectedValues);
+   
+    
+    }
+githubRepoIds.push(values)
+
+  const handleChange = (event: any) =>{
+    setCreateCollectionName(event.target.value)
+  }
+
   
 
-  }
+  console.log(githubRepoIds)
 
   const creatingCollect = async() =>{
     try{
-        const response = await axios.post("http://localhost:8080/easyrepo/collections/createCollection", {'collectionName': 'bruh' , 'collectionDescription': 'wala' , 'githubRepoIds': [2,3,4,5]}, 
+     
+      const repoIds: Array<number>= githubRepoIds[0].split(",").map(Number);
+        await axios.post("http://localhost:8080/easyrepo/collections/createCollection", {'collectionName': createCollectionName   , 'githubRepoIds': repoIds}, 
         {withCredentials: true , headers : {'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }})
-        console.log('done boss')
+        location.reload()
+
     }
     catch(error){
 
@@ -54,6 +68,7 @@ export const  CollectionsPopUp = () => {
 
 }
  
+// console.log(values)
 
 
     const repositories = [
@@ -68,6 +83,8 @@ export const  CollectionsPopUp = () => {
         description: item.name, 
       });
     });
+
+
   
     return (
       <>
@@ -85,6 +102,7 @@ export const  CollectionsPopUp = () => {
                     label="Collection Name"
                     placeholder=""
                     variant="bordered"
+                    onChange={handleChange}
                   />
                      <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
                      <Select
@@ -107,7 +125,7 @@ export const  CollectionsPopUp = () => {
                   <Button color="danger" variant="flat" onPress={onClose}>
                     Close
                   </Button>
-                  <Button color="success" onPress={() => {onClose ; creatingCollect() ; location.reload()}}>
+                  <Button color="success" onPress={() => {onClose ; creatingCollect() }}>
                     Create
                   </Button>
                 </ModalFooter>

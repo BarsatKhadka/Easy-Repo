@@ -30,9 +30,6 @@ public class RepoCollectionsEntity {
     @Column(unique = true)
     private String collectionName;
 
-    @Lob
-    private String collectionDescription;
-
 
     private LocalDateTime createdAt;
 

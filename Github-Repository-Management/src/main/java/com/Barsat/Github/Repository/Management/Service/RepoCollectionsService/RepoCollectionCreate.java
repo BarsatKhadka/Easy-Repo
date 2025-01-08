@@ -53,7 +53,6 @@ public class RepoCollectionCreate {
 
         repoCollectionsEntity.setMasterUser(masterUser);
         repoCollectionsEntity.setCollectionName(repoCollectionDTO.getCollectionName());
-        repoCollectionsEntity.setCollectionDescription(repoCollectionDTO.getCollectionDescription());
 
         for(Integer repoId : repoCollectionDTO.getGithubRepoIds()){
             GithubRepoEntity githubRepoEntity = githubReposRepository.findById(repoId).orElse(null);

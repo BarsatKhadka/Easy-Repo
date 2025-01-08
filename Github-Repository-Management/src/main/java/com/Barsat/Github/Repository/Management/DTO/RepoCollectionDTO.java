@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class RepoCollectionDTO {
     private String collectionName;
-    private String collectionDescription;
     private List<Integer> githubRepoIds = new ArrayList<>();
+    private List<String> githubRepoNames = new ArrayList<>();
 
 }
