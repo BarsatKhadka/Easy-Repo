@@ -42,7 +42,7 @@ public class RepoCollectionGet {
         String username = getAuthenticatedUserName.getUsername();
         List<RepoCollectionsEntity> repoCollectionsEntities = repoCollectionsRepository.findAllByMasterUserUsername(username);
 
-        return repoCollectionsEntities; 
+        return repoCollectionsEntities;
 
 
 

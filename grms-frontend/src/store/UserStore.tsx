@@ -25,7 +25,7 @@ interface UserStoreType{
 export const useUserStore = create<UserStoreType>((set)=>({
     authenticated : false,
     setAuthenticated: (authenticated : boolean) => set(()=> ({authenticated})),
-    collectionName: "none",
+    collectionName: "All Repositories",
     setCollectionName: (collectionName:string) => set(() => ({collectionName})),
     treeDrawerOpen: false,
     setTreeDrawerOpen: (treeDrawerOpen: boolean) => set(()=> ({treeDrawerOpen}) ),

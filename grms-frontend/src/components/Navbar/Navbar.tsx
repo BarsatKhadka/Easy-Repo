@@ -237,6 +237,7 @@ const logoutFunction = async() =>{
               isBordered: true,
               src: props?.data?.avatarUrl,
             }}
+          
             className="transition-transform"
             description= {props?.data?.email}
             name={props?.data?.username}

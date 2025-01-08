@@ -5,6 +5,9 @@ import {useAxios} from "../../utility/axiosUtils"
 import {useEffect , useState} from 'react'
 import {Select, SelectItem} from "@nextui-org/react";
 import {Snippet} from "@nextui-org/snippet";
+import {Alert} from "@nextui-org/react";
+import { BsBoxSeamFill } from "react-icons/bs";
+import axios from 'axios'
 
 import {
     Modal,
@@ -22,6 +25,8 @@ import { useUserStore } from "../../store/UserStore";
 
 export const  CollectionsPopUp = () => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    const[values,setValues] = useState([])
+    
 
     const{response , fetchData} = useAxios();
 
@@ -32,7 +37,24 @@ export const  CollectionsPopUp = () => {
   },[onOpen]) 
 
 
+  const handleSelectedKeys = (selectedKeys: any) =>{
+    setValues(selectedKeys)
+    console.log(selectedKeys )
   
+
+  }
+
+  const creatingCollect = async() =>{
+    try{
+        const response = await axios.post("http://localhost:8080/easyrepo/collections/createCollection", {'collectionName': 'naya' , 'collectionDescription': 'wala' , 'githubRepoIds': [2,3,4,5]}, 
+        {withCredentials: true , headers : {'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }})
+        console.log('done boss')
+    }
+    catch(error){
+
+    }
+
+}
  
 
 
@@ -51,11 +73,9 @@ export const  CollectionsPopUp = () => {
   
     return (
       <>
-        <button color="primary" onClick={onOpen} className="mr-24 mt-2">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-        </button>   
+       <Button color="default" size="sm" variant="flat" onPress={onOpen}  >
+            + New Collection 
+        </Button>
         <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}  >
           <ModalContent>
             {(onClose) => (
@@ -74,6 +94,7 @@ export const  CollectionsPopUp = () => {
       label="Favorite Animal"
       placeholder="Select an animal"
       selectionMode="multiple"
+      onChange={handleSelectedKeys}
     >
       {repositories.map((repo) => (
         <SelectItem key={repo.key}>{repo.label}</SelectItem>
@@ -88,7 +109,7 @@ export const  CollectionsPopUp = () => {
                   <Button color="danger" variant="flat" onPress={onClose}>
                     Close
                   </Button>
-                  <Button color="success" onPress={onClose}>
+                  <Button color="success" onPress={() => {onClose ; creatingCollect()}}>
                     Create
                   </Button>
                 </ModalFooter>
@@ -104,6 +125,7 @@ export const  CollectionsPopUp = () => {
 
 //this will contain all the collections.
 export const CollectionsMain = () =>{
+
 
   const {setCollectionName} = useUserStore()
 
@@ -122,6 +144,7 @@ export const CollectionsMain = () =>{
    setCollections(responseHere)
   }
 
+  
   console.log(collections)
 
     
@@ -130,25 +153,29 @@ export const CollectionsMain = () =>{
         <>
     <div>
     
-            <div className="flex items-center justify-between">
-                <h2 className="text-base font-semibold text-gray-800 dark:text-white mt-8 mb-8 ml-4 ">Collections</h2>
-                <CollectionsPopUp/>
-
-            </div>
+    <div className="flex items-center justify-center w-100 mt-5 mr-5">
+      <Alert
+        color="secondary"
+        description="group your repo with collections"
+        endContent={
+          <CollectionsPopUp/>
+        }
+        title="Collections"
+        variant="faded"
+        icon = {<BsBoxSeamFill />}
+      />
+    </div>
              {/* the type this prop must return is defined in the element itself , not here. */}
 
         {collections?.map((item:any) =>      
         <div className="flex flex-wrap gap-4 mt-8">
-      <Snippet color= 'danger' variant='bordered' className="ml-3"><a href="#" className="hover:underline text-white" onClick={() => setCollectionName(item.collectionName)}>{item.collectionName}</a></Snippet>
+      <Snippet color= 'danger' variant='bordered' className="ml-3 w-full mr-12"><a href="#" className="hover:underline text-white" onClick={() => setCollectionName(item.collectionName)}>{item.collectionName}</a></Snippet>
     </div> ) }
        
         </div>
     
 
-         <button onClick = {()=> {}}>This is a button</button>
-
-         
-        <CreateCollections/>    
+          
 
         
         </>
