@@ -6,7 +6,7 @@ import {Accordion, AccordionItem , Avatar, useUser} from "@nextui-org/react";
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/breadcrumbs";
 import {Button, ButtonGroup} from "@nextui-org/button";
 import {Card, CardBody} from "@nextui-org/react";
-import {Divider} from "@nextui-org/react";
+
 
 import{Pagination , usePagination} from "@nextui-org/react"
 import { GetTreeDrawer } from "../Drawers/GetTreeDrawer";
@@ -14,7 +14,7 @@ import { useUserStore } from "../../store/UserStore";
 import { GetRepoCommitGraphDrawer } from "../Drawers/GetRepoCommitGraphDrawer";
 import { GetLinesOfCodeDrawer } from "../Drawers/GetLinesOfCodeDrawer";
 import { ReadMeDrawer } from "../Drawers/ReadMeDrawer";
-import { html } from "framer-motion/client";
+
 
 
 interface githubRepoItem{
@@ -128,7 +128,7 @@ export const AllRepoDisplay = () =>{
   
 </div>
 
-        <div>{response?.data.githubRepo
+        <div>{response?.data?.githubRepo
         .sort((a: githubRepoItem, b: githubRepoItem) => a.repoId - b.repoId)
         .slice(firstDataIndex,lastDataIndex)
         .map((items: githubRepoItem) =>{
@@ -212,9 +212,6 @@ export const AllRepoDisplay = () =>{
 
         
         )})}</div>
-
-
-
            
         </>
     )

@@ -1,5 +1,3 @@
-import { CreateCollections } from "./CreateCollections"
-
 //library imports
 import {useAxios} from "../../utility/axiosUtils"
 import {useEffect , useState} from 'react'
@@ -46,7 +44,7 @@ export const  CollectionsPopUp = () => {
 
   const creatingCollect = async() =>{
     try{
-        const response = await axios.post("http://localhost:8080/easyrepo/collections/createCollection", {'collectionName': 'naya' , 'collectionDescription': 'wala' , 'githubRepoIds': [2,3,4,5]}, 
+        const response = await axios.post("http://localhost:8080/easyrepo/collections/createCollection", {'collectionName': 'verynaya' , 'collectionDescription': 'wala' , 'githubRepoIds': [2,3,4,5]}, 
         {withCredentials: true , headers : {'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }})
         console.log('done boss')
     }
@@ -132,6 +130,7 @@ export const CollectionsMain = () =>{
   useEffect(() =>{
 
     getAllCollections()
+    console.log("this called")
 
   },[])
   
