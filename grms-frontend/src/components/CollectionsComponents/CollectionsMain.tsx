@@ -122,21 +122,16 @@ export const CollectionsMain = () =>{
    setCollections(responseHere)
   }
 
- 
-
   console.log(collections)
 
     
 
     return (
         <>
-
-    
-
     <div>
     
             <div className="flex items-center justify-between">
-                <h2 className="text-base font-semibold text-gray-800 dark:text-white mt-2 ml-4">Collections</h2>
+                <h2 className="text-base font-semibold text-gray-800 dark:text-white mt-8 mb-8 ml-4 ">Collections</h2>
                 <CollectionsPopUp/>
 
             </div>
@@ -144,7 +139,7 @@ export const CollectionsMain = () =>{
 
         {collections?.map((item:any) =>      
         <div className="flex flex-wrap gap-4 mt-8">
-      <Snippet variant="bordered" className="ml-3"><a href="#" className="hover:underline" onClick={() => setCollectionName(item.collectionName)}>{item.collectionName}</a></Snippet>
+      <Snippet color= 'danger' variant='bordered' className="ml-3"><a href="#" className="hover:underline text-white" onClick={() => setCollectionName(item.collectionName)}>{item.collectionName}</a></Snippet>
     </div> ) }
        
         </div>

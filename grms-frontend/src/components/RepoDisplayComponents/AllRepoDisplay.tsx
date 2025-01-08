@@ -52,7 +52,7 @@ export const AllRepoDisplay = () =>{
     },[]) 
 
     //total Item by number of pages. 5 per page.
-    const totalItem = Math.ceil(response?.data?.repositoryCount /5) 
+    const totalItem = Math.ceil(response?.data?.repositoryCount /6) 
 
     const [currentPage, setCurrentPage] = useState(1);
     
@@ -61,8 +61,8 @@ export const AllRepoDisplay = () =>{
     }
   
 
-    const firstDataIndex = 5 * (currentPage -1)
-    const lastDataIndex = 5 * currentPage
+    const firstDataIndex = 6 * (currentPage -1)
+    const lastDataIndex = 6 * currentPage
 
 
     const array = ['default','success','primary','secondary','warning','danger'];
@@ -117,7 +117,7 @@ export const AllRepoDisplay = () =>{
         <div className="flex flex-col flex-wrap gap-4 ml-4 mb-12">
         
     
-    <Breadcrumbs  key= "success" color="success">
+    <Breadcrumbs  key= "success" color="success" className="mt-8">
       <BreadcrumbItem >Collections</BreadcrumbItem>
       <BreadcrumbItem >All Repositories Collection</BreadcrumbItem>
     </Breadcrumbs>
@@ -166,6 +166,7 @@ export const AllRepoDisplay = () =>{
 
           classNames={{subtitle: "text-green" ,trigger: "px-2 py-0 rounded-lg h-14 flex items-center bg  duration-200 ease-in-out hover:bg-default hover:bg-opacity-8 " }}
           className="mt-8"
+          
           
 
         subtitle={items.description}
