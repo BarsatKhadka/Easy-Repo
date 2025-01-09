@@ -57,7 +57,11 @@ githubRepoIds.push(values)
     try{
      
       const repoIds: Array<number>= githubRepoIds[0].split(",").map(Number);
-        await axios.post("http://localhost:8080/easyrepo/collections/createCollection", {'collectionName': createCollectionName   , 'githubRepoIds': repoIds}, 
+      
+      //spaces give spaces in url and cause backend to crash. Temporary solution for right now.
+        const finalcreateCollectionName = createCollectionName.replace(/\s+/g, '_');
+
+        await axios.post("http://localhost:8080/easyrepo/collections/createCollection", {'collectionName': finalcreateCollectionName   , 'githubRepoIds': repoIds}, 
         {withCredentials: true , headers : {'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }})
         location.reload()
 

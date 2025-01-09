@@ -25,7 +25,7 @@ export const HomeAfterAuth = () => {
       <Divider />
     </div>
 
-    <div key="item-2" className="lg:col-start-1 lg:row-start-2 lg:col-span-1 lg:row-span-6 md:col-span-2 sm:col-span-1 border-r border-t  border-white  ml-3">
+    <div key="item-2" className="lg:col-start-1 lg:row-start-2 lg:col-span-1 lg:row-span-6 md:col-span-2 sm:col-span-1 border-r border-t  border-white   ml-3">
       <CollectionsMain />
     </div>
     <div key="item-3" className="lg:col-start-2 lg:row-start-2 lg:col-span-2 lg:row-span-1 md:col-span-2 sm:col-span-1">
