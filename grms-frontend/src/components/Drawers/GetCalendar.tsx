@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -7,12 +7,12 @@ import {
   DrawerFooter,
   Button,
   useDisclosure,
+  Calendar,
 } from "@nextui-org/react";
 import { useUserStore } from "../../store/UserStore";
 import { useAxios } from "../../utility/axiosUtils";
-//@ts-ignore
-import CalHeatmap from 'cal-heatmap';
-import 'cal-heatmap/cal-heatmap.css';
+import axios from "axios";
+import { GoogleOAuthProvider , GoogleLogin } from "@react-oauth/google";
 
 
 
@@ -79,6 +79,24 @@ export const GetRepoCommitGraphDrawer = () =>{
 
 // console.log(dates)
 
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+const [googleAuthenticated , setGoogleAuthenticated] = useState<boolean>(false)
+
+const getGoogleAccessToken = async(credential: any) =>{
+  try {
+    const response = await axios.post(`${backendUrl}/auth/google/verify`, { token: credential });
+    if (response.data.success) {
+      setGoogleAuthenticated(true); 
+      console.log("User authenticated:", response.data.user);
+    } else {
+      console.error("Authentication failed:", response.data.message);
+    }
+  } catch (error) {
+    console.error("Error verifying Google token:", error);
+  }
+};
+
 
 
     return(
@@ -98,6 +116,34 @@ export const GetRepoCommitGraphDrawer = () =>{
                 <p>{items.date.split("T")[0]}{"------"}{items.message}</p>
                 )}
                 </p> */}
+                <GoogleOAuthProvider clientId= {clientId}>
+                  {!googleAuthenticated && 
+                  <GoogleLogin 
+                onSuccess={credentialResponse => {
+                  if (credentialResponse.credential) {
+                    console.log(credentialResponse)
+                    // getGoogleAccessToken(credentialResponse.credential); 
+                  }
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+                 />
+                  }
+                
+                </GoogleOAuthProvider>
+
+                {googleAuthenticated && 
+
+                <div>
+                  kaam vayena vane ta lyang hunxa yar
+                </div>
+                
+                }
+
+
+
+                
                 
             
               </DrawerBody>
