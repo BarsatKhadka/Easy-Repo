@@ -11,8 +11,7 @@ import {
 } from "@nextui-org/react";
 import { useUserStore } from "../../store/UserStore";
 import { useAxios } from "../../utility/axiosUtils";
-import axios from "axios";
-import { GoogleOAuthProvider , GoogleLogin } from "@react-oauth/google";
+import { ContinuousCalendar } from "../Calendar/Calendar";
 
 
 
@@ -79,23 +78,7 @@ export const GetRepoCommitGraphDrawer = () =>{
 
 // console.log(dates)
 
-const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
-const backendUrl = import.meta.env.VITE_BACKEND_URL
-const [googleAuthenticated , setGoogleAuthenticated] = useState<boolean>(false)
 
-const getGoogleAccessToken = async(credential: any) =>{
-  try {
-    const response = await axios.post(`${backendUrl}/auth/google/verify`, { token: credential });
-    if (response.data.success) {
-      setGoogleAuthenticated(true); 
-      console.log("User authenticated:", response.data.user);
-    } else {
-      console.error("Authentication failed:", response.data.message);
-    }
-  } catch (error) {
-    console.error("Error verifying Google token:", error);
-  }
-};
 
 
 
@@ -116,30 +99,10 @@ const getGoogleAccessToken = async(credential: any) =>{
                 <p>{items.date.split("T")[0]}{"------"}{items.message}</p>
                 )}
                 </p> */}
-                <GoogleOAuthProvider clientId= {clientId}>
-                  {!googleAuthenticated && 
-                  <GoogleLogin 
-                onSuccess={credentialResponse => {
-                  if (credentialResponse.credential) {
-                    console.log(credentialResponse)
-                    // getGoogleAccessToken(credentialResponse.credential); 
-                  }
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-                 />
-                  }
-                
-                </GoogleOAuthProvider>
 
-                {googleAuthenticated && 
 
-                <div>
-                  kaam vayena vane ta lyang hunxa yar
-                </div>
-                
-                }
+                <ContinuousCalendar/>
+
 
 
 
