@@ -83,7 +83,7 @@ export const AllRepoDisplay = () =>{
   
     return(
         <>
-        <div className="flex justify-end items-start mt-8 mr-5 ">
+        <div className="flex justify-end items-start mt-8 mr-8 ">
 <Pagination color="success" page={currentPage} total={totalItem} onChange={setCurrentPage} className="mr-1" style= {{color: 'white'}}/>
       <div className="flex gap-2">
         <Button

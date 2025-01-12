@@ -7,6 +7,7 @@ import {Alert} from "@nextui-org/react";
 import { BsBoxSeamFill } from "react-icons/bs";
 import axios from 'axios'
 
+
 import {
     Modal,
     ModalContent,
@@ -189,9 +190,13 @@ export const CollectionsMain = () =>{
              {/* the type this prop must return is defined in the element itself , not here. */}
 
         {collections?.map((item:any) =>      
-        <div className="flex flex-wrap gap-4 mt-8">
-      <Snippet color= 'danger' variant='bordered' className="ml-3 w-full mr-12"><a href="#" className="hover:underline text-white" onClick={() => setCollectionName(item.collectionName)}>{item.collectionName}</a></Snippet>
-    </div> ) }
+       <div className="flex flex-wrap gap-4 mt-8" key={item.collectionName}>
+       <Snippet hideCopyButton color="danger" variant="bordered" className="ml-3 w-full h-12 mr-12 flex items-center justify-between">
+         <a href="#" className=" text-white" onClick={() => setCollectionName(item.collectionName)}>
+          <span className="hover:underline">{item.collectionName}</span> 
+         </a>
+       </Snippet>
+     </div>) }
        
         </div>
     

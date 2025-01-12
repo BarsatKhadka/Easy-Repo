@@ -15,6 +15,8 @@ import { GetRepoCommitGraphDrawer } from "../Drawers/GetRepoCommitGraphDrawer";
 import { GetLinesOfCodeDrawer } from "../Drawers/GetLinesOfCodeDrawer";
 import { ReadMeDrawer } from "../Drawers/ReadMeDrawer";
 import { AllRepoDisplay } from "./AllRepoDisplay";
+import { RiDeleteBin7Line } from "react-icons/ri";
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 
 
 
@@ -92,37 +94,49 @@ export const RepoDisplayMain = () =>{
         {collectionName === "All Repositories" && <AllRepoDisplay/>}
         {collectionName != "All Repositories" && 
 
-            <div>
-            <div className="flex justify-end items-start mt-8 mr-5 ">
-            <Pagination color="success" page={currentPage} total={totalItem} onChange={setCurrentPage} className="mr-1" style= {{color: 'white'}}/>
-            <div className="flex gap-2">
+        <div>
+        <div className="flex justify-between items-center mt-8 mr-5">
+
+        <span className="lg:ml-8 ml-2 cursor-pointer">
+             <RiDeleteBin7Line className="inline" /><span className="underline ml-2">Delete </span></span>
+        <span className="lg:ml-8 ml-2 cursor-pointer">
+        <MdOutlineDriveFileRenameOutline className="inline" /><span className="underline ml-2">Rename </span></span>
+
+
+        <div className="flex items-center gap-2 sm:ml-2">
+        
+ 
+            <Pagination
+            color="success"
+            page={currentPage}
+            total={totalItem}
+            onChange={setCurrentPage}
+            className="sm:mr-1 "
+            style={{ color: 'white' }}
+            />
+
             <Button
             color="default"
             size="sm"
             variant="flat"
-            onPress={() => setCurrentPage((prev:any) => (prev > 1 ? prev - 1 : prev))}
+            onPress={() => setCurrentPage((prev: number) => (prev > 1 ? prev - 1 : prev))}
+            >
+            ← Left
+            </Button>
+
+
+            <Button
+            color="default"
+            size="sm"
+            variant="flat"
+            onPress={() => setCurrentPage((prev: number) => (prev < totalItem ? prev + 1 : prev))}
+            >
+            Right →
+            </Button>
+
             
-
-            >
-                Left
-            ←
-                
-            </Button>
-            <Button
-            color="default"
-            size="sm"
-            variant="flat"
-            onPress={() => setCurrentPage((prev:any) => (prev < totalItem ? prev + 1 : prev))}
-            >
-            → Right
-
-            </Button>
-            </div>
-            </div>
-            <div className="flex flex-col ">
-
-
-            </div>
+        </div>
+        </div>
 
             <div className="flex flex-col flex-wrap gap-4 ml-4 mb-12">
             
@@ -134,7 +148,7 @@ export const RepoDisplayMain = () =>{
 
 
 
-            {/* {real display section} */}
+        
 
             </div>
 
