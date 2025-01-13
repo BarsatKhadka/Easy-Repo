@@ -1,5 +1,8 @@
 package com.Barsat.Github.Repository.Management.Service.CLIService;
 
+import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
+import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
+import com.Barsat.Github.Repository.Management.Service.UtilityService.GetAuthenticatedUserName;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,6 +11,13 @@ import java.util.List;
 
 @Service
 public class CLIService {
+
+    private final GetAuthenticatedUserName getAuthenticatedUserName;
+    private final GithubReposRepository githubReposRepository;
+    public CLIService(GetAuthenticatedUserName getAuthenticatedUserName, GithubReposRepository githubReposRepository) {
+        this.getAuthenticatedUserName = getAuthenticatedUserName;
+        this.githubReposRepository = githubReposRepository;
+    }
 
     //first line of command should have these values or don't process.
     List<String> commandFirstLine = Arrays.asList("repo", "collections");
@@ -19,9 +29,21 @@ public class CLIService {
         if(trim.length < 3){
             return "Invalid command";
         }
-        for(String trim1 : trim) {
-            System.out.println(trim1);
+        if(!commandFirstLine.contains(trim[0])){
+            return "commands start with 'repo' or 'collections'";
         }
+        if(trim[0].equals("repo") && trim.length != 3 || trim[0].equals("repo") && !repoCommandSecondLine.contains(trim[1])){
+            return "Repo command syntax error";
+        }
+
+        String repoName = trim[2].substring(0, trim[2].length()-1);
+        boolean repoExist = githubReposRepository.existsByMasterUserUsernameAndName(getAuthenticatedUserName.getUsername() , repoName);
+
+        if(!repoExist){
+            return "Repo does not exist";
+        }
+
+
         return trim[0];
 
     }
