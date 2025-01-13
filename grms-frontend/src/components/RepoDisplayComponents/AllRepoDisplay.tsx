@@ -83,32 +83,39 @@ export const AllRepoDisplay = () =>{
   
     return(
         <>
-        <div className="flex justify-end items-start mt-8 mr-8 ">
-<Pagination color="success" page={currentPage} total={totalItem} onChange={setCurrentPage} className="mr-1" style= {{color: 'white'}}/>
-      <div className="flex gap-2">
-        <Button
-          color="default"
-          size="sm"
-          variant="flat"
-          onPress={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
-          
+    <div className="flex justify-end items-center mt-8 mr-8">
+  <div className="hidden sm:block mr-2">
+    <Pagination
+      color="success"
+      page={currentPage}
+      total={totalItem}
+      onChange={setCurrentPage}
+      className="mr-1"
+      style={{ color: 'white' }}
+    />
+  </div>
 
-        >
-            Left
-          ←
-           
-        </Button>
-        <Button
-          color="default"
-          size="sm"
-          variant="flat"
-          onPress={() => setCurrentPage((prev) => (prev < totalItem ? prev + 1 : prev))}
-        >
-          → Right
-
-        </Button>
-      </div>
-      </div>
+  <div className="flex gap-1 sm:gap-2">
+    <Button
+      color="default"
+      size="sm"
+      variant="flat"
+      onPress={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
+      aria-label="Previous Page"
+    >
+      ← 
+    </Button>
+    <Button
+      color="default"
+      size="sm"
+      variant="flat"
+      onPress={() => setCurrentPage((prev) => (prev < totalItem ? prev + 1 : prev))}
+      aria-label="Next Page"
+    >
+      → 
+    </Button>
+  </div>
+</div>  
         <div className="flex flex-col ">
     
 

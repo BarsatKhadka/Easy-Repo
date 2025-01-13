@@ -1,16 +1,20 @@
 import {Textarea , Button} from "@nextui-org/react";
+import {Chip} from "@nextui-org/react";
 import React from "react";
 import axios from "axios";
 
 export const FeatureMain = () =>{
     const [value, setValue] = React.useState("");
+    const [success, setSuccess] = React.useState(false);
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
 
     const postFeature = async() =>{
       if(value.length > 10){
         const response = await axios.post(backendUrl+ "/easyrepo/post/feature" , {"description": value} , {withCredentials: true , headers : {'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }})
-        console.log(response)
+        if(response?.data === "success"){
+          setSuccess(true)
+        }
       }
         
     }
@@ -39,6 +43,7 @@ export const FeatureMain = () =>{
         Request
       </Button> 
     </div>
+    {success && <Chip color="warning" variant="dot" className="mt-3 ml-3">An email notification will be sent if your feature is implemented.</Chip>}
     
         </>
     )
