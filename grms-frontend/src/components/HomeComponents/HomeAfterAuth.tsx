@@ -6,6 +6,7 @@ import { HeroSectionAfterAuth } from "../HeroSection/HeroSectionAfterAuth"
 import { CollectionsMain } from "../CollectionsComponents/CollectionsMain"
 import { Divider } from "@nextui-org/react"
 import { RepoDisplayMain } from "../RepoDisplayComponents/RepoDisplayMain"
+import { FeatureMain } from "../FeatureComponents/FeatureMain"
 
 
 export const HomeAfterAuth = () => {
@@ -32,7 +33,7 @@ export const HomeAfterAuth = () => {
       <HeroSectionAfterAuth username={response?.data.username} />
     </div>
     <div key="item-4" className="lg:col-start-4 lg:row-start-2 lg:col-span-1 lg:row-span-3 md:col-span-2 sm:col-span-1 border-l border-t border-b border-white mr-3">
-      4
+      <FeatureMain/>
       
     </div>
     <div key="item-5" className="lg:col-start-4 lg:row-start-5 lg:col-span-1 lg:row-span-3 md:col-span-2 sm:col-span-1 border-l border-b border-t border-white mr-3">
