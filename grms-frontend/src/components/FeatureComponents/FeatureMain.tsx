@@ -1,8 +1,19 @@
 import {Textarea , Button} from "@nextui-org/react";
 import React from "react";
+import axios from "axios";
 
 export const FeatureMain = () =>{
     const [value, setValue] = React.useState("");
+
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+
+    const postFeature = async() =>{
+      if(value.length > 10){
+        const response = await axios.post(backendUrl+ "/easyrepo/post/feature" , {"description": value} , {withCredentials: true , headers : {'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }})
+        console.log(response)
+      }
+        
+    }
 
     return(
         <>
@@ -24,10 +35,11 @@ export const FeatureMain = () =>{
     /> 
     
      <p className="text-default-500 text-small ml-3 inline">Feature: <span className="text-warning">{value}</span></p>
-     <Button color="default" className="inline ml-[160px] mt-2" variant="ghost" size="sm">
+     <Button color="default" className="inline ml-[160px] mt-2" variant="ghost" size="sm" onPress={postFeature}> 
         Request
       </Button> 
     </div>
+    
         </>
     )
 }
