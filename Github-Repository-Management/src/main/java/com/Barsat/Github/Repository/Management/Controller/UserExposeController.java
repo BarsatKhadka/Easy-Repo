@@ -26,12 +26,11 @@ public class UserExposeController {
 
         boolean isAuthenticated = authentication != null  && authentication.isAuthenticated() ;
         if (isAuthenticated && principal != null) {
-            System.out.println("isAuthenticated");
 
             return Map.of("username: ", principal.getAttribute("name"),
                     "email: ", principal.getAttribute("email"),
                     "isAuthenticated", true,
-                    "csrfController" , (CsrfToken) request.getAttribute(CsrfToken.class.getName()));
+                    "csrfController" , request.getAttribute(CsrfToken.class.getName()));
         }
         else{
             return Map.of(
