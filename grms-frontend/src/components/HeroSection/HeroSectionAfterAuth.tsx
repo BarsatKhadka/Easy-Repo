@@ -8,7 +8,7 @@ export const HeroSectionAfterAuth = (props : propType) =>{
     return(
         <>
         <div>
-  <div key="item-1" className="col-start-1 row-start-1 col-span-3 mb-3 ">
+  <div key="item-1" className="col-start-1 row-start-1 col-span-3 mb-3 ml-4 ">
   <GitHubCalendar username={props.username}/>
   </div>
   

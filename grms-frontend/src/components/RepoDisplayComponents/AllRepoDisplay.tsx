@@ -83,7 +83,7 @@ export const AllRepoDisplay = () =>{
   
     return(
         <>
-    <div className="flex justify-end items-center mt-12 mr-1">
+    <div className="flex justify-end items-center mt mr-1">
   <div className="hidden sm:block mr-2">
     <Pagination
       color="danger"
