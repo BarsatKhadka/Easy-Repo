@@ -102,12 +102,7 @@ export const GetRepoCommitGraphDrawer = () =>{
 
 
                 <ContinuousCalendar/>
-
-
-
-
-                
-                
+                  
             
               </DrawerBody>
               <DrawerFooter>
