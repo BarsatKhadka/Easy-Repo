@@ -31,7 +31,7 @@ export const FeatureMain = () =>{
       placeholder="Type here"
       variant="bordered"
       classNames={{
-        base: "border-2 border-purple-500 rounded-[20px]", 
+        base: "border-2 border-gray-500 rounded-[20px]", 
       }}
       value = {value}
       onValueChange={setValue}
@@ -41,17 +41,17 @@ export const FeatureMain = () =>{
     
      <p className="text-default-500 text-small ml-3 inline">Feature: <span className="text-warning">{value}</span></p>
      <div>
-     <Button color="default" className=" ml-[120px] lg:ml-[170px] mt-2" variant="ghost" size="sm" onPress={postFeature}> 
+     <Button color="default" className=" ml-2  mt-4" variant="ghost" size="sm" onPress={postFeature}> 
         Request
       </Button> 
       </div>
     </div>
     <div>
-     <Chip color="warning" variant="dot" className="mt-6 ml-2 lg:ml-16"> 
+     <Chip color="warning" variant="dot" className="mt-3 ml-4"> 
       We'll email you if your feature is implemented.</Chip>
       </div>
       <div>
-        <div className="mt-16 ml-4">
+        <div className="mt-12 ml-4">
       <Code color="secondary">Contributors</Code>
       </div>
       <User

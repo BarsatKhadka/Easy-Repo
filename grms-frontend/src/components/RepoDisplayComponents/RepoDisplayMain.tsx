@@ -95,7 +95,7 @@ export const RepoDisplayMain = () =>{
         {collectionName != "All Repositories" && 
 
         <div>
-        <div className="flex justify-between items-center mt-8 mr-5">
+        <div className="flex justify-between items-center mt-12 mr-1">
 
         <span className="lg:ml-8 ml-2 cursor-pointer">
              <RiDeleteBin7Line className="inline" /><span className="underline ml-2">Delete </span></span>
@@ -107,7 +107,7 @@ export const RepoDisplayMain = () =>{
         
  
             <Pagination
-            color="success"
+            color="danger"
             page={currentPage}
             total={totalItem}
             onChange={setCurrentPage}

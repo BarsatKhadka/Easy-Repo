@@ -27,17 +27,17 @@ export const HomeAfterAuth = () => {
       <Divider />
     </div>
 
-    <div key="item-2" className="lg:col-start-1 lg:row-start-2 lg:col-span-1 lg:row-span-6 md:col-span-2 sm:col-span-1 border-r border-t  border-white   ml-3">
+    <div key="item-2" className="lg:col-start-1 lg:row-start-2 lg:col-span-1 lg:row-span-6 md:col-span-2 sm:col-span-1    ml-3">
       <CollectionsMain />
     </div>
     <div key="item-3" className="lg:col-start-2 lg:row-start-2 lg:col-span-2 lg:row-span-1 md:col-span-2 sm:col-span-1">
       <HeroSectionAfterAuth username={response?.data.username} />
     </div>
-    <div key="item-4" className="lg:col-start-4 lg:row-start-2 lg:col-span-1 lg:row-span-3 md:col-span-2 sm:col-span-1 border-l border-t border-b border-white mr-3">
+    <div key="item-4" className="lg:col-start-4 lg:row-start-2 lg:col-span-1 lg:row-span-3 md:col-span-2 sm:col-span-1  mr-3">
       <FeatureMain/>
       
     </div>
-    <div key="item-5" className="lg:col-start-4 lg:row-start-5 lg:col-span-1 lg:row-span-3 md:col-span-2 sm:col-span-1 border-l border-b border-t border-white mr-3">
+    <div key="item-5" className="lg:col-start-4 lg:row-start-5 lg:col-span-1 lg:row-span-3 md:col-span-2 sm:col-span-1  mr-3">
       <CLIMain/>
     </div>
     <div key="item-6" className="lg:col-start-2 lg:row-start-3 lg:col-span-2 lg:row-span-5 md:col-span-2 sm:col-span-1    ">

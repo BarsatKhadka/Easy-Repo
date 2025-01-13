@@ -177,7 +177,6 @@ export const CollectionsMain = () =>{
     
     <div className="flex items-center justify-center w-100 mt-5 mr-5">
       <Alert
-        color="secondary"
         description="group your repo with collections"
         endContent={
           <CollectionsPopUp/>
@@ -191,7 +190,7 @@ export const CollectionsMain = () =>{
 
         {collections?.map((item:any) =>      
        <div className="flex flex-wrap gap-4 mt-8" key={item.collectionName}>
-       <Snippet hideCopyButton color="danger" variant="bordered" className="ml-3 w-full h-12 mr-12 flex items-center justify-between">
+       <Snippet hideCopyButton color="warning" variant="bordered" className="ml-3 w-full h-12 mr-12 flex items-center justify-between">
          <a href="#" className=" text-white" onClick={() => setCollectionName(item.collectionName)}>
           <span className="hover:underline">{item.collectionName}</span> 
          </a>
