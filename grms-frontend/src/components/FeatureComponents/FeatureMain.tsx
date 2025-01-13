@@ -25,13 +25,13 @@ export const FeatureMain = () =>{
         <div className="mt-8 ml-3">
             <Textarea
       isClearable
-      className="max-w-xs"
+      className="max-w-xs secondary"
       defaultValue=""
       label="Request a feature"
       placeholder="Type here"
       variant="bordered"
       classNames={{
-        base: "border-2 border-indigo-500 rounded-[20px]", 
+        base: "border-2 border-purple-500 rounded-[20px]", 
       }}
       value = {value}
       onValueChange={setValue}
@@ -40,17 +40,19 @@ export const FeatureMain = () =>{
     /> 
     
      <p className="text-default-500 text-small ml-3 inline">Feature: <span className="text-warning">{value}</span></p>
-     <Button color="default" className="inline ml-[160px] mt-2" variant="ghost" size="sm" onPress={postFeature}> 
+     <div>
+     <Button color="default" className=" ml-[120px] lg:ml-[170px] mt-2" variant="ghost" size="sm" onPress={postFeature}> 
         Request
       </Button> 
+      </div>
     </div>
     <div>
-     <Chip color="warning" variant="dot" className="mt-6 ml-6"> 
-      We'll email you if implemented.</Chip>
+     <Chip color="warning" variant="dot" className="mt-6 ml-2 lg:ml-16"> 
+      We'll email you if your feature is implemented.</Chip>
       </div>
       <div>
-        <div className="mt-4 ml-4">
-      <Code color="default">Contributors</Code>
+        <div className="mt-16 ml-4">
+      <Code color="secondary">Contributors</Code>
       </div>
       <User
       avatarProps={{
