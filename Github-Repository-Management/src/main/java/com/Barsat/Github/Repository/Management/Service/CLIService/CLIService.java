@@ -1,7 +1,9 @@
 package com.Barsat.Github.Repository.Management.Service.CLIService;
 
 import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
+import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCollectionsEntity;
 import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
+import com.Barsat.Github.Repository.Management.Repository.RepoCollectionsRepository;
 import com.Barsat.Github.Repository.Management.Service.UtilityService.GetAuthenticatedUserName;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,11 @@ public class CLIService {
 
     private final GetAuthenticatedUserName getAuthenticatedUserName;
     private final GithubReposRepository githubReposRepository;
-    public CLIService(GetAuthenticatedUserName getAuthenticatedUserName, GithubReposRepository githubReposRepository) {
+    private final RepoCollectionsRepository repoCollectionsRepository;
+    public CLIService(GetAuthenticatedUserName getAuthenticatedUserName, GithubReposRepository githubReposRepository , RepoCollectionsRepository repoCollectionsRepository) {
         this.getAuthenticatedUserName = getAuthenticatedUserName;
         this.githubReposRepository = githubReposRepository;
+        this.repoCollectionsRepository = repoCollectionsRepository;
     }
 
     //first line of command should have these values or don't process.
@@ -38,6 +42,23 @@ public class CLIService {
 
         String repoName = trim[2].substring(0, trim[2].length()-1);
         boolean repoExist = githubReposRepository.existsByMasterUserUsernameAndName(getAuthenticatedUserName.getUsername() , repoName);
+
+        //i am doing repoName because repoName does not mean repo is coming but anything that is on index 2
+        if(trim[0].equals("collections") && trim[1].equals("delete") && trim.length ==3 ){
+            RepoCollectionsEntity repoCollectionsEntity = repoCollectionsRepository.findByCollectionName(repoName);
+
+            if(repoCollectionsEntity != null){
+                for(GithubRepoEntity githubRepoEntity: repoCollectionsEntity.getGithubRepo()){
+                    githubRepoEntity.getCollectionsEntity().remove(repoCollectionsEntity);
+                }
+                repoCollectionsRepository.delete(repoCollectionsEntity);
+
+                return command + repoName;
+            }
+            else{
+                return "Repo does not exist";
+            }
+        }
 
         if(!repoExist){
             return "Repo does not exist";
@@ -106,17 +127,6 @@ public class CLIService {
         if(trim[1].equals("collections") && trim[2].equals("delete") && trim.length !=3){
             return "Delete only one collection at a time.";
         }
-        if(trim[0].equals("collections") && trim[1].equals("delete") && trim.length ==3 ){
-            GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoName);
-            if(githubRepoEntity != null){
-                return command + repoName;
-            }
-            else{
-                return "Repo does not exist";
-            }
-        }
-
-
 
 
 
