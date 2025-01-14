@@ -19,6 +19,8 @@ export const CLIMain = () =>{
      const{graphDrawerOpen , setGraphDrawerOpen} = useUserStore()
       const{repoName , setRepoName} = useUserStore()
     const {locDrawerOpen , setLocDrawerOpen} = useUserStore()
+     const {readMeDrawerOpen , setreadMeDrawerOpen} = useUserStore()
+        
 
     const handleKeyDown = (event:any) => {
         if (event.key === "Enter") {
@@ -40,8 +42,12 @@ export const CLIMain = () =>{
         }
         if(response?.data.includes('loc')){
             setRepoName(response?.data.split("=")[1])
-            setLocDrawerOpen(true   )
+            setLocDrawerOpen(true)
 
+        }
+        if(response?.data.includes('readMe')){
+            setreadMeDrawerOpen(true)
+            setRepoName(response?.data.split("=")[1])
         }
 
         

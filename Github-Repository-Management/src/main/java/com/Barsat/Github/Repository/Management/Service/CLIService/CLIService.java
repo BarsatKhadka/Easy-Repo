@@ -59,6 +59,17 @@ public class CLIService {
             }
         }
 
+        if(trim[1].equals("readMe")){
+            GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoName);
+            if(githubRepoEntity != null){
+                return command + repoName;
+            }
+            else {
+                return "Repo does not exist";
+            }
+
+        }
+
 
 
         return command;
