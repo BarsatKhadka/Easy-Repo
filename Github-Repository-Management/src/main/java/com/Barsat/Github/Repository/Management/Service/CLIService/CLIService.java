@@ -103,6 +103,19 @@ public class CLIService {
             }
         }
 
+        if(trim[1].equals("collections") && trim[2].equals("delete") && trim.length !=3){
+            return "Delete only one collection at a time.";
+        }
+        if(trim[0].equals("collections") && trim[1].equals("delete") && trim.length ==3 ){
+            GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoName);
+            if(githubRepoEntity != null){
+                return command + repoName;
+            }
+            else{
+                return "Repo does not exist";
+            }
+        }
+
 
 
 

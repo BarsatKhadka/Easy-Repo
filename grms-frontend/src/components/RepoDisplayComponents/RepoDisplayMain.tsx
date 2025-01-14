@@ -214,11 +214,11 @@ export const RepoDisplayMain = () =>{
             <CardBody>
             <p>
             <span style={{color: '#98FB98  '}}>get:</span> ------
-            <a href="#" className= "hover:underline" onClick={() => (setTreeDrawerOpen(true) , setTreeRepoId(items.repoId))}>Files in Tree Structure </a>
+            <a href="" className= "hover:underline" onClick={(e) => {( e.preventDefault(), setTreeDrawerOpen(true) , setTreeRepoId(items.repoId))}}>Files in Tree Structure </a>
             ------
-            <a href="#" className="hover:underline" onClick={() => (setGraphDrawerOpen(true) ,setTreeRepoId(items.repoId))}> Repo's Commit Graph  </a>------
-            <a href="#" className="hover:underline" onClick={() => (setLocDrawerOpen(true), setRepoName(items.name))} >{"   "} Lines of code </a>------
-            <a href="#" className="hover:underline" onClick={()=> (setreadMeDrawerOpen(true) , setRepoName(items.name))}> readMe</a>
+            <a href="" className="hover:underline" onClick={(e) => {( e.preventDefault() ,setGraphDrawerOpen(true) ,setTreeRepoId(items.repoId))}}> Repo's Commit Graph  </a>------
+            <a href="" className="hover:underline" onClick={(e) => {( e.preventDefault() ,setLocDrawerOpen(true), setRepoName(items.name))}} >{"   "} Lines of code </a>------
+            <a href="" className="hover:underline" onClick={(e)=> {( e.preventDefault(), setreadMeDrawerOpen(true) , setRepoName(items.name))}}> readMe</a>
             </p>
             <p>
 
@@ -227,10 +227,10 @@ export const RepoDisplayMain = () =>{
             </a>
             </p>
             <p>
-         <span style={{color: '#ED4337'}}> delete: </span> ---<a href="#" onClick={(e) =>{ e.preventDefault();  deleteUrl(items.name)}} target="_blank" className="hover:underline">this.repository</a>
+         <span style={{color: '#ED4337'}}> delete: </span> ---<a href="" onClick={(e) =>{ e.preventDefault();  deleteUrl(items.name)}} target="_blank" className="hover:underline">this.repository</a>
          </p>
          <p>
-        <span style={{color: '#ED008C  '}} >put: </span><span>------<a href="#" onClick={(e) =>{ e.preventDefault();  deleteUrl(items.name)}} target="_blank" className="hover:underline">this.rename</a></span>
+        <span style={{color: '#ED008C  '}} >put: </span><span>------<a href="" onClick={(e) =>{ e.preventDefault();  deleteUrl(items.name)}} target="_blank" className="hover:underline">this.rename</a></span>
     
          </p>
             </CardBody>

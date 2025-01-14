@@ -68,10 +68,10 @@ export const CLIMain = () =>{
         if(response?.data.includes('Vs+Code')){
           openVsCodeUrl(response?.data.split("=")[1])
         }
-        if(response?.data.includes('delete')){
+        if(response?.data.includes('repo+delete')){
           deleteUrl(response?.data.split("=")[1])
         }
-        if(response?.data.includes('rename')){
+        if(response?.data.includes('repo+rename')){
           deleteUrl(response?.data.split("=")[1])
         }
 

@@ -15,10 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RepoCollectionCreate {
@@ -53,6 +50,10 @@ public class RepoCollectionCreate {
 
         repoCollectionsEntity.setMasterUser(masterUser);
         repoCollectionsEntity.setCollectionName(repoCollectionDTO.getCollectionName());
+
+        if(repoCollectionsRepository.findByMasterUserUsernameAndCollectionName(username, repoCollectionDTO.getCollectionName()) != null){
+            repoCollectionsEntity.setCollectionName(repoCollectionDTO.getCollectionName() + UUID.randomUUID().toString());
+        }
 
         for(Integer repoId : repoCollectionDTO.getGithubRepoIds()){
             GithubRepoEntity githubRepoEntity = githubReposRepository.findById(repoId).orElse(null);

@@ -27,7 +27,7 @@ public class RepoCollectionsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer collectionId;
 
-    @Column(unique = true)
+
     private String collectionName;
 
 
