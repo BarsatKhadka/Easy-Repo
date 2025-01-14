@@ -1,9 +1,11 @@
 package com.Barsat.Github.Repository.Management.Service.CLIService;
 
+import com.Barsat.Github.Repository.Management.DTO.RepoCollectionDTO;
 import com.Barsat.Github.Repository.Management.Models.RepoModels.GithubRepoEntity;
 import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCollectionsEntity;
 import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
 import com.Barsat.Github.Repository.Management.Repository.RepoCollectionsRepository;
+import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionCreate;
 import com.Barsat.Github.Repository.Management.Service.UtilityService.GetAuthenticatedUserName;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,13 @@ public class CLIService {
     private final GetAuthenticatedUserName getAuthenticatedUserName;
     private final GithubReposRepository githubReposRepository;
     private final RepoCollectionsRepository repoCollectionsRepository;
-    public CLIService(GetAuthenticatedUserName getAuthenticatedUserName, GithubReposRepository githubReposRepository , RepoCollectionsRepository repoCollectionsRepository) {
+    private final RepoCollectionCreate repoCollectionCreate;
+    public CLIService(GetAuthenticatedUserName getAuthenticatedUserName, GithubReposRepository githubReposRepository
+            , RepoCollectionsRepository repoCollectionsRepository , RepoCollectionCreate repoCollectionCreate) {
         this.getAuthenticatedUserName = getAuthenticatedUserName;
         this.githubReposRepository = githubReposRepository;
         this.repoCollectionsRepository = repoCollectionsRepository;
+        this.repoCollectionCreate = repoCollectionCreate;
     }
 
     //first line of command should have these values or don't process.
@@ -58,6 +63,40 @@ public class CLIService {
             else{
                 return "Repo does not exist";
             }
+        }
+
+        if(trim[0].equals("collections") && trim[1].equals("create")){
+            //this starts with is < and ends with is >, = because = gets into every code
+            if(trim.length !=4 || (!trim[3].startsWith("%3C") || !trim[3].endsWith("%3E="))  ){
+                return "Collection command syntax error";
+            }
+
+            String collectionName = trim[2];
+            String repoNames = trim[3].substring(3, trim[3].length()-4);
+
+            if(repoNames.contains(",")){
+
+            }
+            else{
+                List<String> names = new ArrayList<>();
+                GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoNames);
+                if(githubRepoEntity != null){
+                    System.out.println("this printed");
+                    names.add(githubRepoEntity.getName());
+                    RepoCollectionDTO repoCollectionDTO = new RepoCollectionDTO();
+                    repoCollectionDTO.setCollectionName(collectionName);
+                    repoCollectionDTO.setGithubRepoNames(names);
+                    repoCollectionCreate.createCollection(repoCollectionDTO);
+                }
+                else{
+                    return "Repo does not exist";
+                }
+
+
+            }
+
+            return "valid command";
+
         }
 
         if(!repoExist){
