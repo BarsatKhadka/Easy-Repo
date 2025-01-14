@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CLIService {
@@ -74,7 +75,26 @@ public class CLIService {
             String collectionName = trim[2];
             String repoNames = trim[3].substring(3, trim[3].length()-4);
 
-            if(repoNames.contains(",")){
+            // %2C is comma
+            if(repoNames.contains("%2C")){
+                List<Integer> repoIds = new ArrayList<>();
+                List<String> allRepos = Arrays.asList(repoNames.split("%2C"));
+                for(String repo: allRepos){
+                    System.out.println(repo);
+                    GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repo);
+                    if(githubRepoEntity != null){
+                        repoIds.add(githubRepoEntity.getRepoId());
+                    }
+                }
+                if(repoIds.isEmpty()){
+                    return "Repos does not exist";
+                }
+                RepoCollectionDTO repoCollectionDTO = new RepoCollectionDTO();
+                repoCollectionDTO.setCollectionName(collectionName);
+                repoCollectionDTO.setGithubRepoIds(repoIds);
+                repoCollectionCreate.createCollection(repoCollectionDTO);
+
+
 
             }
             else{
@@ -95,7 +115,7 @@ public class CLIService {
 
             }
 
-            return "valid command";
+            return "Collection created";
 
         }
 
