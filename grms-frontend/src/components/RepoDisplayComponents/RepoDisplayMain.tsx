@@ -105,7 +105,7 @@ export const RepoDisplayMain = () =>{
         {collectionName != "All Repositories" && 
 
         <div>
-        <div className="flex justify-between items-center mt-12 mr-1">
+        <div className="flex justify-between items-center mr-1">
 
         <span className="lg:ml-8 ml-2 cursor-pointer">
              <RiDeleteBin7Line className="inline" /><span className="underline ml-2"> 
