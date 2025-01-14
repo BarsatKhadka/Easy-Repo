@@ -8,15 +8,40 @@ import { Divider } from "@nextui-org/react"
 import { RepoDisplayMain } from "../RepoDisplayComponents/RepoDisplayMain"
 import { FeatureMain } from "../FeatureComponents/FeatureMain"
 import { CLIMain } from "../CLI/CLIMain"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
+
 
 
 export const HomeAfterAuth = () => {
     const { response, fetchData } = useAxios()
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchData({ url: "/easyrepo/user/getUserDetails", method: 'get' })
     }, [])
 
+    const logoutFunction = async () => {
+      try {
+        console.log('Logging out...');
+        await axios.post(backendUrl + '/logout', {}, {
+          withCredentials: true,
+          headers: { 'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }
+        });
+        sessionStorage.removeItem('authenticated');
+        navigate("/");
+        window.location.reload();
+      } catch (error) {
+        console.error('Logout failed:', error);
+      }
+    };
+    
+    //  logout every 15 minutes
+    const logoutInterval = 15 * 60 * 1000; 
+    setInterval(logoutFunction, logoutInterval);
+
+    
     return (
         <>
      

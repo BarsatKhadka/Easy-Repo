@@ -42,10 +42,23 @@ public class CLIService {
         if(!repoExist){
             return "Repo does not exist";
         }
-        if(repoExist && trim[1].equals("tree")){
+        if(trim[1].equals("tree")){
             GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoName);
             return command + String.valueOf(githubRepoEntity.getRepoId());
         }
+        if(trim[1].equals("calendar")){
+            return command;
+        }
+        if(trim[1].equals("loc")){
+            GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoName);
+            if(githubRepoEntity != null){
+                return command + String.valueOf(githubRepoEntity.getRepoId());
+            }
+            else {
+                return "Repo does not exist";
+            }
+        }
+
 
 
         return command;

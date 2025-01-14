@@ -1,8 +1,10 @@
-import {Input} from "@nextui-org/react";
+import {Input, useUser} from "@nextui-org/react";
 import { useState } from "react";
 import axios from "axios";
 import { GetTreeDrawer } from "../Drawers/GetTreeDrawer";
 import { useUserStore } from "../../store/UserStore";
+import { GetRepoCommitGraphDrawer } from "../Drawers/GetCalendar";
+import { GetLinesOfCodeDrawer } from "../Drawers/GetLinesOfCodeDrawer";
 
 
 
@@ -13,10 +15,12 @@ export const CLIMain = () =>{
 
      const {treeDrawerOpen , setTreeDrawerOpen} = useUserStore()
      const{treeRepoId , setTreeRepoId} = useUserStore()
+     const{graphDrawerOpen , setGraphDrawerOpen} = useUserStore()
+      const{repoName , setRepoName} = useUserStore()
+    const {locDrawerOpen , setLocDrawerOpen} = useUserStore()
 
     const handleKeyDown = (event:any) => {
         if (event.key === "Enter") {
-          console.log(inputValue)
           handleCommand();
         }
       };
@@ -30,7 +34,16 @@ export const CLIMain = () =>{
             setTreeRepoId(response?.data.split("=")[1])
 
         }
-        console.log(response)
+        if(response?.data.includes('calendar')){
+            setGraphDrawerOpen(true)
+        }
+        if(response?.data.includes('loc')){
+            setRepoName(response?.data.split("=")[1])
+            setLocDrawerOpen(true   )
+
+        }
+
+        
 
       }
     return(
@@ -53,6 +66,8 @@ export const CLIMain = () =>{
          <div>
             {response}
             {response.includes('tree') && <GetTreeDrawer/> }
+            {response.includes('calendar') && <GetRepoCommitGraphDrawer/>}
+            {response.includes('loc') && <GetLinesOfCodeDrawer/>}
 
          </div>
         </>
