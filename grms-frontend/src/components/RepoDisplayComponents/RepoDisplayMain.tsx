@@ -1,6 +1,7 @@
 import { useEffect , useState } from "react"
 import { useUserStore } from "../../store/UserStore"
 import { useAxios } from "../../utility/axiosUtils"
+import axios from 'axios'
 
 
 import {Accordion, AccordionItem , Avatar, useUser} from "@nextui-org/react";
@@ -56,7 +57,11 @@ export const RepoDisplayMain = () =>{
     }, [collectionName])
 
      
-        
+    const deleteUrl = async(repoName: string) =>{
+        const backendUrl = import.meta.env.VITE_BACKEND_URL
+        const deleteResponse = await axios.get(backendUrl+ "/easyRepo/repoTweaks/deleteRename/"+ repoName , {withCredentials: true})
+        window.location.href = deleteResponse?.data 
+      }
          
     
         //total Item by number of pages. 5 per page.
@@ -215,12 +220,12 @@ export const RepoDisplayMain = () =>{
             </a>
             </p>
             <p>
-            <span style={{color: '#ED4337'}}> delete: </span> ---this.repository
-            </p>
-            <p>
-            <span style={{color: '#ED008C  '}} >put: </span><span>------this.rename</span>
-
-            </p>
+         <span style={{color: '#ED4337'}}> delete: </span> ---<a href="#" onClick={(e) =>{ e.preventDefault();  deleteUrl(items.name)}} target="_blank" className="hover:underline">this.repository</a>
+         </p>
+         <p>
+        <span style={{color: '#ED008C  '}} >put: </span><span>------<a href="#" onClick={(e) =>{ e.preventDefault();  deleteUrl(items.name)}} target="_blank" className="hover:underline">this.rename</a></span>
+    
+         </p>
             </CardBody>
             </Card>
 

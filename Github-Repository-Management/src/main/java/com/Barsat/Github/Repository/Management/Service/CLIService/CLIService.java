@@ -21,7 +21,7 @@ public class CLIService {
 
     //first line of command should have these values or don't process.
     List<String> commandFirstLine = Arrays.asList("repo", "collections");
-    List<String> repoCommandSecondLine = Arrays.asList("tree", "calendar", "loc" , "readMe" , "ovs" , "delete", "put");
+    List<String> repoCommandSecondLine = Arrays.asList("tree", "calendar", "loc" , "readMe" , "ovs" , "delete", "rename");
     List<String> collectionCommandSecondLine = Arrays.asList("create", "rename", "delete");
 
     public String processCommand(String command) {
@@ -83,6 +83,23 @@ public class CLIService {
             }
             else{
                 return "Repo does not exist";
+            }
+        }
+
+        if(trim[1].equals("delete")){
+            GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoName);
+            if(githubRepoEntity != null){
+                return command + repoName;
+            }
+            else{
+                return "Repo does not exist";
+            }
+        }
+
+        if(trim[1].equals("rename")){
+            GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoName);
+            if(githubRepoEntity != null){
+                return command + repoName;
             }
         }
 

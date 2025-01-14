@@ -29,6 +29,13 @@ export const CLIMain = () =>{
 
 
      }
+
+     //rename and delete both works by same url because it will redirect you to settings.
+     const deleteUrl = async(repoName: string) =>{
+      const backendUrl = import.meta.env.VITE_BACKEND_URL
+      const deleteResponse = await axios.get(backendUrl+ "/easyRepo/repoTweaks/deleteRename/"+ repoName , {withCredentials: true})
+      window.location.href = deleteResponse?.data 
+    }
         
 
     const handleKeyDown = (event:any) => {
@@ -60,6 +67,12 @@ export const CLIMain = () =>{
         }
         if(response?.data.includes('Vs+Code')){
           openVsCodeUrl(response?.data.split("=")[1])
+        }
+        if(response?.data.includes('delete')){
+          deleteUrl(response?.data.split("=")[1])
+        }
+        if(response?.data.includes('rename')){
+          deleteUrl(response?.data.split("=")[1])
         }
 
         
