@@ -5,6 +5,7 @@ import { GetTreeDrawer } from "../Drawers/GetTreeDrawer";
 import { useUserStore } from "../../store/UserStore";
 import { GetRepoCommitGraphDrawer } from "../Drawers/GetCalendar";
 import { GetLinesOfCodeDrawer } from "../Drawers/GetLinesOfCodeDrawer";
+import {Alert} from "@nextui-org/react";
 
 
 
@@ -63,8 +64,17 @@ export const CLIMain = () =>{
           onChange={(e) => setInputValue(e.target.value)}
         /> 
          </div>
-         <div>
-            {response}
+         <div className="mt-8">
+         <Alert
+          key={"solid"}
+          color="default"
+          title={response ? response: 'Command results appear here'}
+          variant={"solid"}
+        />
+        
+        </div>
+        <div>
+
             {response.includes('tree') && <GetTreeDrawer/> }
             {response.includes('calendar') && <GetRepoCommitGraphDrawer/>}
             {response.includes('loc') && <GetLinesOfCodeDrawer/>}
