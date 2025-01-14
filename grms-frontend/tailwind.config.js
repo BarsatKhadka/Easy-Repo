@@ -88,7 +88,7 @@ export default {
               DEFAULT: "#EF4444", 
               foreground: "#FFFFFF", 
             },
-            focus: "#0EA5E9", 
+            focus: "transparent", 
           },
           layout: {
             disabledOpacity: "0.3", 

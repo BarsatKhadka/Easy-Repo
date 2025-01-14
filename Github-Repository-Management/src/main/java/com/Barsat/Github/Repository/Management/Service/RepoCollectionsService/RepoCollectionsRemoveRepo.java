@@ -20,7 +20,18 @@ public class RepoCollectionsRemoveRepo {
         this.githubReposRepository = githubReposRepository;
     }
 
-    public void removeRepoFromCollection(Integer collectionId, RepoCollectionDTO repoCollectionsDTO){
+    public void removeRepoFromCollection(String repoName){
+        RepoCollectionsEntity repoCollectionsEntity = repoCollectionsRepository.findByCollectionName(repoName);
+        if(repoCollectionsEntity != null){
+            for(GithubRepoEntity githubRepoEntity: repoCollectionsEntity.getGithubRepo()){
+                githubRepoEntity.getCollectionsEntity().remove(repoCollectionsEntity);
+            }
+            repoCollectionsRepository.delete(repoCollectionsEntity);
+        }
+        System.out.println("success delete");
+    }
+
+    public void removeReposFromCollection(Integer collectionId, RepoCollectionDTO repoCollectionsDTO){
 
         List<Integer> IdsToRemove= repoCollectionsDTO.getGithubRepoIds();
         List<Integer> IdsThatCanBeRemoved= new ArrayList<>();

@@ -31,7 +31,7 @@ export const FeatureMain = () =>{
       placeholder="Type here"
       variant="bordered"
       classNames={{
-        base: "border-2 border-gray-500 rounded-[20px]", 
+        base: "border-2 border-gray-500 ", 
       }}
       value = {value}
       onValueChange={setValue}
@@ -41,7 +41,7 @@ export const FeatureMain = () =>{
     
      <p className="text-default-500 text-small ml-3 inline">Feature: <span className="text-warning">{value}</span></p>
      <div>
-     <Button color="default" className=" ml-2 mt-4 " variant="ghost" size="sm" onPress={postFeature}> 
+     <Button color="default" className=" ml-2 mt-4 focus-visible:ring-offset-0 focus-visible:ring-0" variant="ghost" size="sm" onPress={postFeature}> 
         Request
       </Button> 
       </div>

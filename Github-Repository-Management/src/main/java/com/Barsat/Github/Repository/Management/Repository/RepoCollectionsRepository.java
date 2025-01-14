@@ -18,5 +18,6 @@ public interface RepoCollectionsRepository extends JpaRepository<RepoCollections
     List<RepoCollectionsEntity> findAllByMasterUserUsername(String masterUserUsername);
 
 
+    RepoCollectionsEntity findByCollectionName(String repoName);
 }
 

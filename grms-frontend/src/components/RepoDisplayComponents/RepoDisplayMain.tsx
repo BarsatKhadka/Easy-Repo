@@ -44,7 +44,7 @@ interface GithubRepoType{
 
 export const RepoDisplayMain = () =>{
     
-    const {collectionName} = useUserStore()
+    const {collectionName , setCollectionName} = useUserStore()
 
     const{response,fetchData} = useAxios()
 
@@ -56,9 +56,8 @@ export const RepoDisplayMain = () =>{
 
     }, [collectionName])
 
-     
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
     const deleteUrl = async(repoName: string) =>{
-        const backendUrl = import.meta.env.VITE_BACKEND_URL
         const deleteResponse = await axios.get(backendUrl+ "/easyRepo/repoTweaks/deleteRename/"+ repoName , {withCredentials: true})
         window.location.href = deleteResponse?.data 
       }
@@ -91,7 +90,13 @@ export const RepoDisplayMain = () =>{
         const{locDrawerOpen , setLocDrawerOpen} = useUserStore()
         const{readMeDrawerOpen, setreadMeDrawerOpen} = useUserStore()
     
-        const{treeRepoId, setTreeRepoId , setRepoName} = useUserStore()
+        const{treeRepoId, setTreeRepoId , setRepoName } = useUserStore()
+
+
+        const deleteCollection = () =>{
+             axios.delete(backendUrl + "/easyrepo/collections/removeRepoFromCollection/"+ collectionName , {withCredentials: true , headers : {'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }})
+             location.reload()
+        }
 
 
     return(
@@ -103,9 +108,11 @@ export const RepoDisplayMain = () =>{
         <div className="flex justify-between items-center mt-12 mr-1">
 
         <span className="lg:ml-8 ml-2 cursor-pointer">
-             <RiDeleteBin7Line className="inline" /><span className="underline ml-2">Delete </span></span>
+             <RiDeleteBin7Line className="inline" /><span className="underline ml-2"> 
+                <a href="#" className="hover:underline" onClick={ () => (setCollectionName(collectionName), deleteCollection())}> Delete </a> </span></span>
         <span className="lg:ml-8 ml-2 cursor-pointer">
-        <MdOutlineDriveFileRenameOutline className="inline" /><span className="underline ml-2">Rename </span></span>
+        <MdOutlineDriveFileRenameOutline className="inline" />
+        <span className="underline ml-2"> Rename </span></span>
 
 
         <div className="flex items-center gap-2 sm:ml-2">

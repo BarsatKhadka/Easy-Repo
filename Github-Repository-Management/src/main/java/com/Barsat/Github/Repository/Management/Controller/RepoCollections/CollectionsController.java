@@ -53,8 +53,8 @@ public class CollectionsController {
 
     }
 
-    @PostMapping("/removeRepoFromCollection/{collectionId}")
-    public void removeRepoFromCollection(@PathVariable Integer collectionId, @RequestBody RepoCollectionDTO repoCollectionsDTO) {
-        repoCollectionsRemoveRepo.removeRepoFromCollection(collectionId,repoCollectionsDTO);
+    @DeleteMapping("/removeRepoFromCollection/{collectionName}")
+    public void removeRepoFromCollection(@PathVariable String collectionName) {
+        repoCollectionsRemoveRepo.removeRepoFromCollection(collectionName);
     }
 }
