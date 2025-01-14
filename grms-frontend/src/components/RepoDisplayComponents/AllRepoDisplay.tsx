@@ -14,6 +14,7 @@ import { useUserStore } from "../../store/UserStore";
 import { GetRepoCommitGraphDrawer } from "../Drawers/GetCalendar";
 import { GetLinesOfCodeDrawer } from "../Drawers/GetLinesOfCodeDrawer";
 import { ReadMeDrawer } from "../Drawers/ReadMeDrawer";
+import axios from 'axios'
 
 
 
@@ -59,7 +60,13 @@ export const AllRepoDisplay = () =>{
     const convertHtmlUrl = (html_url: string) =>{
       return html_url.replace(/https:\/\/github\.com/g, "https://github.dev");
     }
-  
+
+    const deleteUrl = async(repoName: string) =>{
+      const backendUrl = import.meta.env.VITE_BACKEND_URL
+      const deleteResponse = await axios.get(backendUrl+ "/easyRepo/repoTweaks/deleteRename/"+ repoName , {withCredentials: true})
+      window.location.href = deleteResponse?.data 
+    }
+
 
     const firstDataIndex = 6 * (currentPage -1)
     const lastDataIndex = 6 * currentPage
@@ -78,7 +85,7 @@ export const AllRepoDisplay = () =>{
     const{locDrawerOpen , setLocDrawerOpen} = useUserStore()
     const{readMeDrawerOpen, setreadMeDrawerOpen} = useUserStore()
 
-    const{treeRepoId, setTreeRepoId , setRepoName} = useUserStore()
+    const{treeRepoId, setTreeRepoId , repoName,  setRepoName} = useUserStore()
     
   
     return(
@@ -198,10 +205,10 @@ export const AllRepoDisplay = () =>{
          </a>
          </p>
         <p>
-         <span style={{color: '#ED4337'}}> delete: </span> ---this.repository
+         <span style={{color: '#ED4337'}}> delete: </span> ---<a href="#" onClick={(e) =>{ e.preventDefault();  deleteUrl(items.name)}} target="_blank" className="hover:underline">this.repository</a>
          </p>
          <p>
-        <span style={{color: '#ED008C  '}} >put: </span><span>------this.rename</span>
+        <span style={{color: '#ED008C  '}} >put: </span><span>------<a href="#" onClick={(e) =>{ e.preventDefault();  deleteUrl(items.name)}} target="_blank" className="hover:underline">this.rename</a></span>
     
          </p>
       </CardBody>
