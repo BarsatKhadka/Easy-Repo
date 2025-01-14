@@ -82,7 +82,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         String accessToken = oAuthService.getAccessToken();
         oAuthService.setAccessToken(accessToken);
         System.out.println(accessToken);
-        
+
 
 //        allows you to look at all attributes that is coming from the user
         Map<String, Object> attributes = oauth2User.getAttributes();

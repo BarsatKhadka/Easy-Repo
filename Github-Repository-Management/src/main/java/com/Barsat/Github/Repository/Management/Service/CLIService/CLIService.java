@@ -52,7 +52,7 @@ public class CLIService {
         if(trim[1].equals("loc")){
             GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoName);
             if(githubRepoEntity != null){
-                return command + String.valueOf(githubRepoEntity.getRepoId());
+                return command + repoName;
             }
             else {
                 return "Repo does not exist";
