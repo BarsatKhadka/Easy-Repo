@@ -52,7 +52,7 @@ public class RepoCollectionCreate {
         repoCollectionsEntity.setCollectionName(repoCollectionDTO.getCollectionName());
 
         if(repoCollectionsRepository.findByMasterUserUsernameAndCollectionName(username, repoCollectionDTO.getCollectionName()) != null){
-            repoCollectionsEntity.setCollectionName(repoCollectionDTO.getCollectionName() + UUID.randomUUID().toString());
+            repoCollectionsEntity.setCollectionName(repoCollectionDTO.getCollectionName() + "1");
         }
 
         for(Integer repoId : repoCollectionDTO.getGithubRepoIds()){
