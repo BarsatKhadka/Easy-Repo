@@ -190,7 +190,7 @@ export const CollectionsMain = () =>{
 
         {collections?.map((item:any) =>      
        <div className="flex flex-wrap gap-4 mt-8" key={item.collectionName}>
-       <Snippet hideCopyButton color="warning" variant="bordered" className="ml-3 w-full h-12 mr-12 flex items-center justify-between">
+       <Snippet hideCopyButton color="warning" variant="flat" className="ml-3 w-full h-12 mr-12 flex items-center justify-between">
          <a href="#" className=" text-white" onClick={() => setCollectionName(item.collectionName)}>
           <span className="hover:underline">{item.collectionName}</span> 
          </a>

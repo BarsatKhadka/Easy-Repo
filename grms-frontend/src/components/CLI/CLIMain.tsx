@@ -20,6 +20,15 @@ export const CLIMain = () =>{
       const{repoName , setRepoName} = useUserStore()
     const {locDrawerOpen , setLocDrawerOpen} = useUserStore()
      const {readMeDrawerOpen , setreadMeDrawerOpen} = useUserStore()
+
+
+     const openVsCodeUrl = (url: string) =>{
+
+      window.location.href = url
+
+
+
+     }
         
 
     const handleKeyDown = (event:any) => {
@@ -48,6 +57,9 @@ export const CLIMain = () =>{
         if(response?.data.includes('readMe')){
             setreadMeDrawerOpen(true)
             setRepoName(response?.data.split("=")[1])
+        }
+        if(response?.data.includes('Vs+Code')){
+          openVsCodeUrl(response?.data.split("=")[1])
         }
 
         

@@ -69,6 +69,22 @@ public class CLIService {
             }
 
         }
+        if(trim[1].equals("ovs")){
+            GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoName);
+            if(githubRepoEntity != null){
+                String htmlUrl = "";
+                if(githubRepoEntity !=null){
+                    htmlUrl = githubRepoEntity.getHtml_url();
+                }
+
+                String vsCodeUrl = htmlUrl.replace("https://github.com/","https://github.dev/");
+
+                return "Open+with+Vs+Code+" + repoName + "=" +vsCodeUrl;
+            }
+            else{
+                return "Repo does not exist";
+            }
+        }
 
 
 
