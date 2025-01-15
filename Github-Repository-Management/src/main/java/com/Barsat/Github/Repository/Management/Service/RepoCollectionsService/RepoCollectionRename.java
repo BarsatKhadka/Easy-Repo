@@ -16,6 +16,7 @@ public class RepoCollectionRename {
     }
 
     public void renameRepoCollection(String oldName, String newName) {
+        System.out.println(oldName + " -> " + newName);
         String username = getAuthenticatedUserName.getUsername();
         RepoCollectionsEntity repoCollectionsEntity = repoCollectionsRepository.findByMasterUserUsernameAndCollectionName(username , oldName);
         if(repoCollectionsEntity != null) {

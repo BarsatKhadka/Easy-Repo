@@ -56,11 +56,24 @@ import {
   
   export default function RenameModel() {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    const {collectionName,setCollectionName} = useUserStore()
+
+    const [renameValue , setRenameValue] = useState("")
+    const handleChange = (event:any) =>{
+        setRenameValue(event.target.value)
+    }
+
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const submitClick = async() =>{
+        await axios.get(backendUrl+"/easyrepo/collections/"+collectionName+"/"+renameValue , {withCredentials: true })
+        window.location.reload()
+
+    }
   
     return (
       <>
         <a color="" onClick={onOpen}>
-          Rename
+          Rename 
         </a>
         <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
           <ModalContent>
@@ -72,13 +85,14 @@ import {
                     label="Rename to"
                     placeholder="New name"
                     variant="bordered"
+                    onChange={handleChange}
                   />
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="flat" onPress={onClose}>
                     Close
                   </Button>
-                  <Button color="primary" onPress={onClose}>
+                  <Button color="primary" onPress={submitClick}>
                     Rename
                   </Button>
                 </ModalFooter>
