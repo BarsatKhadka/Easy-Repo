@@ -28,7 +28,7 @@ export const GetLinesOfCodeDrawer = () =>{
 
     },[repoName])
 
-    console.log(response?.data)
+
   
 
   

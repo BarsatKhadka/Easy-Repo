@@ -80,7 +80,7 @@ githubRepoIds.push(values)
       {label: "", key: "", description: ""}
     ];
 
-    console.log(response?.data?.githubRepo)
+
     response?.data?.githubRepo.forEach((item: { name: string; repoId: string }) => {
       repositories.push({
         label: item.name,
@@ -153,7 +153,7 @@ export const CollectionsMain = () =>{
   useEffect(() =>{
 
     getAllCollections()
-    console.log("this called")
+
 
   },[])
   
@@ -167,7 +167,7 @@ export const CollectionsMain = () =>{
   }
 
   
-  console.log(collections)
+
 
     
 

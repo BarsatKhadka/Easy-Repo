@@ -127,7 +127,7 @@ export const RepoDisplayMain = () =>{
          
     
         //total Item by number of pages. 5 per page.
-        const totalItem = Math.ceil(response?.data?.repositoryCount /6) 
+        const totalItem = Math.ceil(response?.data?.repositoryCount /5) 
     
         const [currentPage, setCurrentPage] = useState(1);
         
@@ -136,14 +136,14 @@ export const RepoDisplayMain = () =>{
         }
       
     
-        const firstDataIndex = 6 * (currentPage -1)
-        const lastDataIndex = 6 * currentPage
+        const firstDataIndex = 5 * (currentPage -1)
+        const lastDataIndex = 5 * currentPage
     
     
         const array = ['default','success','primary','secondary','warning','danger'];
         
     
-        console.log(response)
+
     
     
     
@@ -168,7 +168,7 @@ export const RepoDisplayMain = () =>{
         {collectionName != "All Repositories" && 
 
         <div>
-        <div className="flex justify-between items-center mr-1">
+        <div className="flex justify-between items-center mt mr-1">
 
         <span className="lg:ml-8  cursor-pointer">
              <RiDeleteBin7Line className="inline" /><span className="underline ml-2"> 

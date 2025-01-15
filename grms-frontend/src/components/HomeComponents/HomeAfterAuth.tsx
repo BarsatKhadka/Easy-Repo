@@ -25,7 +25,6 @@ export const HomeAfterAuth = () => {
     useEffect(() => {
       const logoutFunction = async () => {
         try {
-          console.log('Logging out...');
           await axios.post(backendUrl + '/logout', {}, {
             withCredentials: true,
             headers: { 'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }
@@ -34,7 +33,7 @@ export const HomeAfterAuth = () => {
           navigate("/");
           window.location.reload();
         } catch (error) {
-          console.error('Logout failed:', error);
+
         }
       };
   

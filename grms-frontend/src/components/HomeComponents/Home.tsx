@@ -35,14 +35,14 @@ useEffect(()=>{
     if (response.data && response.data.csrfController) {
     if(sessionStorage.getItem('csrf') == null || sessionStorage.getItem('csrf') != response?.data["csrfController"]["token"]){
       sessionStorage.setItem('csrf', response?.data?.["csrfController"]["token"])
-      console.log(sessionStorage.getItem('csrf'))
+
     }
   }
     
   } 
 }, [response])
 
-console.log(response)
+
 
 
 

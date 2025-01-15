@@ -38,7 +38,6 @@ export const ReadMeDrawer = () =>{
       };
 
 
-      console.log(response)
 
     return(
         <>

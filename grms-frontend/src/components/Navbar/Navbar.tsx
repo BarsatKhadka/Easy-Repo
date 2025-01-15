@@ -174,7 +174,7 @@ export const NavbarAfterAuth = (props: NavbarAfterAuthProps) => {
 
 const logoutFunction = async() =>{
     try{
-      console.log('hello')
+
    await axios.post(backendUrl + '/logout' , {}, {withCredentials: true , headers: {'X-CSRF-TOKEN' : sessionStorage.getItem('csrf') }})
    sessionStorage.removeItem('authenticated')
    navigate("/")

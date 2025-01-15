@@ -48,7 +48,6 @@ export const AllRepoDisplay = () =>{
     //i am fetching all the collections in the main component because all collections will be made from the pool of all collections , it being accessible from here makes sense.
     useEffect(()=>{
         fetchData({url: '/easyrepo/collections/all', method: 'get'})
-        console.log("success")
 
     },[]) 
 
@@ -75,7 +74,7 @@ export const AllRepoDisplay = () =>{
     const array = ['default','success','primary','secondary','warning','danger'];
     
 
-    console.log(response)
+    
 
 
 
