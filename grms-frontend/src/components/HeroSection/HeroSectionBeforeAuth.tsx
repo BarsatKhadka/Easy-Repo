@@ -4,6 +4,7 @@ export const HeroSectionBeforeAuth = () => {
 
   return (
     <>
+    <div className="mb-16">
     <section className="fade-bottom  pb-0 sm:pb-0 md:pb-0 mr-4 lg:mr-96 lg:ml-96 mt-2">
       <div className=" flex flex-col gap-12 pt-16 sm:gap-24 ">
         <div className="flex flex-col items-center gap-6 text-center sm:gap-12">
@@ -23,15 +24,9 @@ export const HeroSectionBeforeAuth = () => {
     className="w-full max-w-4xl h-auto inline"
   />
 </div>
+</div>
 
 
-
-
-
-
-
-  
-3
     </>
     
   );

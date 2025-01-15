@@ -1,4 +1,5 @@
 import { HeroSectionBeforeAuth } from "../HeroSection/HeroSectionBeforeAuth"
+import { ThenSection } from "../HeroSection/ThenSection"
 import {NavbarComponent} from "../Navbar/Navbar"
 
 export const HomeBeforeAuth = () =>{
@@ -8,6 +9,8 @@ export const HomeBeforeAuth = () =>{
         
             <NavbarComponent  />
             <HeroSectionBeforeAuth/>
+            <ThenSection/>
+            
             
             
         </div>
