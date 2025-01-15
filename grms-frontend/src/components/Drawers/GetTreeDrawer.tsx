@@ -4,13 +4,11 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerBody,
-  DrawerFooter,
-  Button,
   useDisclosure,
 } from "@nextui-org/react";
 import { useUserStore } from "../../store/UserStore";
 import { useAxios } from "../../utility/axiosUtils";
-import Tree from 'react-d3-tree';
+
 
 export const GetTreeDrawer = () =>{
 
@@ -93,14 +91,7 @@ export const GetTreeDrawer = () =>{
                 </p>
 
               </DrawerBody>
-              <DrawerFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
-              </DrawerFooter>
+             
             </>
           )}
         </DrawerContent>

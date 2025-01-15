@@ -1,16 +1,12 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import {
   Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerBody,
-  DrawerFooter,
-  Button,
-  useDisclosure,
 } from "@nextui-org/react";
 import { useUserStore } from "../../store/UserStore";
 import { useAxios } from "../../utility/axiosUtils";
-import {Card, CardHeader, CardBody, Image } from "@nextui-org/react";
 import ReactMarkdown from 'react-markdown'
 
 
@@ -41,38 +37,18 @@ export const ReadMeDrawer = () =>{
 
     return(
         <>
-              <div className="flex flex-wrap gap-3">
-  
-      </div>
-      <Drawer isOpen={readMeDrawerOpen} placement={"left"} size={"4xl"}onOpenChange={handleOpenChange} >
-        <DrawerContent>
-          {(onClose) => (
-            <>
-            <DrawerHeader className="flex flex-col gap-1">Read Me for {repoName}</DrawerHeader>
-            <DrawerBody>
-             <>
-                 <p>
-                    <ReactMarkdown>{response?.data}</ReactMarkdown>
-                 </p>    
-                
-               </>
-          
-           </DrawerBody>
-
-<DrawerFooter>
-                 <Button color="danger" variant="light" onPress={onClose}>
-                   Close
-                 </Button>
-                 <Button color="primary" onPress={onClose}>
-                   Action
-                 </Button>
-               </DrawerFooter>
-          
-           
-            </>
-          )}
-        </DrawerContent>
-      </Drawer>
+              <Drawer isOpen={readMeDrawerOpen} placement="left" size="4xl" onOpenChange={handleOpenChange}>
+      <DrawerContent>
+        <DrawerHeader className="p-6 border-b border-gray-200">
+          <h2 className="text-xl font-semibold">Read Me for {repoName}</h2>
+        </DrawerHeader>
+        <DrawerBody className="p-6 overflow-y-auto">
+          <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl max-w-none">
+            <ReactMarkdown>{response?.data}</ReactMarkdown>
+          </div>
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
         </>
     )
 }

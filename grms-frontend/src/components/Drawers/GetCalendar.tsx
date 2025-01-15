@@ -92,7 +92,7 @@ export const GetRepoCommitGraphDrawer = () =>{
         <DrawerContent>
           {(onClose) => (
             <>
-              <DrawerHeader className="flex flex-col gap-1">Drawer Title</DrawerHeader>
+              <DrawerHeader className="flex flex-col gap-1">Commit Calendar</DrawerHeader>
               <DrawerBody>
                 {/* <p>
                 {response?.data.map((items: any) => 

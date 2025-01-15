@@ -4,13 +4,11 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerBody,
-  DrawerFooter,
-  Button,
   useDisclosure,
 } from "@nextui-org/react";
 import { useUserStore } from "../../store/UserStore";
 import { useAxios } from "../../utility/axiosUtils";
-import {Card, CardHeader, CardBody, Image } from "@nextui-org/react";
+import {Card, CardHeader, CardBody } from "@nextui-org/react";
 
 
 
@@ -53,54 +51,46 @@ export const GetLinesOfCodeDrawer = () =>{
 
     return(
         <>
-              <div className="flex flex-wrap gap-3">
-  
-      </div>
-      <Drawer isOpen={locDrawerOpen} placement={"left"} size={"4xl"}onOpenChange={handleOpenChange} >
-        <DrawerContent>
-          {(onClose) => (
-            <>
-            <DrawerHeader className="flex flex-col gap-1">Lines Of Code for {repoName}</DrawerHeader>
-            <DrawerBody>
-            {response?.data?.languages ? response?.data?.languages.map((item:any , index:number) => 
-
-             <>
-               
-              
-                 <p>
-                   
-                         <Card className="py-4 mt-4">
-                         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                           <p className="text-tiny uppercase font-bold"></p>
-                           <p>{response?.data?.keys[index]}: {response?.data?.languages[index]} </p>
-                         </CardHeader>
-                         <CardBody className="overflow-visible py-2">
-              
-                         </CardBody>
-                       </Card>
-                 </p>    
-                
-               </>
-            )
-            : <p>Loading</p>
-            
-          }
-           </DrawerBody>
-
-<DrawerFooter>
-                 <Button color="danger" variant="light" onPress={onClose}>
-                   Close
-                 </Button>
-                 <Button color="primary" onPress={onClose}>
-                   Action
-                 </Button>
-               </DrawerFooter>
-          
-           
-            </>
+    <Drawer isOpen={locDrawerOpen} placement="left" size="4xl" onOpenChange={handleOpenChange}>
+  <DrawerContent className="bg-gradient-to-r from-gray-100 via-white to-gray-200">
+    {(onClose) => (
+      <>
+        <DrawerHeader className="flex flex-col gap-2">
+          <h2 className="text-xl font-bold text-gray-900">Lines of Code for {repoName}</h2>
+          <p className="text-sm text-gray-600">Detailed breakdown of code lines by language</p>
+        </DrawerHeader>
+        <DrawerBody className="bg-gradient-to-br from-white to-gray-100 text-gray-800">
+          {response?.data?.languages ? (
+            response.data.languages.map((item: any, index: number) => (
+              <Card
+                className="py-4 mt-4 bg-white border border-gray-300 shadow-md hover:shadow-lg transform transition-all duration-300 hover:scale-105"
+                key={index}
+              >
+                <CardHeader className="pb-0 pt-2 px-4 flex items-center">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg font-bold text-gray-800">{response.data.keys[index]}</span>
+                    <span className="bg-blue-100 text-blue-800 text-xs font-semibold ml-2 px-2.5 py-0.5 rounded">
+                      {item} LOC
+                    </span>
+                  </div>
+                </CardHeader>
+                <CardBody className="overflow-visible py-2 px-4">
+                  <p className="text-sm text-gray-600">
+                    {item} lines of code written in {response.data.keys[index]}.
+                  </p>
+                  
+                </CardBody>
+              </Card>
+            ))
+          ) : (
+            <p className="text-center text-gray-500">Loading...</p>
           )}
-        </DrawerContent>
-      </Drawer>
+        </DrawerBody>
+      </>
+    )}
+  </DrawerContent>
+</Drawer>
+
         </>
     )
 }

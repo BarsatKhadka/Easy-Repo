@@ -101,30 +101,44 @@ githubRepoIds.push(values)
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1">Create a Collection</ModalHeader>
-                <ModalBody>
+                 <ModalBody className="space-y-6">
+                  
                   <Input
-                    
                     label="Collection Name"
-                    placeholder=""
+                    placeholder="Enter collection name"
                     variant="bordered"
                     onChange={handleChange}
+                    className="w-full"
+                    classNames={{
+                      inputWrapper: "border-gray-300 hover:border-blue-500 focus:border-blue-500",
+                      label: "text-gray-700 font-medium",
+                    }}
                   />
-                     <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-                     <Select
-      className="max-w"
-      label="Favorite Animal"
-      placeholder="Select an animal"
-      selectionMode="multiple"
-      onChange={handleSelectedKeys}
-    >
-      {repositories.map((repo) => (
-        <SelectItem key={repo.key}>{repo.label}</SelectItem>
-      ))}
-    </Select>
-    </div>
-                  <div className="flex py-2 px-1 justify-between">
-          
+
+                  
+                  <div className="flex w-full flex-col gap-4">
+                    <Select
+                      label="Your Repositories"
+                      placeholder="Select your repositories"
+                      selectionMode="multiple"
+                      onChange={handleSelectedKeys}
+                      className="w-full"
+                      classNames={{
+                        trigger: "border-gray-300 hover:border-blue-500 focus:border-blue-500",
+                        label: "text-gray-700 font-medium",
+                        value: "text-gray-900",
+                      }}
+                    >
+                      {repositories.map((repo) => (
+                        <SelectItem key={repo.key} className="text-gray-700 hover:bg-blue-50">
+                          {repo.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
                   </div>
+
+                  
+                  <div className="flex py-2 px-1 justify-between"></div>
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="flat" onPress={onClose}>

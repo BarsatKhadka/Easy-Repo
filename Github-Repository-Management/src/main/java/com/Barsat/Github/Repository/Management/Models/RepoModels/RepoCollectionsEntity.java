@@ -28,6 +28,7 @@ public class RepoCollectionsEntity {
     private Integer collectionId;
 
 
+    @Column(nullable = false)
     private String collectionName;
 
 

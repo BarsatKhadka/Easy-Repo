@@ -193,7 +193,7 @@ export const AllRepoDisplay = () =>{
         <span style={{color: '#98FB98  '}}>get:</span> ------
         <a href="#" className= "hover:underline" onClick={() => (setTreeDrawerOpen(true) , setTreeRepoId(items.repoId))}>Files in Tree Structure </a>
         ------
-        <a href="#" className="hover:underline" onClick={() => (setGraphDrawerOpen(true) ,setTreeRepoId(items.repoId))}> Repo's Commit Graph  </a>------
+        <a href="#" className="hover:underline" onClick={() => (setGraphDrawerOpen(true) ,setTreeRepoId(items.repoId))}> Plan commits </a>------
         <a href="#" className="hover:underline" onClick={() => (setLocDrawerOpen(true), setRepoName(items.name))} >{"   "} Lines of code </a>------
         <a href="#" className="hover:underline" onClick={()=> (setreadMeDrawerOpen(true) , setRepoName(items.name))}> readMe</a>
         </p>
