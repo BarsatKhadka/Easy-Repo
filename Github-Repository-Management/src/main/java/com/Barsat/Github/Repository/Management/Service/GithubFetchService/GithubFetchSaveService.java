@@ -55,7 +55,6 @@ public class GithubFetchSaveService {
 
         //find the current user in Userrepo
         TheUser theUser = userRepo.findByUsername(userName);
-        System.out.println(userName);
 
 
 

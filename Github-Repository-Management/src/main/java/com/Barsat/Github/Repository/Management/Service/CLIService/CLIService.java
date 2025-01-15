@@ -69,7 +69,6 @@ public class CLIService {
             }
         }
         if(trim[0].equals("collections") && trim[1].equals("rename")){
-            System.out.println("THis fucking compiled");
             if(trim.length != 4){
                 return "Collection rename command syntax error";
             }
@@ -97,7 +96,6 @@ public class CLIService {
                 List<Integer> repoIds = new ArrayList<>();
                 List<String> allRepos = Arrays.asList(repoNames.split("%2C"));
                 for(String repo: allRepos){
-                    System.out.println(repo);
                     GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repo);
                     if(githubRepoEntity != null){
                         repoIds.add(githubRepoEntity.getRepoId());
@@ -118,7 +116,6 @@ public class CLIService {
                 List<String> names = new ArrayList<>();
                 GithubRepoEntity githubRepoEntity = githubReposRepository.findByName(repoNames);
                 if(githubRepoEntity != null){
-                    System.out.println("this printed");
                     names.add(githubRepoEntity.getName());
                     RepoCollectionDTO repoCollectionDTO = new RepoCollectionDTO();
                     repoCollectionDTO.setCollectionName(collectionName);

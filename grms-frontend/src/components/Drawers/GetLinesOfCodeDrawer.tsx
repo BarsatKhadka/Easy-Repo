@@ -76,7 +76,7 @@ export const GetLinesOfCodeDrawer = () =>{
                 </CardHeader>
                 <CardBody className="overflow-visible py-2 px-4">
                   <p className="text-sm text-gray-600">
-                    {item} lines of code written in {response.data.keys[index]}.
+                    {item} lines of code written in {response.data.keys[index]}.  
                   </p>
                   
                 </CardBody>

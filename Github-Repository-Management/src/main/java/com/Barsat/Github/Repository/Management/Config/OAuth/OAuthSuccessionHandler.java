@@ -81,14 +81,14 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         oAuthService.generateAccessToken(oauth2AuthenticationToken, "github");
         String accessToken = oAuthService.getAccessToken();
         oAuthService.setAccessToken(accessToken);
-        System.out.println(accessToken);
+
 
 
 //        allows you to look at all attributes that is coming from the user
-        Map<String, Object> attributes = oauth2User.getAttributes();
-        attributes.forEach((key, value) -> {
-            System.out.println(key + ": " + value);
-        });
+//        Map<String, Object> attributes = oauth2User.getAttributes();
+//        attributes.forEach((key, value) -> {
+//            System.out.println(key + ": " + value);
+//        });
 
         String email = oauth2User.getAttribute("email").toString();
         String name = oauth2User.getAttribute("name").toString();

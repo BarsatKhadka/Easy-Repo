@@ -74,11 +74,11 @@ public class CommitGraphService {
                 String sha = getRepoSHAKey.getSHA(repoName, username);
 
                 boolean commitEntityExists = commitRepository.existsByGithubRepoEntityRepoIdAndSha(githubRepoEntity.getRepoId(), sha);
-                System.out.println(commitEntityExists + "first check" + "(this is upto date)" + "for" + githubRepoEntity.getName());
+
 
                 if (!commitEntityExists) {
                     boolean result = commitRepository.existsByGithubRepoEntityRepoId(githubRepoEntity.getRepoId());
-                    System.out.println(result + "second check" + "(this says that recent commit is not upto date)" + "for" + githubRepoEntity.getName());
+
 
                     if (result) {
                         //getting the current max Date in database

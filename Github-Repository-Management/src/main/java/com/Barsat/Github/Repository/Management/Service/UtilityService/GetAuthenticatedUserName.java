@@ -21,8 +21,6 @@ public class GetAuthenticatedUserName {
         if(authentication != null && authentication.getPrincipal() instanceof OAuth2User){
             OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
             username = oauth2User.getAttribute("name");
-            System.out.println(username);
-
         }
 
         else{
