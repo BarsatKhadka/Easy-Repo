@@ -1,3 +1,4 @@
+import { HeroSectionBeforeAuth } from "../HeroSection/HeroSectionBeforeAuth"
 import {NavbarComponent} from "../Navbar/Navbar"
 
 export const HomeBeforeAuth = () =>{
@@ -6,6 +7,7 @@ export const HomeBeforeAuth = () =>{
       <div className='h-screen flex flex-col '>
         
             <NavbarComponent  />
+            <HeroSectionBeforeAuth/>
             
         </div>
     )
