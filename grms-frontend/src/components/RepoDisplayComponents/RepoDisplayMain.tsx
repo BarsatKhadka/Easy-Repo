@@ -41,6 +41,55 @@ interface GithubRepoType{
     githubRepo: githubRepoItem[] | []
 }
 
+import {
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    useDisclosure,
+    Checkbox,
+    Input,
+    Link,
+  } from "@nextui-org/react";
+  
+  
+  export default function RenameModel() {
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  
+    return (
+      <>
+        <a color="" onClick={onOpen}>
+          Rename
+        </a>
+        <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1"></ModalHeader>
+                <ModalBody>
+                  <Input
+                    label="Rename to"
+                    placeholder="New name"
+                    variant="bordered"
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="flat" onPress={onClose}>
+                    Close
+                  </Button>
+                  <Button color="primary" onPress={onClose}>
+                    Rename
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+      </>
+    );
+  }
+  
 
 export const RepoDisplayMain = () =>{
     
@@ -107,12 +156,12 @@ export const RepoDisplayMain = () =>{
         <div>
         <div className="flex justify-between items-center mr-1">
 
-        <span className="lg:ml-8 ml-2 cursor-pointer">
+        <span className="lg:ml-8  cursor-pointer">
              <RiDeleteBin7Line className="inline" /><span className="underline ml-2"> 
                 <a href="#" className="hover:underline" onClick={ () => (setCollectionName(collectionName), deleteCollection())}> Delete </a> </span></span>
-        <span className="lg:ml-8 ml-2 cursor-pointer">
+        <span className="lg:ml-8 cursor-pointer">
         <MdOutlineDriveFileRenameOutline className="inline" />
-        <span className="underline ml-2"> Rename </span></span>
+        <span className="underline ml-2"> <RenameModel/> </span></span>
 
 
         <div className="flex items-center gap-2 sm:ml-2">
@@ -227,6 +276,7 @@ export const RepoDisplayMain = () =>{
             </a>
             </p>
             <p>
+                
          <span style={{color: '#ED4337'}}> delete: </span> ---<a href="" onClick={(e) =>{ e.preventDefault();  deleteUrl(items.name)}} target="_blank" className="hover:underline">this.repository</a>
          </p>
          <p>

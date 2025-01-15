@@ -1,4 +1,4 @@
-import {Input, useUser} from "@nextui-org/react";
+import { Input ,useUser} from "@nextui-org/react";
 import { useState } from "react";
 import axios from "axios";
 import { GetTreeDrawer } from "../Drawers/GetTreeDrawer";
@@ -105,6 +105,7 @@ export const CLIMain = () =>{
         
         </div>
         <div>
+        
 
             {response.includes('tree') && <GetTreeDrawer/> }
             {response.includes('calendar') && <GetRepoCommitGraphDrawer/>}
@@ -114,3 +115,4 @@ export const CLIMain = () =>{
         </>
     )
 }
+
