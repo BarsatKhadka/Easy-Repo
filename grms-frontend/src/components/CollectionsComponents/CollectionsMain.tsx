@@ -58,6 +58,10 @@ githubRepoIds.push(values)
     try{
      
       const repoIds: Array<number>= githubRepoIds[0].split(",").map(Number);
+
+      if(createCollectionName === ""){
+        setCreateCollectionName("blank")
+      }
       
       //spaces give spaces in url and cause backend to crash. Temporary solution for right now.
         const finalcreateCollectionName = createCollectionName.replace(/\s+/g, '_');
@@ -113,6 +117,8 @@ githubRepoIds.push(values)
                       inputWrapper: "border-gray-300 hover:border-blue-500 focus:border-blue-500",
                       label: "text-gray-700 font-medium",
                     }}
+                    isRequired
+
                   />
 
                   
