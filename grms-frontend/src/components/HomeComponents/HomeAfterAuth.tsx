@@ -38,7 +38,7 @@ export const HomeAfterAuth = () => {
     };
     
     //  logout every 15 minutes
-    const logoutInterval = 15 * 60 * 1000; 
+    const logoutInterval = 8 * 60 * 1000; 
     setInterval(logoutFunction, logoutInterval);
 
     

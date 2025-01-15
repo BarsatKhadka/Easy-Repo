@@ -6,6 +6,7 @@ import com.Barsat.Github.Repository.Management.Models.RepoModels.RepoCollections
 import com.Barsat.Github.Repository.Management.Repository.GithubReposRepository;
 import com.Barsat.Github.Repository.Management.Repository.RepoCollectionsRepository;
 import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionCreate;
+import com.Barsat.Github.Repository.Management.Service.RepoCollectionsService.RepoCollectionRename;
 import com.Barsat.Github.Repository.Management.Service.UtilityService.GetAuthenticatedUserName;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,14 @@ public class CLIService {
     private final GithubReposRepository githubReposRepository;
     private final RepoCollectionsRepository repoCollectionsRepository;
     private final RepoCollectionCreate repoCollectionCreate;
+    private final RepoCollectionRename repoCollectionsRename;
     public CLIService(GetAuthenticatedUserName getAuthenticatedUserName, GithubReposRepository githubReposRepository
-            , RepoCollectionsRepository repoCollectionsRepository , RepoCollectionCreate repoCollectionCreate) {
+            , RepoCollectionsRepository repoCollectionsRepository , RepoCollectionCreate repoCollectionCreate , RepoCollectionRename repoCollectionRename) {
         this.getAuthenticatedUserName = getAuthenticatedUserName;
         this.githubReposRepository = githubReposRepository;
         this.repoCollectionsRepository = repoCollectionsRepository;
         this.repoCollectionCreate = repoCollectionCreate;
+        this.repoCollectionsRename = repoCollectionRename;
     }
 
     //first line of command should have these values or don't process.
@@ -64,6 +67,20 @@ public class CLIService {
             else{
                 return "Repo does not exist";
             }
+        }
+        if(trim[0].equals("collections") && trim[1].equals("rename")){
+            System.out.println("THis fucking compiled");
+            if(trim.length != 4){
+                return "Collection rename command syntax error";
+            }
+            RepoCollectionsEntity repoCollectionsEntity = repoCollectionsRepository.findByCollectionName(trim[2]);
+            if(repoCollectionsEntity !=null){
+
+                repoCollectionsRename.renameRepoCollection(trim[2], trim[3].substring(0,trim[3].length()-1));
+                return command;
+
+            }
+
         }
 
         if(trim[0].equals("collections") && trim[1].equals("create")){

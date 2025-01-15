@@ -74,6 +74,9 @@ export const CLIMain = () =>{
         if(response?.data.includes('repo+rename')){
           deleteUrl(response?.data.split("=")[1])
         }
+        if(response?.data.includes('collections+rename')){
+          window.location.reload()
+        }
 
         
 
