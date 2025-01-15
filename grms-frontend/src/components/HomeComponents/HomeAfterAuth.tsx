@@ -22,24 +22,29 @@ export const HomeAfterAuth = () => {
         fetchData({ url: "/easyrepo/user/getUserDetails", method: 'get' })
     }, [])
 
-    const logoutFunction = async () => {
-      try {
-        console.log('Logging out...');
-        await axios.post(backendUrl + '/logout', {}, {
-          withCredentials: true,
-          headers: { 'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }
-        });
-        sessionStorage.removeItem('authenticated');
-        navigate("/");
-        window.location.reload();
-      } catch (error) {
-        console.error('Logout failed:', error);
-      }
-    };
-    
-    //  logout every 15 minutes
-    const logoutInterval = 8 * 60 * 1000; 
-    setInterval(logoutFunction, logoutInterval);
+    useEffect(() => {
+      const logoutFunction = async () => {
+        try {
+          console.log('Logging out...');
+          await axios.post(backendUrl + '/logout', {}, {
+            withCredentials: true,
+            headers: { 'X-CSRF-TOKEN': sessionStorage.getItem('csrf') }
+          });
+          sessionStorage.removeItem('authenticated');
+          navigate("/");
+          window.location.reload();
+        } catch (error) {
+          console.error('Logout failed:', error);
+        }
+      };
+  
+      const logoutTimer = setTimeout(logoutFunction, 100 * 60 ); 
+  
+      return () => {
+        clearTimeout(logoutTimer);
+      };
+    }, [backendUrl, navigate]);
+  
 
     
     return (
