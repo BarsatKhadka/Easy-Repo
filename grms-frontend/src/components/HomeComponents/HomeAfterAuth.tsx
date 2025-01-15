@@ -38,7 +38,7 @@ export const HomeAfterAuth = () => {
         }
       };
   
-      const logoutTimer = setTimeout(logoutFunction, 100 * 60 ); 
+      const logoutTimer = setTimeout(logoutFunction, 8 * 60 * 1000); 
   
       return () => {
         clearTimeout(logoutTimer);
