@@ -9,6 +9,7 @@ export const HomeBeforeAuth = () =>{
             <NavbarComponent  />
             <HeroSectionBeforeAuth/>
             
+            
         </div>
     )
 }

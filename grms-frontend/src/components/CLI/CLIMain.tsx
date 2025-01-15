@@ -77,6 +77,9 @@ export const CLIMain = () =>{
         if(response?.data.includes('collections+rename')){
           window.location.reload()
         }
+        if(response?.data.includes('collections+create')){
+          window.location.reload()
+        }
 
         
 
