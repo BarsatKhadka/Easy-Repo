@@ -1,63 +1,69 @@
-import { Button } from "@nextui-org/react"
-import LinesOfCode from "../../../src/assets/images/LinesOfCode.png"
-import Tree from "../../../src/assets/images/Tree.png"
-import {Icon} from "@iconify/react";
+import { Button } from "@nextui-org/react";
+import LinesOfCode from "../../../src/assets/images/LinesOfCode.png";
+import Tree from "../../../src/assets/images/Tree.png";
+import { Icon } from "@iconify/react";
 import { FaGithub } from "react-icons/fa";
 
-export const ThenSection = () =>{
-    return(
-<>
-<div className="bg-white">
-<div className="mt-4 flex justify-center items-center  flex-col items-start space-y-8 px-4 sm:px-8 md:px-12 lg:px-16 ">
-<span className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold ">
-    Then?   
-</span>
-</div>
-<div className="bg-dark p-6 rounded-lg">
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+export const ThenSection = () => {
+  return (
+    <div className="bg-white py-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
-    <span className="inline-block bg-gradient-to-r from-gray-800 via-gray-900 to-black bg-clip-text text-transparent text-2xl sm:text-3xl font-bold lg:ml-[300px]">
-      then.... 
-    </span>
+        <div className="text-center mb-12">
+          <span className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent text-4xl sm:text-5xl font-bold">
+            Then?
+          </span>
+        </div>
 
 
-    <div className="bg-[#1C1917] p-5 rounded-lg shadow-lg border-2 border-pink-500 hover:shadow-[0_0_20px_5px_rgba(236,72,153,0.6)] transition-all duration-500 ease-in-out transform hover:scale-102 cursor-pointer">
-      <span className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent text-2xl sm:text-3xl font-bold">
-        View your repos in tree structure
-      </span>
-      <p className="mt-4 text-gray-300">
-      Visualize your repositories in an organized tree structure for better navigation and clarity.
-      </p>
-      <img src={Tree} className="border border-white mt-4 rounded-lg hover:border-pink-500 transition-all duration-300"/>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <div className="bg-[#1C1917] p-6 rounded-lg border border-gray-800 hover:border-pink-500 transition-all duration-300 cursor-pointer">
+            <span className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent text-2xl font-bold">
+              View your repos in tree structure
+            </span>
+            <p className="mt-3 text-gray-300">
+              Visualize your repositories in an organized tree structure for better navigation and clarity.
+            </p>
+            <img
+              src={Tree}
+              alt="Tree Structure"
+              className="mt-6 rounded-md border border-gray-700 hover:border-pink-500 transition-all duration-300 w-full"
+            />
+          </div>
+
+
+          <div className="bg-[#1C1917] p-6 rounded-lg border border-gray-800 hover:border-purple-500 transition-all duration-300 cursor-pointer">
+            <span className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent text-2xl font-bold">
+              Analyze lines of code
+            </span>
+            <p className="mt-3 text-gray-300">
+              Gain insights into your codebase by analyzing lines of code and tracking progress.
+            </p>
+            <img
+              src={LinesOfCode}
+              alt="Lines of Code"
+              className="mt-6 rounded-md border border-gray-700 hover:border-purple-500 transition-all duration-300 w-full"
+            />
+          </div>
+
+
+          <div className="lg:mt-[435px] mr-[160px] rounded-lg  hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-center items-center">
+            <span className="inline-block bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent text-2xl font-bold text-center">
+              And much more...
+            </span>
+            <Button
+              className="mt-6 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium hover:from-indigo-600 hover:to-purple-600 transition-all duration-300"
+              endContent={<Icon icon="solar:alt-arrow-right-linear" />}
+              radius="full"
+              variant="solid"
+            >
+              <FaGithub className="mr-2" />
+              Explore All Possibilities
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-    <div className="bg-[#1C1917] p-5 rounded-lg shadow-lg border-2 border-purple-500 hover:shadow-[0_0_20px_5px_rgba(168,85,247,0.6)] transition-all duration-500 ease-in-out transform hover:scale-102 cursor-pointer">
-      <span className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent text-2xl sm:text-3xl font-bold">
-        Analyze lines of code
-      </span>
-      <p className="mt-12 text-gray-300">
-        Gain insights into your codebase by analyzing lines of code and tracking progress.
-      </p>
-      <img src={LinesOfCode} className="border border-white mt-4 rounded-lg hover:border-purple-500 transition-all duration-300 lg:mt-[20px]"/>
-    </div>
-
-
-<div>
-    <span className="inline-block bg-gradient-to-r from-gray-800 via-gray-900 to-black bg-clip-text text-transparent text-2xl sm:text-3xl font-bold lg:mt-[520px]  ">
-      and much more...   <Button
-                          className="bg-black font-medium text-white" // Black background with white text
-                          color="secondary"
-                          endContent={<Icon icon="solar:alt-arrow-right-linear" />}
-                          radius="full"
-                          variant="flat"
-                        ><FaGithub />Explore All possibilities</Button>
-    </span>
-    </div>
-    
-  </div>
-</div>
- </div> 
- </>
-    )
-}
+  );
+};
