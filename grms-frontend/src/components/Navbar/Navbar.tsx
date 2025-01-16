@@ -188,7 +188,7 @@ const logoutFunction = async() =>{
 }
 
   return (
-    <Navbar className="">
+    <Navbar className="navbar">
      <NavbarBrand >
         <div className="rounded-full w-12 bg-foreground  ">
           <img src = {Logo} alt="Logo"/>

@@ -48,12 +48,12 @@ export const ThenSection = () => {
           </div>
 
 
-          <div className="lg:mt-[435px] mr-[160px] rounded-lg  hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-center items-center">
+          <div className="lg:mt-[470px] lg:mr-[160px] rounded-lg  hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-center items-center">
             <span className="inline-block bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent text-2xl font-bold text-center">
               And much more...
             </span>
             <Button
-              className="mt-6 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium hover:from-indigo-600 hover:to-purple-600 transition-all duration-300"
+              className="mt-6 text-white font-medium"
               endContent={<Icon icon="solar:alt-arrow-right-linear" />}
               radius="full"
               variant="solid"

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    font-family: "Geist", serif;
+    font-family: "lato", serif;
 
     
   }
@@ -33,6 +33,8 @@ body {
       scrollbar-width: none;  /* Firefox */
     }
   } 
+
+  
 
  
 
