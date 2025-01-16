@@ -59,6 +59,7 @@ export const GetLinesOfCodeDrawer = () =>{
           <h2 className="text-xl font-bold text-gray-900">Lines of Code for {repoName}</h2>
           <p className="text-sm text-gray-600">Detailed breakdown of code lines by language</p>
         </DrawerHeader>
+
         <DrawerBody className="bg-gradient-to-br from-white to-gray-100 text-gray-800">
           {response?.data?.languages ? (
             response.data.languages.map((item: any, index: number) => (
@@ -80,6 +81,7 @@ export const GetLinesOfCodeDrawer = () =>{
                   </p>
                   
                 </CardBody>
+                
               </Card>
             ))
           ) : (
