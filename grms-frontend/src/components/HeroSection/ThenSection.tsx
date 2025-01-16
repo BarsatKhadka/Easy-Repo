@@ -1,3 +1,4 @@
+import CreateCollection from "../../../src/assets/images/CreateCollections.png"
 export const ThenSection = () =>{
     return(
 <>
@@ -7,30 +8,35 @@ export const ThenSection = () =>{
     Then?   
 </span>
 </div>
+<div className="bg-dark p-6 rounded-lg">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  <span className="inline-block bg-gradient-to-r from-gray-800 via-gray-900 to-black bg-clip-text text-transparent text-2xl sm:text-3xl font-bold lg:ml-[300px] ">
+      then.... 
+    </span>
 
-<div className="flex mt-10 justify-center bg-white">
-<div className="rounded-lg w-1/3 border border-gray-700 shadow-lg shadow-black mx-2 my-4 p-4 border-white bg-black-800"> 
-{/* <img 
-        src={flashCard} 
-        alt="Flashcard" 
-        className="rounded-t-lg w-full h-48 object-cover mb-4" 
-      /> */}
-      <h3 className="text-lg font-bold text-orange-400">Quizzer</h3>
-      <p className="text-gray-300">This is a brief description of the second card.</p>
-     
-    </div>
-    <div className="rounded-lg w-1/3 border border-gray-700 shadow-lg shadow-black mx-2 my-4 p-4 border-white bg-black-800"> 
-{/* <img 
-        src={flashCard} 
-        alt="Flashcard" 
-        className="rounded-t-lg w-full h-48 object-cover mb-4" 
-      /> */}
-      <h3 className="text-lg font-bold text-orange-400">Quizzer</h3>
-      <p className="text-gray-300">This is a brief description of the second card.</p> 
-     
+    <div className="bg-[#0A0A0A] p-6 rounded-lg shadow-lg">
+      <span className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent text-2xl sm:text-3xl font-bold">
+       View your repos in tree structure
+      </span>
+      <p className="mt-4 text-gray-300">
+        Easily manage and access your projects with custom collections.
+      </p>
     </div>
 
- </div>  
+    <div className="bg-[#0A0A0A] p-6 rounded-lg shadow-lg">
+      <span className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent text-2xl sm:text-3xl font-bold">
+        Analyze lines of code
+      </span>
+      <p className="mt-4 text-gray-300">
+        Keep your workflow streamlined and efficient with grouped repositories.
+      </p>
+    </div>
+    <span className="inline-block bg-gradient-to-r from-gray-800 via-gray-900 to-black bg-clip-text text-transparent text-2xl sm:text-3xl font-bold lg:mt-[140px]">
+      and much more...
+    </span>
+    
+  </div>
+</div>
  </div> 
  </>
     )
