@@ -1,5 +1,9 @@
+import { Button } from "@nextui-org/react"
 import LinesOfCode from "../../../src/assets/images/LinesOfCode.png"
 import Tree from "../../../src/assets/images/Tree.png"
+import {Icon} from "@iconify/react";
+import { FaGithub } from "react-icons/fa";
+
 export const ThenSection = () =>{
     return(
 <>
@@ -39,9 +43,18 @@ export const ThenSection = () =>{
     </div>
 
 
-    <span className="inline-block bg-gradient-to-r from-gray-800 via-gray-900 to-black bg-clip-text text-transparent text-2xl sm:text-3xl font-bold lg:mt-[560px] ">
-      and much more...
+<div>
+    <span className="inline-block bg-gradient-to-r from-gray-800 via-gray-900 to-black bg-clip-text text-transparent text-2xl sm:text-3xl font-bold lg:mt-[520px]  ">
+      and much more...   <Button
+                          className="bg-black font-medium text-white" // Black background with white text
+                          color="secondary"
+                          endContent={<Icon icon="solar:alt-arrow-right-linear" />}
+                          radius="full"
+                          variant="flat"
+                        ><FaGithub />Explore All possibilities</Button>
     </span>
+    </div>
+    
   </div>
 </div>
  </div> 
