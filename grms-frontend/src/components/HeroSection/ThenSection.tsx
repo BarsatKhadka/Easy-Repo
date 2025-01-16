@@ -1,4 +1,5 @@
 import CreateCollection from "../../../src/assets/images/CreateCollections.png"
+import Tree from "../../../src/assets/images/Tree.png"
 export const ThenSection = () =>{
     return(
 <>
@@ -21,6 +22,7 @@ export const ThenSection = () =>{
       <p className="mt-4 text-gray-300">
         Easily manage and access your projects with custom collections.
       </p>
+      <img src={Tree}/>
     </div>
 
     <div className="bg-[#0A0A0A] p-6 rounded-lg shadow-lg">
@@ -30,6 +32,7 @@ export const ThenSection = () =>{
       <p className="mt-4 text-gray-300">
         Keep your workflow streamlined and efficient with grouped repositories.
       </p>
+      
     </div>
     <span className="inline-block bg-gradient-to-r from-gray-800 via-gray-900 to-black bg-clip-text text-transparent text-2xl sm:text-3xl font-bold lg:mt-[140px]">
       and much more...

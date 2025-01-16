@@ -82,7 +82,8 @@ export const GetTreeDrawer = () =>{
         <DrawerContent>
           {(onClose) => (
             <>
-              <DrawerHeader className="flex flex-col gap-1" >Tree Structure for Repository:  {response?.data.displayName}</DrawerHeader>
+              <DrawerHeader className="flex flex-col gap-1" >Tree Structure for Repository:  {response?.data.displayName} <p className="text-red-500">Directly access the file/folder by clicking on it</p></DrawerHeader>
+              
               
               <DrawerBody>
                 <p>
