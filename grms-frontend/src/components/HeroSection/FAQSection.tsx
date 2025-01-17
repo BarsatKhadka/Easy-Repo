@@ -1,9 +1,10 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
 
+
 export const FAQSection = () => {
     return (
-        <div className="bg-[#0A0A0A] flex flex-col items-center min-h-screen px-6 py-16">
-            <span className="bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-8">
+        <div className="bg-[#0A0A0A] flex flex-col items-center min-h-screen px-6 lg:py-[100px] ">
+            <span className="bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-8 mt-8">
                 FAQ
             </span>
             
