@@ -5,6 +5,11 @@ export const HeroSectionBeforeAuth = () => {
   return (
     <>
     <div className="mb-16">
+    <div className="flex justify-center items-center">
+          <p className="text-center text-red-500 text-lg sm:text-xl md:text-xl font-semibold mt-4">
+            (Expect very high load time for authorization because I am using the free tier of Neon as db) 
+          </p>
+        </div>
     <section className="fade-bottom  pb-0 sm:pb-0 md:pb-0 mr-4 lg:mr-96 lg:ml-96 mt-2">
       <div className=" flex flex-col gap-12 pt-16 sm:gap-24 ">
         <div className="flex flex-col items-center gap-6 text-center sm:gap-12">

@@ -129,6 +129,7 @@ export const NavbarComponent = (props: NavbarProps) => {
         </NavbarMenuItem>
         
       </NavbarMenu>
+      
     
     </Navbar>
   );
