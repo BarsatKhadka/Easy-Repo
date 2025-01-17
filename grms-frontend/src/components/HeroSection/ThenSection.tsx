@@ -3,6 +3,7 @@ import LinesOfCode from "../../../src/assets/images/LinesOfCode.png";
 import Tree from "../../../src/assets/images/Tree.png";
 import { Icon } from "@iconify/react";
 import { FaGithub } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export const ThenSection = () => {
   return (
@@ -59,7 +60,7 @@ export const ThenSection = () => {
               variant="solid"
             >
               <FaGithub className="mr-2" />
-              Explore All Possibilities
+              <Link to ="/login">Explore All Possibilities</Link>
             </Button>
           </div>
         </div>
