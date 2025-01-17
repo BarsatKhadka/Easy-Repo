@@ -58,7 +58,7 @@ export const NavbarComponent = (props: NavbarProps) => {
         <div className="rounded-full w-12 bg-foreground  ">
           <img src = {Logo} alt="Logo"/>
         </div>
-        <span className="ml-2 text font-medium">EasyRepo</span>
+        <span className="ml-2 text font-medium"><a href="/">EasyRepo</a></span>
       </NavbarBrand>
 
       {/* Center Content */}
@@ -185,7 +185,7 @@ const logoutFunction = async() =>{
           color: 'transparent',
           textShadow: `
       0.7px 0.7px 0.7px #ffffff`
-        }}>EasyRepo</span>
+        }}><a href="/">EasyRepo</a></span>
       </NavbarBrand>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
