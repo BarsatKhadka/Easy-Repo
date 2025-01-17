@@ -208,7 +208,7 @@ const logoutFunction = async() =>{
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <a href="#">
+          <a href="https://www.barsat.dev/HowToCLI" target="_blank">
 
             How to CLI
             </a>

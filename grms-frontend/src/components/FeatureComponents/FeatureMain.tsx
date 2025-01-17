@@ -47,7 +47,7 @@ export const FeatureMain = () =>{
       </div>
     </div>
     <div>
-     <Chip color="warning" variant="dot" className="mt-3 ml-4"> 
+     <Chip color="warning" variant="dot" className="mt-3 lg:ml-4"> 
       We'll email you if your feature is implemented.</Chip>
       </div>
       <div>
