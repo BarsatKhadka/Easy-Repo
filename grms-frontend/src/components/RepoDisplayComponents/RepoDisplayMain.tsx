@@ -247,30 +247,27 @@ export const RepoDisplayMain = () =>{
             >
 
             <AccordionItem 
-            key={items.repoId}
-            aria-label= "idk"
-            startContent={
-                <Avatar
-                isBordered
-                style = {{backgroundColor: 'white'  }}
-                color = {randomColor}
-                radius="lg"
-                src={`https://cdn.jsdelivr.net/npm/simple-icons/icons/${items.language ? items.language.toLowerCase(): 'github'}.svg`}
-                
-
-                />
-
-            }
-            indicator={({isOpen}) => (isOpen ? "close" : "open")}
-
-            classNames={{subtitle: "text-green" ,trigger: "px-2 py-0 rounded-lg h-14 flex items-center bg  duration-200 ease-in-out hover:bg-default hover:bg-opacity-8 " }}
-            className="mt-8"
-            
-            
-
-            subtitle={items.description}
-            title= {items.name}
-            
+                key={items.repoId}
+                aria-label="idk"
+                startContent={
+                    <Avatar
+                      isBordered
+                      style={{ backgroundColor: 'white' }}
+                      color={randomColor}
+                      radius="lg"
+                      src={`https://cdn.jsdelivr.net/npm/simple-icons/icons/${items.language ? items.language.toLowerCase() : 'github'}.svg`}
+                    />
+                }
+                indicator={({ isOpen }) => (isOpen ? "close" : "open")}
+                classNames={{
+                    subtitle: "text-green sm", 
+                    trigger: "px-2 py-0 rounded-lg h-14 flex items-center bg duration-200 ease-in-out hover:bg-default hover:bg-opacity-8"
+                }}
+                className="mt-8"
+                subtitle={
+                    <span className="hidden sm:inline">{items.description}</span>
+                }
+                title={items.name}
             >
             
             <Card style={{backgroundColor: 'black'}}>
