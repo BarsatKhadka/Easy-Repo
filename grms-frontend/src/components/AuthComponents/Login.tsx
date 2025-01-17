@@ -18,6 +18,7 @@ export default function Login() {
 
   return (
     <>
+    <div className="min-h-screen">
     <NavbarComponent/>
     <div className="flex w-full items-center justify-center mt-32">
       <div className="flex w-full max-w-sm flex-col gap-4 rounded-large">
@@ -57,7 +58,7 @@ export default function Login() {
         </form>
         <div className="flex items-center gap-4 py-2">
           <Divider className="flex-1" />
-          <p className="shrink-0 text-tiny text-default-500">OR</p>
+          <p className="shrink-0 text-tiny text-default-500">then</p>
           <Divider className="flex-1" />
         </div>
         <div className="flex flex-col gap-2">
@@ -71,6 +72,7 @@ export default function Login() {
         </div>
     
       </div>
+    </div>
     </div>
     </>
   );

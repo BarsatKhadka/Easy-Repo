@@ -7,7 +7,7 @@ export const Footer = () => {
       <div className="bg-[#0A0A0A] text-white py-8">
         <div className="container mx-auto flex justify-center space-x-6">
           <a
-            href="https://www.reddit.com/"
+            href="https://www.reddit.com/r/EasyRepo/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-gray-400 transition duration-300"
@@ -15,7 +15,7 @@ export const Footer = () => {
             <FaReddit size={24} />
           </a>
           <a
-            href="https://discord.com/"
+            href="https://discord.gg/jHD927vCF3"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-gray-400 transition duration-300"
@@ -23,7 +23,7 @@ export const Footer = () => {
             <FaDiscord size={24} />
           </a>
           <a
-            href="https://github.com/"
+            href="https://github.com/BarsatKhadka/Easy-Repo"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-gray-400 transition duration-300"
