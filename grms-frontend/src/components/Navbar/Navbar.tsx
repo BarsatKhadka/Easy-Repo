@@ -208,9 +208,10 @@ const logoutFunction = async() =>{
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <a href="#">
+
             How to CLI
-          </Link>
+            </a>
         </NavbarItem>
       </NavbarContent>
 
