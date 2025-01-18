@@ -62,6 +62,9 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
 
     private String userName;
 
+    @Value("${frontend.url}")
+    private String frontEndUrl;
+
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -137,7 +140,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         response.setHeader("Authorization", "Bearer " + jwtToken);
 
         //redirect to the url after approved
-        new DefaultRedirectStrategy().sendRedirect(request, response, "https://easy-repo-six.vercel.app/");
+        new DefaultRedirectStrategy().sendRedirect(request, response, frontEndUrl);
 
     }
 
