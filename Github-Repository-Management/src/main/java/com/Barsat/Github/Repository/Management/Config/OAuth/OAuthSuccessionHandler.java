@@ -137,7 +137,7 @@ public class OAuthSuccessionHandler implements AuthenticationSuccessHandler {
         response.setHeader("Authorization", "Bearer " + jwtToken);
 
         //redirect to the url after approved
-        new DefaultRedirectStrategy().sendRedirect(request, response, "http://localhost:5173");
+        new DefaultRedirectStrategy().sendRedirect(request, response, "https://easy-repo-six.vercel.app/");
 
     }
 

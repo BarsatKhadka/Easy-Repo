@@ -112,7 +112,10 @@ public class SecurityConfig {
                         "http://localhost:3000",
                         "http://localhost:5173",
                         "http://localhost:5174",
-                        "http://localhost:4200"
+                        "http://localhost:4200",
+                        "https://easy-repo-oizjf4dox-barsatkhadkas-projects.vercel.app/",
+                        "https://easy-repo-six.vercel.app/"
+
 
                 ));
 
