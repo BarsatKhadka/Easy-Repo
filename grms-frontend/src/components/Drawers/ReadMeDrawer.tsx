@@ -19,7 +19,7 @@ export const ReadMeDrawer = () =>{
 
     //this lets me know if to open the drawer or not 
     const {readMeDrawerOpen , setreadMeDrawerOpen} = useUserStore()
-    const{repoName , setRepoName} = useUserStore()
+    const{repoName } = useUserStore()
 
     useEffect(() =>{
         fetchData({url: "/easyrepo/insights/repo/getReadMe/" + repoName , method: 'get'})
