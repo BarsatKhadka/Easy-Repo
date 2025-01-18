@@ -11,7 +11,7 @@ export default function Login() {
 
    let backendUrl = import.meta.env.VITE_BACKEND_URL
 
-  const githubLogin = () =>{
+   const githubLogin = () =>{
     window.location.href = backendUrl + "/oauth2/authorization/github" 
     
 }

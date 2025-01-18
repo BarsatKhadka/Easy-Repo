@@ -1,11 +1,11 @@
-import { Input ,useUser} from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 import { useState } from "react";
 import axios from "axios";
 import { GetTreeDrawer } from "../Drawers/GetTreeDrawer";
 import { useUserStore } from "../../store/UserStore";
 import { GetRepoCommitGraphDrawer } from "../Drawers/GetCalendar";
 import { GetLinesOfCodeDrawer } from "../Drawers/GetLinesOfCodeDrawer";
-import {Alert} from "@nextui-org/react";
+import { Alert } from "@nextui-org/react";
 
 
 
@@ -14,12 +14,12 @@ export const CLIMain = () =>{
     const[response,setResponse] = useState("");
     const backendUrl = import.meta.env.VITE_BACKEND_URL
 
-     const {treeDrawerOpen , setTreeDrawerOpen} = useUserStore()
-     const{treeRepoId , setTreeRepoId} = useUserStore()
-     const{graphDrawerOpen , setGraphDrawerOpen} = useUserStore()
-      const{repoName , setRepoName} = useUserStore()
-    const {locDrawerOpen , setLocDrawerOpen} = useUserStore()
-     const {readMeDrawerOpen , setreadMeDrawerOpen} = useUserStore()
+     const { setTreeDrawerOpen} = useUserStore()
+     const{setTreeRepoId} = useUserStore()
+     const{setGraphDrawerOpen} = useUserStore()
+      const{ setRepoName} = useUserStore()
+    const {setLocDrawerOpen} = useUserStore()
+     const { setreadMeDrawerOpen} = useUserStore()
 
 
      const openVsCodeUrl = (url: string) =>{
