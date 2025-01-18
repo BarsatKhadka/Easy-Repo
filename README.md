@@ -8,9 +8,16 @@
 
 Once authenticated, you'll be directed to the home page where you can start managing your repositories and collections.
 
+![Home Page After Auth](https://raw.githubusercontent.com/BarsatKhadka/Easy-Repo/master/grms-frontend/src/assets/images/HomePageAfterAuth.png)
+
 ### Creating a New Collection
 
 - **Group Your Repositories**: Create new collections to organize your repositories into meaningful groups. For example, you can create a collection named "Backend" to house all your backend project repositories.
+
+![Creating Collections](https://raw.githubusercontent.com/BarsatKhadka/Easy-Repo/master/grms-frontend/src/assets/images/CreatingCollectionsReadMe.png)
+
+**Collection Created:**
+![Backend Collection](https://raw.githubusercontent.com/BarsatKhadka/Easy-Repo/master/grms-frontend/src/assets/images/BackendCollection.png)
 
 ### Repository Actions
 
