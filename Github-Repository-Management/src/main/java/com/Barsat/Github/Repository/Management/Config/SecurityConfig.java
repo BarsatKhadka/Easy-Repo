@@ -100,8 +100,8 @@ public class SecurityConfig {
     }
 
 
-
-    private CorsConfigurationSource corsConfigurationSource() {
+@Bean
+    public CorsConfigurationSource corsConfigurationSource() {
         return new CorsConfigurationSource() {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
@@ -114,8 +114,8 @@ public class SecurityConfig {
                         "http://localhost:5174",
                         "http://localhost:4200",
                         "https://easy-repo-oizjf4dox-barsatkhadkas-projects.vercel.app/",
-                        "https://easy-repo-six.vercel.app/"
-
+                        "https://easy-repo-six.vercel.app/",
+                        "https://easy-repo-six.vercel.app"
 
                 ));
 
@@ -124,11 +124,11 @@ public class SecurityConfig {
                 cfg.setAllowCredentials(true);
 
                 //which http headers can be used while making request
-                cfg.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "X-Requested-With", "X-CSRF-TOKEN" ));
+                cfg.setAllowedHeaders(Arrays.asList("*"));
 
 
                 //these browsers can access.
-                cfg.setExposedHeaders(List.of("Authorization" , "Content-Type"));
+                cfg.setExposedHeaders(Arrays.asList("*"));
 
                 cfg.setMaxAge(3600L);
 
