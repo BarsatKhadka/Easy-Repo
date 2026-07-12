@@ -1,5 +1,5 @@
 # Easy Repo
-Easy Repo is a powerful full-stack web application designed to simplify your GitHub repository management experience..
+Easy Repo is a powerful full-stack web application designed to simplify your GitHub repository management experience...
 
 ## Requirements
 
